@@ -1,0 +1,25 @@
+.hero-carousel {
+  position: relative;
+}
+
+.hero-carousel .owl-nav {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+}
+
+.generic-carousel {
+  position: relative;
+}
+
+.generic-carousel .owl-nav {
+  position: absolute;
+  width: 100%;
+  bottom: 40%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+}
