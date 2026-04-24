@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.tmpmhospital.com/departments" },
 };
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
   stethoscope: Stethoscope,
   scissors: Scissors,
   heart: Heart,

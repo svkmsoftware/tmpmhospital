@@ -196,7 +196,7 @@ export function StatsSection({ stats }: { stats: HospitalStat[] }) {
 }
 
 // ── Departments ───────────────────────────────────────────────────────────────
-const deptIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const deptIconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
   stethoscope: Stethoscope, scissors: Scissors, heart: HeartPulse,
   baby: Users, bone: Building2, syringe: Stethoscope,
   eye: Stethoscope, user: Users, ear: Stethoscope,

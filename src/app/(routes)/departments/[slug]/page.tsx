@@ -96,7 +96,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                   <div className="space-y-4">
                     {dept.consultants.map((doc, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-neutral-50">
-                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 ring-2" style={{ ringColor: "#dbeafe" }}>
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 ring-2 ring-blue-100">
                           <Image
                             src={doc.profilePhoto}
                             alt={doc.name}
