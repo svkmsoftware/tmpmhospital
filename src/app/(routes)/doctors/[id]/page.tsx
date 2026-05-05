@@ -106,13 +106,13 @@ export default async function DoctorProfilePage({ params }: Props) {
               {bio_data.educationQualification.length > 0 && (
                 <div className="card p-6">
                   <h2 className="font-bold text-lg text-neutral-800 mb-4 flex items-center gap-2">
-                    <GraduationCap className="w-5 h-5" style={{ color: "var(--color-primary)" }} />
+                    <GraduationCap className="w-5 h-5" color="var(--color-primary)" />
                     Education & Qualifications
                   </h2>
                   <ul className="space-y-2">
                     {bio_data.educationQualification.map((q, i) => (
                       <li key={i} className="flex gap-3 text-sm text-neutral-600">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-primary)" }} />
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-primary)" }}></span>
                         {q}
                       </li>
                     ))}
@@ -124,13 +124,13 @@ export default async function DoctorProfilePage({ params }: Props) {
               {bio_data.honoursAndAwards.length > 0 && (
                 <div className="card p-6">
                   <h2 className="font-bold text-lg text-neutral-800 mb-4 flex items-center gap-2">
-                    <Award className="w-5 h-5" style={{ color: "var(--color-accent)" }} />
+                    <Award className="w-5 h-5" color="var(--color-accent)" />
                     Honours & Awards
                   </h2>
                   <ul className="space-y-2">
                     {bio_data.honoursAndAwards.map((award, i) => (
                       <li key={i} className="flex gap-3 text-sm text-neutral-600">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }} />
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }}></span>
                         {award}
                       </li>
                     ))}
@@ -144,7 +144,7 @@ export default async function DoctorProfilePage({ params }: Props) {
               {/* OPD Schedule */}
               <div className="card p-6">
                 <h3 className="font-bold text-neutral-800 mb-4 flex items-center gap-2">
-                  <Clock className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+                  <Clock className="w-4 h-4" color="var(--color-primary)" />
                   OPD Schedule
                 </h3>
                 <div className="space-y-1.5">
@@ -173,7 +173,7 @@ export default async function DoctorProfilePage({ params }: Props) {
               {/* Back link */}
               <Link
                 href="/doctors"
-                className="flex items-center gap-2 text-sm font-medium p-4 rounded-xl border border-neutral-200 hover:border-blue-200 hover:bg-blue-50 transition-all"
+                className="flex items-center gap-2 text-sm font-medium p-4 rounded-xl border border-neutral-200 hover:border-cyan-200 hover:bg-cyan-50 transition-all"
                 style={{ color: "var(--color-primary)" }}
               >
                 <ChevronRight className="w-4 h-4 rotate-180" />

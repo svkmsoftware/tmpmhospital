@@ -151,7 +151,7 @@ function DesktopSubMenu({
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
                 onClick={onClose}
-                className="flex items-center px-3 py-2.5 rounded-xl text-sm text-neutral-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-all duration-150"
+                className="flex items-center px-3 py-2.5 rounded-xl text-sm text-neutral-700 hover:bg-cyan-50 hover:text-cyan-700 font-medium transition-all duration-150"
               >
                 {item.label}
               </Link>
@@ -192,7 +192,7 @@ function DesktopNavItem({ item, isActive }: { item: NavItem; isActive: boolean }
         href={item.href!}
         className={cn(
           "px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 whitespace-nowrap",
-          isActive ? "text-blue-700 bg-blue-50" : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100"
+          isActive ? "text-cyan-700 bg-cyan-50" : "text-neutral-600 hover:text-cyan-700 hover:bg-cyan-50"
         )}
       >
         {item.label}
@@ -209,7 +209,7 @@ function DesktopNavItem({ item, isActive }: { item: NavItem; isActive: boolean }
       <button
         className={cn(
           "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 whitespace-nowrap",
-          isActive || open ? "text-blue-700 bg-blue-50" : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100"
+          isActive || open ? "text-cyan-700 bg-cyan-50" : "text-neutral-600 hover:text-cyan-700 hover:bg-cyan-50"
         )}
         aria-expanded={open}
         aria-haspopup="true"
@@ -250,7 +250,7 @@ function MobileNavItem({ item, onClose, depth = 0 }: { item: NavItem; onClose: (
             className={cn(
               "w-full flex items-center justify-between py-3 text-sm font-medium transition-colors border-b border-neutral-100",
               depth === 0 ? "text-neutral-800" : "text-neutral-600",
-              open && "text-blue-700"
+              open && "text-cyan-700"
             )}
             style={{ paddingLeft: `${pl}px`, paddingRight: "16px" }}
           >
@@ -282,7 +282,7 @@ function MobileNavItem({ item, onClose, depth = 0 }: { item: NavItem; onClose: (
           )}
           style={{ paddingLeft: `${pl}px`, paddingRight: "16px" }}
         >
-          {depth > 0 && <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }} />}
+          {depth > 0 && <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }}></span>}
           {item.label}
         </Link>
       ) : null}
@@ -322,9 +322,9 @@ export default function Navbar() {
       role="banner"
     >
       {/* Top bar */}
-      <div className="hidden md:block" style={{ background: "var(--color-primary)" }}>
+      <div className="hidden md:block" style={{ background: "var(--gradient-main)" }}>
         <div className="container-custom flex items-center justify-between py-1.5">
-          <div className="flex items-center gap-5 text-xs text-blue-100">
+          <div className="flex items-center gap-5 text-xs text-cyan-100">
             <a href="mailto:contact@tmpmhospital.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail className="w-3.5 h-3.5" /> contact@tmpmhospital.com
             </a>
@@ -335,7 +335,7 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2.5">
               {[{ Icon: Facebook, href: "#", label: "Facebook" }, { Icon: Instagram, href: "#", label: "Instagram" }, { Icon: Linkedin, href: "#", label: "LinkedIn" }, { Icon: Twitter, href: "#", label: "Twitter" }].map(({ Icon, href, label }) => (
-                <a key={label} href={href} aria-label={label} className="text-blue-200 hover:text-white transition-colors"><Icon className="w-3.5 h-3.5" /></a>
+                <a key={label} href={href} aria-label={label} className="text-cyan-200 hover:text-white transition-colors"><Icon className="w-3.5 h-3.5" /></a>
               ))}
             </div>
             <div className="border-l border-white/20 pl-4">
@@ -363,9 +363,9 @@ export default function Navbar() {
             <div className="xl:hidden">
               <GoogleTranslate variant="light" />
             </div>
-            <Link href="/contact" className="hidden sm:inline-flex btn-primary text-sm py-2 px-4">Book Appointment</Link>
+            <Link href="/contact" className="hidden sm:inline-flex btn-gradient text-sm py-2 px-4">Book Appointment</Link>
             <button
-              className="xl:hidden p-2 rounded-xl text-neutral-600 hover:text-blue-700 hover:bg-blue-50 transition-colors"
+              className="xl:hidden p-2 rounded-xl text-neutral-600 hover:text-cyan-700 hover:bg-cyan-50 transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -381,8 +381,7 @@ export default function Navbar() {
       <div
         className={cn("fixed inset-0 bg-black/50 z-40 xl:hidden transition-opacity duration-300", mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none")}
         onClick={closeMobile}
-        aria-hidden
-      />
+        aria-hidden></div>
 
       {/* Mobile drawer */}
       <div
@@ -396,7 +395,7 @@ export default function Navbar() {
         )}
       >
         {/* Drawer header */}
-        <div className="flex items-center justify-between px-4 py-3 shrink-0" style={{ background: "var(--color-primary)" }}>
+        <div className="flex items-center justify-between px-4 py-3 shrink-0" style={{ background: "var(--gradient-main)" }}>
           <Image src="/images/hospital_website_logo.png" alt="TMPM Hospital" width={160} height={44} style={{ height: "2.25rem", width: "auto" }} className="object-contain brightness-0 invert" />
           <button onClick={closeMobile} className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/20 transition-colors" aria-label="Close navigation">
             <X className="w-5 h-5" />

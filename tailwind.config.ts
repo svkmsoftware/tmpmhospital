@@ -10,71 +10,46 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT:  "#0a4f8a",
-          dark:     "#073a66",
-          light:    "#1972b8",
-          pale:     "#e8f1fb",
+          DEFAULT: "#0891b2",
+          dark:    "#0e7490",
+          darker:  "#155e75",
+          light:   "#22d3ee",
+          pale:    "#ecfeff",
         },
         accent: {
-          DEFAULT: "#d4891a",
-          light:   "#f0b352",
-          pale:    "#fef3e2",
+          DEFAULT: "#16a34a",
+          dark:    "#15803d",
+          light:   "#22c55e",
+          pale:    "#f0fdf4",
         },
       },
+      backgroundImage: {
+        "gradient-main":    "linear-gradient(135deg, #0891b2 0%, #0e9f6e 50%, #16a34a 100%)",
+        "gradient-section": "linear-gradient(135deg, #ecfeff 0%, #f0fdf4 100%)",
+        "gradient-hero":    "linear-gradient(105deg, rgba(8,145,178,.88) 0%, rgba(14,159,110,.60) 50%, rgba(0,0,0,.15) 100%)",
+      },
       fontFamily: {
-        body:    ["var(--font-inter)", "DM Sans", "system-ui", "sans-serif"],
-        display: ["var(--font-poppins)", "DM Serif Display", "Georgia", "serif"],
-        sans:    ["var(--font-inter)", "system-ui", "sans-serif"],
+        body:    ["DM Sans", "system-ui", "sans-serif"],
+        display: ["DM Serif Display", "Georgia", "serif"],
+        sans:    ["DM Sans", "system-ui", "sans-serif"],
       },
       fontSize: {
         "2xs": ["0.625rem", { lineHeight: "0.875rem" }],
       },
-      spacing: {
-        "18":  "4.5rem",
-        "88":  "22rem",
-        "128": "32rem",
-      },
-      maxWidth: {
-        "8xl": "88rem",
-        "9xl": "96rem",
-      },
-      borderRadius: {
-        "4xl": "2rem",
-      },
       boxShadow: {
-        card:        "0 2px 12px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04)",
-        "card-hover":"0 16px 48px rgba(0,0,0,.13), 0 4px 16px rgba(0,0,0,.07)",
-        glow:        "0 0 24px rgba(10,79,138,.25)",
+        card:        "0 2px 12px rgba(8,145,178,.08), 0 1px 3px rgba(0,0,0,.04)",
+        "card-hover":"0 16px 48px rgba(8,145,178,.18), 0 4px 16px rgba(0,0,0,.07)",
+        "glow-cyan": "0 0 24px rgba(8,145,178,.35)",
+        "glow-green":"0 0 24px rgba(22,163,74,.35)",
       },
       animation: {
         "fade-in-up": "fadeInUp 0.65s ease-out forwards",
         "fade-in":    "fadeIn 0.5s ease-out forwards",
-        float:        "float 4s ease-in-out infinite",
+        "float":      "float 4s ease-in-out infinite",
+        "pulse-ring": "pulse-ring 2s infinite",
+        "slide-up":   "slideUp 0.3s ease-out forwards",
       },
-      keyframes: {
-        fadeInUp: {
-          "0%":   { opacity: "0", transform: "translateY(24px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        fadeIn: {
-          "0%":   { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        float: {
-          "0%,100%": { transform: "translateY(0)" },
-          "50%":     { transform: "translateY(-8px)" },
-        },
-      },
-      screens: {
-        xs:  "475px",
-        "3xl": "1920px",
-      },
-      transitionDuration: {
-        "400": "400ms",
-        "600": "600ms",
-        "800": "800ms",
-        "900": "900ms",
-      },
+      screens: { xs: "475px", "3xl": "1920px" },
     },
   },
   plugins: [],

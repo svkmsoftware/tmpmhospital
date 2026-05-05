@@ -25,9 +25,9 @@ export function SectionHeader({
     <div className={cn("mb-12", centered && "text-center", className)}>
       {tag && (
         <p className={cn("section-tag", centered && "justify-center", light && "text-amber-300")}>
-          <span className="w-6 h-px bg-current opacity-80" />
+          <span className="w-6 h-px bg-current opacity-80"></span>
           {tag}
-          <span className="w-6 h-px bg-current opacity-80" />
+          <span className="w-6 h-px bg-current opacity-80"></span>
         </p>
       )}
       <h2
@@ -36,13 +36,13 @@ export function SectionHeader({
       >
         {title}
       </h2>
-      <div className={cn("divider-accent mt-3", centered ? "mx-auto" : "mx-0")} />
+      <div className={cn("divider-accent mt-3", centered ? "mx-auto" : "mx-0")}></div>
       {subtitle && (
         <p
           className={cn(
             "section-subtitle mt-4",
             centered && "mx-auto",
-            light ? "text-blue-100/80" : "",
+            light ? "text-cyan-100/80" : "",
             !centered && "text-left mx-0 max-w-none"
           )}
         >
@@ -83,12 +83,12 @@ export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }
         sizes="100vw"
       />
       {/* Rich overlay: dark at bottom, lighter at top */}
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)" }}></div>
 
       <div className="relative container-custom pb-10 pt-16">
         {breadcrumb && breadcrumb.length > 0 && (
           <nav aria-label="Breadcrumb" className="mb-3">
-            <ol className="flex items-center gap-2 text-xs text-blue-200/80 flex-wrap">
+            <ol className="flex items-center gap-2 text-xs text-cyan-200/80 flex-wrap">
               {breadcrumb.map((crumb, i) => (
                 <li key={i} className="flex items-center gap-2">
                   {i > 0 && <span className="text-white/30">/</span>}
@@ -109,7 +109,7 @@ export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-2 text-blue-100/80 text-base md:text-lg max-w-2xl">{subtitle}</p>
+          <p className="mt-2 text-cyan-100/80 text-base md:text-lg max-w-2xl">{subtitle}</p>
         )}
       </div>
     </section>

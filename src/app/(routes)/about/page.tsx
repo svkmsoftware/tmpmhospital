@@ -138,7 +138,7 @@ export default async function AboutPage() {
                   style={{ background: "var(--color-primary)" }}
                 >
                   <span className="text-4xl font-bold leading-none">25</span>
-                  <span className="text-xs text-blue-200 mt-1 text-center leading-tight">
+                  <span className="text-xs text-cyan-200 mt-1 text-center leading-tight">
                     Years of<br />Excellence
                   </span>
                 </div>
@@ -147,11 +147,11 @@ export default async function AboutPage() {
               {/* Text */}
               <div>
                 <p className="section-tag">
-                  <span className="w-6 h-px bg-current" />
+                  <span className="w-6 h-px bg-current"></span>
                   {about.heading}
                 </p>
                 <h2 className="section-title">{about.subheading}</h2>
-                <div className="divider-accent mb-6" />
+                <div className="divider-accent mb-6"></div>
                 <p className="text-neutral-600 leading-relaxed mb-8">
                   {about.description}
                 </p>
@@ -161,7 +161,7 @@ export default async function AboutPage() {
                   {about.stats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="flex flex-col gap-1 p-3 rounded-xl bg-neutral-50 hover:bg-blue-50 transition-colors"
+                      className="flex flex-col gap-1 p-3 rounded-xl bg-neutral-50 hover:bg-cyan-50 transition-colors"
                     >
                       <p
                         className="text-xl font-bold"
@@ -176,7 +176,7 @@ export default async function AboutPage() {
                   ))}
                 </div>
 
-                <Link href="/contact" className="btn-primary">
+                <Link href="/contact" className="btn-gradient">
                   Book Appointment <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -389,11 +389,11 @@ export default async function AboutPage() {
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     </div>
                   )}
                   <div className="p-5">
-                    <h3 className="font-bold text-neutral-800 mb-2 group-hover:text-blue-700 transition-colors">
+                    <h3 className="font-bold text-neutral-800 mb-2 group-hover:text-cyan-700 transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-sm text-neutral-500 leading-relaxed line-clamp-4">

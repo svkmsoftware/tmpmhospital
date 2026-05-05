@@ -71,7 +71,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
               {/* Appointment CTA */}
               <div className="rounded-2xl p-6 text-white" style={{ background: "var(--color-primary)" }}>
                 <h3 className="font-bold text-lg mb-2">Book an Appointment</h3>
-                <p className="text-blue-100 text-sm mb-4">
+                <p className="text-cyan-100 text-sm mb-4">
                   Consult our {dept.title} specialists today.
                 </p>
                 <Link href="/contact" className="block w-full text-center btn-accent text-neutral-900 font-bold">
@@ -79,7 +79,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                 </Link>
                 <a
                   href="tel:+911234567890"
-                  className="mt-3 flex items-center justify-center gap-2 text-sm text-blue-100 hover:text-white transition-colors"
+                  className="mt-3 flex items-center justify-center gap-2 text-sm text-cyan-100 hover:text-white transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   Emergency: +91 12345 67890
@@ -90,13 +90,13 @@ export default async function DepartmentDetailPage({ params }: Props) {
               {dept.consultants.length > 0 && (
                 <div className="card p-6">
                   <h3 className="font-bold text-neutral-800 mb-4 flex items-center gap-2">
-                    <User className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+                    <User className="w-4 h-4" color="var(--color-primary)" />
                     Our Consultants
                   </h3>
                   <div className="space-y-4">
                     {dept.consultants.map((doc, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-neutral-50">
-                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 ring-2 ring-blue-100">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 ring-2 ring-cyan-100">
                           <Image
                             src={doc.profilePhoto}
                             alt={doc.name}
@@ -125,7 +125,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
               {/* OPD Schedule */}
               <div className="card p-6">
                 <h3 className="font-bold text-neutral-800 mb-4 flex items-center gap-2">
-                  <Clock className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+                  <Clock className="w-4 h-4" color="var(--color-primary)" />
                   OPD Timings
                 </h3>
                 <div className="space-y-2">
@@ -156,9 +156,9 @@ export default async function DepartmentDetailPage({ params }: Props) {
                     <li key={l.label}>
                       <Link
                         href={l.href}
-                        className="flex items-center gap-2 text-sm text-neutral-600 hover:text-blue-700 transition-colors group"
+                        className="flex items-center gap-2 text-sm text-neutral-600 hover:text-cyan-700 transition-colors group"
                       >
-                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" style={{ color: "var(--color-accent)" }} />
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" color="var(--color-accent)" />
                         {l.label}
                       </Link>
                     </li>

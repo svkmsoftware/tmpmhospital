@@ -50,7 +50,7 @@ export default async function DoctorsPage() {
                 className="card group p-6 flex flex-col items-center text-center"
               >
                 <div
-                  className="relative w-28 h-28 rounded-full overflow-hidden mb-4 ring-4 ring-neutral-100 group-hover:ring-blue-200 transition-all"
+                  className="relative w-28 h-28 rounded-full overflow-hidden mb-4 ring-4 ring-neutral-100 group-hover:ring-cyan-200 transition-all"
                 >
                   <Image
                     src={doctor.profilePhoto}
@@ -60,7 +60,7 @@ export default async function DoctorsPage() {
                     sizes="112px"
                   />
                 </div>
-                <h3 className="font-bold text-neutral-800 group-hover:text-blue-700 transition-colors">
+                <h3 className="font-bold text-neutral-800 group-hover:text-cyan-700 transition-colors">
                   {doctor.name}
                 </h3>
                 <div className="flex flex-wrap justify-center gap-1.5 mt-2">

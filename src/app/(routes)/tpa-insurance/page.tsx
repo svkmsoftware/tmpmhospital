@@ -61,7 +61,7 @@ export default async function TpaInsurancePage() {
             {infoCards.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="card p-6 text-center flex flex-col items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "#dbeafe" }}>
-                  <Icon className="w-7 h-7" style={{ color: "var(--color-primary)" }} />
+                  <Icon className="w-7 h-7" color="var(--color-primary)" />
                 </div>
                 <h3 className="font-bold text-neutral-800">{title}</h3>
                 <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
@@ -71,7 +71,7 @@ export default async function TpaInsurancePage() {
 
           {/* Insurance companies grid */}
           <h2 className="text-2xl font-bold text-neutral-800 mb-2 text-center">Our Insurance Partners</h2>
-          <div className="divider-accent mx-auto mb-8" />
+          <div className="divider-accent mx-auto mb-8"></div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 stagger-children">
             {companies.map((company) => (
@@ -80,7 +80,7 @@ export default async function TpaInsurancePage() {
                 href={company.docLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card p-5 flex flex-col items-center gap-3 group hover:border-blue-200 border border-transparent transition-all"
+                className="card p-5 flex flex-col items-center gap-3 group hover:border-cyan-200 border border-transparent transition-all"
                 aria-label={`${company.name} — view documents`}
               >
                 <div className="relative w-full h-16">

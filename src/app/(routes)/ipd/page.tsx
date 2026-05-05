@@ -36,7 +36,7 @@ export default async function IpdPage() {
                     {i + 1}
                   </span>
                   <h2 className="text-2xl font-bold text-neutral-800 mb-2">{section.title}</h2>
-                  <div className="divider-accent mx-0 mb-4" />
+                  <div className="divider-accent mx-0 mb-4"></div>
                   <div className="space-y-3">
                     {section.description.map((para, j) => (
                       <p key={j} className="text-neutral-600 leading-relaxed">{para}</p>

@@ -161,7 +161,7 @@ export default function GoogleTranslate({ variant = "dark" }: Props) {
                 "w-full flex items-center justify-between px-4 py-3",
                 "text-left transition-colors duration-150 cursor-pointer",
                 "outline-none focus-visible:bg-blue-50",
-                isActive ? "bg-blue-50" : "hover:bg-neutral-50"
+                isActive ? "bg-cyan-50" : "hover:bg-neutral-50"
               )}
             >
               <div className="flex flex-col gap-0.5">
@@ -176,7 +176,7 @@ export default function GoogleTranslate({ variant = "dark" }: Props) {
                 </span>
               </div>
               {isActive && (
-                <Check className="w-4 h-4 shrink-0" style={{ color: "var(--color-primary)" }} />
+                <Check className="w-4 h-4 shrink-0" color="var(--color-primary)" />
               )}
             </button>
           );

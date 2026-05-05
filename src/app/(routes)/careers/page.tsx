@@ -46,10 +46,10 @@ export default async function CareersPage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
                 <div className="p-5">
-                  <h3 className="font-bold text-neutral-800 group-hover:text-blue-700 transition-colors mb-2">
+                  <h3 className="font-bold text-neutral-800 group-hover:text-cyan-700 transition-colors mb-2">
                     {item.title}
                   </h3>
                   <p className="text-sm text-neutral-500 leading-relaxed">{item.description}</p>
@@ -77,7 +77,7 @@ export default async function CareersPage() {
           ) : (
             <div className="space-y-4">
               {jobs.map((job) => (
-                <div key={job.id} className="card p-6 hover:border-blue-200 border border-transparent transition-all">
+                <div key={job.id} className="card p-6 hover:border-cyan-200 border border-transparent transition-all">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-4 justify-between">
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -182,9 +182,9 @@ export default async function CareersPage() {
           )}
 
           <div className="mt-10 p-6 rounded-2xl text-center" style={{ background: "#dbeafe" }}>
-            <p className="font-semibold text-neutral-800 mb-1">Don't see a suitable opening?</p>
+            <p className="font-semibold text-neutral-800 mb-1">Don&apos;t see a suitable opening?</p>
             <p className="text-sm text-neutral-600 mb-4">
-              Send us your CV and we'll keep you in mind for future opportunities.
+              Send us your CV and we&apos;ll keep you in mind for future opportunities.
             </p>
             <a href="mailto:careers@tmpmhospital.com" className="btn-primary text-sm">
               Send Your CV

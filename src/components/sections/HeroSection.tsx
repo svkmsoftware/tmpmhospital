@@ -38,7 +38,7 @@ const slides = [
 
 const quickAccess = [
   { icon: Phone,  label: "Emergency",    sub: "24 × 7 Available", href: "tel:+911234567890", bg: "bg-red-600 hover:bg-red-700"       },
-  { icon: Clock,  label: "OPD Hours",    sub: "8 AM – 8 PM",      href: "/opd",              bg: "bg-[#0a4f8a] hover:bg-[#073a66]"  },
+  { icon: Clock,  label: "OPD Hours",    sub: "8 AM – 8 PM",      href: "/opd",              bg: "bg-cyan-700 hover:bg-cyan-800"  },
   { icon: MapPin, label: "Our Location", sub: "Shirpur, Dhule",   href: "/contact#map",      bg: "bg-emerald-700 hover:bg-emerald-800"},
 ];
 
@@ -100,9 +100,8 @@ export default function HeroSection() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(105deg, rgba(7,30,55,.90) 0%, rgba(10,50,100,.55) 45%, rgba(0,0,0,.15) 100%)",
-            }}
-          />
+                "var(--gradient-hero)",
+            }}></div>
         </div>
       ))}
 
@@ -115,7 +114,7 @@ export default function HeroSection() {
               key={`ey-${current}`}
               className="flex items-center gap-3 mb-5 animate-fade-in"
             >
-              <span className="w-8 h-px bg-amber-400 opacity-80" />
+              <span className="w-8 h-px bg-amber-400 opacity-80"></span>
               <span className="text-amber-300 text-xs font-semibold tracking-[0.18em] uppercase">
                 {slide.eyebrow}
               </span>
@@ -137,7 +136,7 @@ export default function HeroSection() {
             {/* Body */}
             <p
               key={`b-${current}`}
-              className="mt-6 text-lg text-blue-100/90 max-w-xl leading-relaxed animate-fade-in-up"
+              className="mt-6 text-lg text-cyan-100/90 max-w-xl leading-relaxed animate-fade-in-up"
               style={{ animationDelay: "120ms" }}
             >
               {slide.body}
@@ -203,8 +202,7 @@ export default function HeroSection() {
       <div className="absolute bottom-[4.5rem] z-20 left-0 right-0 h-0.5 bg-white/10">
         <div
           key={current}
-          className="h-full bg-amber-400 origin-left animate-progress-bar"
-        />
+          className="h-full bg-amber-400 origin-left animate-progress-bar"></div>
       </div>
 
       {/* ── Quick access strip ────────────────────────────────────────────── */}

@@ -10,6 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/dm-serif-display": "^5.2.8",
     "clsx": "^2.1.1",
     "critters": "^0.0.23",
     "framer-motion": "^11.3.0",

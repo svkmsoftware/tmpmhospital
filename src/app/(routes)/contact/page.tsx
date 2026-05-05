@@ -15,7 +15,7 @@ const contactDetails = [
     icon: MapPin,
     title: "Address",
     lines: ["SVKM's Tapanbhai Mukeshbhai Patel", "Memorial Hospital, Kharde, Budruk,", "Shirpur, Dhule — 425405, Maharashtra"],
-    color: "bg-blue-50",
+    color: "bg-cyan-50",
     iconColor: "var(--color-primary)",
   },
   {
@@ -69,13 +69,13 @@ export default function ContactPage() {
               {contactDetails.map(({ icon: Icon, title, lines, color, iconColor, href }) => (
                 <div key={title} className="card p-5 flex gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${color}`}>
-                    <Icon className="w-5 h-5" style={{ color: iconColor }} />
+                    <Icon className="w-5 h-5" color={iconColor} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-neutral-800 mb-1">{title}</h3>
                     {lines.map((line, i) =>
                       href && i === 0 ? (
-                        <a key={i} href={href} className="text-sm text-neutral-600 hover:text-blue-700 transition-colors block">
+                        <a key={i} href={href} className="text-sm text-neutral-600 hover:text-cyan-700 transition-colors block">
                           {line}
                         </a>
                       ) : (
@@ -89,7 +89,7 @@ export default function ContactPage() {
               {/* Tariff download */}
               <div className="card p-5 flex gap-4" style={{ background: "#eff6ff" }}>
                 <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                  <MessageSquare className="w-5 h-5" style={{ color: "var(--color-primary)" }} />
+                  <MessageSquare className="w-5 h-5" color="var(--color-primary)" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-800 mb-1">Hospital Tariff</h3>

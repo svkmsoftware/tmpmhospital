@@ -274,7 +274,7 @@ function GalleryCard({
       </div>
       {/* Zoom icon */}
       <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-200">
-        <ZoomIn className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+        <ZoomIn className="w-4 h-4 text-blue-700" />
       </div>
     </button>
   );

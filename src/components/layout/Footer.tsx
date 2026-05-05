@@ -35,13 +35,13 @@ export default function Footer() {
       <h2 id="footer-heading" className="sr-only">Footer</h2>
 
       {/* ── Emergency strip ─────────────────────────────────────────────────── */}
-      <div className="py-4" style={{ background: "var(--color-accent)" }}>
+      <div className="py-4" style={{ background: "var(--gradient-main)" }}>
         <div className="container-custom flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-neutral-900 font-bold text-lg">
+          <div className="flex items-center gap-2 text-white font-bold text-lg">
             <Phone className="w-5 h-5" />
-            Emergency Helpline: <a href="tel:+911234567890" className="underline">+91 12345 67890</a>
+            Emergency Helpline: <a href="tel:+911234567890" className="underline hover:text-white/80">+91 12345 67890</a>
           </div>
-          <p className="text-neutral-800 text-sm">Available 24 × 7 · 365 days a year</p>
+          <p className="text-white/80 text-sm">Available 24 × 7 · 365 days a year</p>
         </div>
       </div>
 
@@ -61,23 +61,23 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed text-neutral-400 mb-5">
-              SVKM's Tapanbhai Mukeshbhai Patel Memorial Hospital &amp; Research Center — a 1200-bed multispecialty hospital in Shirpur delivering world-class, affordable healthcare to tribal and rural communities of Maharashtra.
+              SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital &amp; Research Center — a 1200-bed multispecialty hospital in Shirpur delivering world-class, affordable healthcare to tribal and rural communities of Maharashtra.
             </p>
 
             {/* Address */}
             <address className="not-italic text-sm text-neutral-400 space-y-2 mb-5">
               <div className="flex gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-accent-DEFAULT" style={{ color: "var(--color-accent)" }} />
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-accent-DEFAULT" color="var(--color-accent)" />
                 <span>Kharde, Budruk, Shirpur, Dhule — 425405, Maharashtra</span>
               </div>
               <div className="flex gap-2">
-                <Mail className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "var(--color-accent)" }} />
+                <Mail className="w-4 h-4 mt-0.5 shrink-0" color="var(--color-accent)" />
                 <a href="mailto:contact@tmpmhospital.com" className="hover:text-white transition-colors">
                   contact@tmpmhospital.com
                 </a>
               </div>
               <div className="flex gap-2">
-                <Clock className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "var(--color-accent)" }} />
+                <Clock className="w-4 h-4 mt-0.5 shrink-0" color="var(--color-accent)" />
                 <span>OPD: 8:00 AM – 8:00 PM · Emergency: 24 × 7</span>
               </div>
             </address>
@@ -94,7 +94,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-neutral-800 hover:bg-blue-600 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-200"
+                  className="w-9 h-9 rounded-lg bg-neutral-800 hover:bg-cyan-600 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-200"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -112,7 +112,7 @@ export default function Footer() {
                     href={link.href}
                     className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-blue-500 group-hover:bg-accent-DEFAULT transition-colors" style={{ background: "var(--color-accent)" }} />
+                    <span className="w-1 h-1 rounded-full bg-blue-500 group-hover:bg-accent-DEFAULT transition-colors" style={{ background: "var(--gradient-main)" }}></span>
                     {link.label}
                   </Link>
                 </li>
@@ -132,7 +132,7 @@ export default function Footer() {
                     rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
                     className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full transition-colors" style={{ background: "var(--color-accent)" }} />
+                    <span className="w-1 h-1 rounded-full transition-colors" style={{ background: "var(--gradient-main)" }}></span>
                     {link.label}
                   </Link>
                 </li>
@@ -172,7 +172,7 @@ export default function Footer() {
       {/* ── Bottom bar ──────────────────────────────────────────────────────── */}
       <div className="border-t border-neutral-800">
         <div className="container-custom py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
-          <p>© {year} SVKM's Tapanbhai Mukeshbhai Patel Memorial Hospital &amp; Research Center. All rights reserved.</p>
+          <p>© {year} SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital &amp; Research Center. All rights reserved.</p>
           <nav aria-label="Legal links" className="flex gap-4">
             {footerLinks.legal.map((link) => (
               <Link key={link.label} href={link.href} className="hover:text-neutral-300 transition-colors">

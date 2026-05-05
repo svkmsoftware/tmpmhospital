@@ -18,7 +18,7 @@ export default function DeptTabs({ tabs }: { tabs: DepartmentTab[] }) {
       <ul className="mt-3 space-y-3">
         {details.map((d, i) => (
           <li key={i} className="flex gap-3 text-neutral-600">
-            <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }} />
+            <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }}></span>
             <span className="leading-relaxed">{d}</span>
           </li>
         ))}

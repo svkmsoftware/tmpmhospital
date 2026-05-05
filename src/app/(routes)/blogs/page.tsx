@@ -41,7 +41,7 @@ export default async function BlogsPage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                   <div className="absolute top-3 left-3">
                     <span className="badge badge-accent flex items-center gap-1">
                       <Tag className="w-3 h-3" />
@@ -60,7 +60,7 @@ export default async function BlogsPage() {
                       </>
                     )}
                   </div>
-                  <h2 className="font-bold text-neutral-800 group-hover:text-blue-700 transition-colors line-clamp-2 mb-2">
+                  <h2 className="font-bold text-neutral-800 group-hover:text-cyan-700 transition-colors line-clamp-2 mb-2">
                     {blog.title}
                   </h2>
                   {blog.excerpt && (

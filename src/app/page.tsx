@@ -1,8 +1,23 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/sections/HeroSection";
-import { AboutSection, StatsSection, DepartmentsSection } from "@/components/sections/HomeAboutStats";
-import { BlogsSection, TestimonialsSection, FAQSection, GalleryPreview, ContactCTA } from "@/components/sections/HomeSections";
-import { getDepartments, getBlogs, getTestimonials, getHospitalStats, getFAQs, getGalleryImages } from "@/lib/api";
+import {
+  AboutSection,
+  StatsSection,
+  DepartmentsSection,
+  WhyChooseUsSection,
+} from "@/components/sections/HomeAboutStats";
+import {
+  DoctorsAdviceSection,
+  BlogsSection,
+  TestimonialsSection,
+  FAQSection,
+  GalleryPreview,
+  ContactCTA,
+} from "@/components/sections/HomeSections";
+import {
+  getDepartments, getBlogs, getTestimonials,
+  getHospitalStats, getFAQs, getGalleryImages,
+} from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "SVKM's TMPM Hospital | Multispecialty Hospital Shirpur",
@@ -21,7 +36,7 @@ export default async function HomePage() {
     { data: gallery },
   ] = await Promise.all([
     getDepartments(),
-    getBlogs(3),
+    getBlogs(4),
     getTestimonials(),
     getHospitalStats(),
     getFAQs(),
@@ -33,7 +48,9 @@ export default async function HomePage() {
       <HeroSection />
       <AboutSection />
       <StatsSection stats={stats} />
+      <WhyChooseUsSection />
       <DepartmentsSection departments={departments} />
+      <DoctorsAdviceSection />
       <BlogsSection blogs={blogs} />
       <TestimonialsSection testimonials={testimonials} />
       <FAQSection faqs={faqs} />

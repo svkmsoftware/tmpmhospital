@@ -37,7 +37,7 @@ export default async function DayCarePage() {
               <div key={section.title} className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center`}>
                 <div className={i % 2 !== 0 ? "md:order-2" : ""}>
                   <h2 className="text-2xl font-bold text-neutral-800 mb-2">{section.title}</h2>
-                  <div className="divider-accent mx-0 mb-4" />
+                  <div className="divider-accent mx-0 mb-4"></div>
                   <div className="space-y-3">
                     {section.description.map((para, j) => (
                       <p key={j} className="text-neutral-600 leading-relaxed">{para}</p>

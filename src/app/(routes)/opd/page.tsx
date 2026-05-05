@@ -34,7 +34,7 @@ export default async function OpdPage() {
                 return (
                   <div key={section.section} id="schedule">
                     <h2 className="text-2xl font-bold text-neutral-800 mb-2">{section.section}</h2>
-                    <div className="divider-accent mx-0 mb-6" />
+                    <div className="divider-accent mx-0 mb-6"></div>
                     <div className="card overflow-hidden">
                       <div className="overflow-x-auto">
                         <table className="w-full text-sm">
@@ -67,7 +67,7 @@ export default async function OpdPage() {
                 <div key={section.section} className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${i % 2 !== 0 ? "md:flex-row-reverse" : ""}`}>
                   <div className={i % 2 !== 0 ? "md:order-2" : ""}>
                     <h2 className="text-2xl font-bold text-neutral-800 mb-2">{section.section}</h2>
-                    <div className="divider-accent mx-0 mb-4" />
+                    <div className="divider-accent mx-0 mb-4"></div>
                     <p className="text-neutral-600 leading-relaxed">{section.description}</p>
                     <Link href="/contact" className="btn-primary mt-6 inline-flex">Book Appointment</Link>
                   </div>
