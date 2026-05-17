@@ -27,39 +27,67 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["emergency", "urgent", "accident", "icu", "critical", "ambulance"],
-    answer: "🚨 **Emergency Services:**\nOur Emergency Department is open **24 hours, 7 days a week**.\n\n📞 **Emergency Hotline:** +91 12345 67890\n\nWe have 34 emergency beds and dedicated emergency physicians always on duty.",
+    answer: "🚨 **Emergency Services:**\nOur Emergency Department is open **24 hours, 7 days a week**.\n\n📞 **Emergency Hotline:** +91 12345 67890\n\nWe have **34 emergency beds**, dedicated emergency physicians, and **2 ACLS + 4 BLS ambulances** always on duty.",
   },
   {
     patterns: ["doctor", "specialist", "physician", "surgeon", "gynaecologist", "paediatric", "ortho"],
-    answer: "👨‍⚕️ **Our Doctors:**\nWe have 50+ specialist doctors across departments including General Medicine, Surgery, Gynaecology, Paediatrics, Orthopaedics, Anaesthesiology, ENT, and more.\n\nVisit our [Doctors page](/doctors) to find the right specialist for you.",
+    answer: "👨‍⚕️ **Our Doctors:**\nWe have 50+ specialist doctors across departments including General Medicine, Surgery, Gynaecology, Paediatrics, Orthopaedics, Neurosciences, Oncology, Cardiology, and more.\n\nVisit our [Doctors page](/doctors) to find the right specialist for you.",
   },
   {
     patterns: ["insurance", "tpa", "cashless", "claim", "corporate"],
-    answer: "🛡️ **Insurance & TPA:**\nWe are empanelled with major TPA and insurance providers including:\n• Aditya Birla Capital\n• ICICI Lombard\n• Tata AIG\n• Bajaj Life Insurance\n• Care Health Insurance\n\nFor cashless treatment, present your insurance card at admission.\n\nSee the full [TPA & Insurance list](/tpa-insurance).",
+    answer: "🛡️ **Insurance & TPA:**\nWe are empanelled with major TPA and insurance providers including:\n• Aditya Birla Capital\n• ICICI Lombard\n• Tata AIG\n• Bajaj Life Insurance\n• Care Health Insurance\n• Kotak General Insurance\n\nSee the full [TPA & Insurance list](/tpa-insurance).",
+  },
+  {
+    patterns: ["pmjay", "mjpjay", "ayushman", "government scheme", "govt", "esic", "cghs", "mahatma", "yojana"],
+    answer: "🏛️ **Government Health Schemes:**\nWe are empanelled with 20+ government schemes including:\n• PMJAY (Ayushman Bharat)\n• MJPJAY (Mahatma Jyotiba Phule Jan Arogya)\n• ESIC, CGHS, ECHS\n• Ayushman Vay Vandana (70+)\n• JSSK, JSY, PMMVY\n• MPKAY (Maharashtra Police)\n• PMNDP (National Dialysis Programme)\n\nFor full list visit our [TPA & Insurance page](/tpa-insurance).",
   },
   {
     patterns: ["location", "address", "where", "directions", "map", "reach", "shirpur"],
-    answer: "📍 **Hospital Location:**\nSVKM's TMPM Hospital\nKharde, Budruk, Shirpur,\nDhule – 425405, Maharashtra\n\n[Get Directions →](https://maps.google.com/?q=Shirpur+Hospital+Maharashtra)",
+    answer: "📍 **Hospital Location:**\nSVKM's TMPM Hospital\nKharde, Budruk, Shirpur,\nDhule – 425405, Maharashtra\n\nStrategically located at the tri-state junction of Maharashtra, Madhya Pradesh & Gujarat.\n\n[Get Directions →](https://maps.google.com/?q=Shirpur+Hospital+Maharashtra)",
   },
   {
     patterns: ["bed", "room", "ward", "admit", "admission", "ipd", "inpatient"],
-    answer: "🏥 **IPD & Room Types:**\nWe offer:\n• General Ward\n• Semi-Private Room\n• Private Room\n• Deluxe Room\n• ICU / HDU / NICU / PICU\n\nTotal 1200 beds including 120+ critical care & 34 emergency beds.\n\nLearn more on our [IPD page](/ipd).",
+    answer: "🏥 **IPD & Room Types:**\nWe offer:\n• General Ward\n• Semi-Private Room\n• Private Room\n• Deluxe Room\n• ICU (150+ beds), NICU (28 beds), PICU (20 beds)\n\nTotal **1,200 beds** including 34 emergency beds.\n\nLearn more on our [IPD page](/ipd).",
+  },
+  {
+    patterns: ["icu", "nicu", "picu", "intensive care", "critical care"],
+    answer: "🏥 **Critical Care Units:**\n• **ICU:** 150+ beds (Adult Intensive Care)\n• **NICU:** 28 beds (Neonatal Intensive Care)\n• **PICU:** 20 beds (Paediatric Intensive Care)\n\nAll units are equipped with advanced monitoring and ventilation support.",
   },
   {
     patterns: ["day care", "daycare", "same day", "minor surgery", "procedure"],
-    answer: "🏨 **Day Care Services:**\nOur Day Care unit handles same-day procedures:\n• Minor surgeries\n• Chemotherapy sessions\n• Endoscopy / Colonoscopy\n• IV Therapies & Blood transfusions\n\nPatients are discharged the same day.\n\nLearn more on our [Day Care page](/day-care).",
+    answer: "🏨 **Day Care Services:**\nOur Day Care unit handles same-day procedures:\n• Minor surgeries\n• Chemotherapy (16-bed unit)\n• Dialysis (18-bed unit)\n• Endoscopy / Colonoscopy\n• IV Therapies & Blood transfusions\n\nLearn more on our [Day Care page](/day-care).",
   },
   {
     patterns: ["fee", "charge", "cost", "tariff", "price", "bill"],
-    answer: "💳 **Hospital Charges:**\nWe follow a transparent, affordable pricing model.\n\n📄 [Download Tariff Sheet](https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing)\n\nFor billing queries, contact us at **+91 12345 67890**.",
+    answer: "💳 **Hospital Charges:**\nWe follow transparent, affordable pricing with a commitment to equitable care.\n\n📄 [Download Tariff Sheet](https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing)\n\nFor billing queries, contact us at **+91 12345 67890**.",
   },
   {
     patterns: ["career", "job", "vacancy", "opening", "hiring", "work"],
     answer: "💼 **Career Opportunities:**\nWe are always looking for passionate healthcare professionals!\n\nVisit our [Careers page](/careers) to see current openings and apply.",
   },
   {
+    patterns: ["dialysis", "kidney", "nephrology", "renal"],
+    answer: "💧 **Dialysis Services:**\nWe have an **18-bed Dialysis Unit** providing haemodialysis and peritoneal dialysis.\n\nWe are empanelled under **PMNDP (National Dialysis Programme)** for government-subsidised dialysis for eligible patients.\n\nFor appointments, call **+91 12345 67890**.",
+  },
+  {
+    patterns: ["cancer", "oncology", "chemo", "chemotherapy", "tumour"],
+    answer: "🩺 **Oncology Services:**\nOur dedicated Oncology Unit offers:\n• Medical & Surgical Oncology\n• **16-bed Chemotherapy Unit** (2600 sq.ft. dedicated space)\n• Cancer surgery, targeted therapy, immunotherapy\n• Tumour board discussions\n• Palliative care\n\nFor consultations, call **+91 12345 67890**.",
+  },
+  {
+    patterns: ["mri", "ct scan", "xray", "x-ray", "radiology", "imaging", "scan", "mammography", "ultrasound"],
+    answer: "🔬 **Radiology & Imaging:**\nOur department includes:\n• MRI (Helium-free)\n• CT Scan\n• Mammography\n• Digital X-Ray\n• C-Arm Imaging\n• BDM Scanner\n• Ultrasound\n\nFor appointments, call **+91 12345 67890**.",
+  },
+  {
+    patterns: ["lab", "laboratory", "test", "blood test", "pathology", "ccl"],
+    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOur 2500 sq.ft. state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **+91 12345 67890**.",
+  },
+  {
+    patterns: ["area", "size", "sqft", "square feet", "campus", "large", "big"],
+    answer: "🏗️ **Hospital Campus:**\nSVKM's TMPM Hospital spans a massive **17.5 lakh sq.ft.** area, housing:\n• 1,200 beds across multiple wards\n• 17 major + 9 minor operation theatres\n• Dedicated oncology, radiology, and laboratory wings\n• Medical college and nursing college",
+  },
+  {
     patterns: ["hello", "hi", "hey", "helo", "namaste", "good morning", "good afternoon", "good evening"],
-    answer: "👋 **Hello! Welcome to SVKM's TMPM Hospital.**\n\nI'm your virtual assistant. I can help you with:\n• Appointment booking\n• OPD timings\n• Finding a doctor\n• Insurance & billing\n• Hospital location\n\nWhat can I help you with today?",
+    answer: "👋 **Hello! Welcome to SVKM's TMPM Hospital.**\n\nI'm your virtual assistant. I can help you with:\n• Appointment booking\n• OPD timings\n• Finding a doctor\n• Insurance & billing\n• Government health schemes\n• Hospital location\n\nWhat can I help you with today?",
   },
   {
     patterns: ["thank", "thanks", "thankyou", "ok", "okay", "great", "perfect"],
@@ -67,17 +95,22 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["pharmacy", "medicine", "drug", "chemist"],
-    answer: "💊 **In-House Pharmacy:**\nOur pharmacy is located on the hospital premises.\n\n⏰ Timings: 8:00 AM – 10:00 PM\n\nEmergency medicines are available round the clock at the emergency counter.",
+    answer: "💊 **In-House Pharmacy:**\nAvailable on the hospital premises.\n\n⏰ Timings: 8:00 AM – 10:00 PM\n\nEmergency medicines available 24×7 at the emergency counter.",
   },
   {
     patterns: ["visitor", "visiting", "visit", "attendant", "family"],
     answer: "👥 **Visitor Policy:**\n• General visiting: 8:00 AM – 8:00 PM\n• ICU visits: 10–11 AM & 5–6 PM only\n• Max 1 attendant per patient\n• Children under 12 not allowed in ICU\n\nPlease follow infection-control guidelines during visits.",
   },
   {
-    patterns: ["department", "speciality", "specialty", "service"],
-    answer: "🏥 **Our Departments:**\nWe offer care across multiple specialties:\n• General Medicine, Surgery\n• Obstetrics & Gynaecology\n• Paediatrics & Neonatology\n• Orthopaedics, Anaesthesiology\n• ENT, Ophthalmology, Dermatology\n\nExplore all on our [Departments page](/departments).",
+    patterns: ["department", "speciality", "specialty", "service", "departments"],
+    answer: "🏥 **Our Departments:**\n**Core:** Emergency, Internal Medicine, Cardiology, OBG, Paediatrics, Surgery, Orthopaedics, ENT, Dental, Ophthalmology, Dermatology, Psychiatry, Pulmonology\n\n**Super-Specialty:** Oncology, CVTS, Neurosciences, Nephrology, Gastroenterology, Plastic Surgery, Vascular Surgery, Urology, Arthroscopy, Joint Replacement\n\n**Support:** Radiology, 24/7 Lab, Physiotherapy, Anaesthesia, Dialysis, Blood Bank\n\nExplore all on our [Departments page](/departments).",
+  },
+  {
+    patterns: ["blood bank", "blood", "donation", "transfusion"],
+    answer: "🩸 **Blood Bank:**\nOur 24/7 Blood Bank provides:\n• Blood typing & cross-matching\n• Component separation (RBCs, Platelets, Plasma)\n• TTI screening\n• Platelet pheresis\n\nFor blood requirements, call our emergency line: **+91 12345 67890**",
   },
 ];
+
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 interface Message {

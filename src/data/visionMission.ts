@@ -4,7 +4,7 @@ export const missionVisionData: VisionMissionData = {
   vision: {
     icon: "fa-solid fa-user-doctor",
     title: "Vision",
-    text: `To be a pioneering centre of healing, nursing and clinical learning that delivers world-class, affordable healthcare to one and all in Maharashtra and beyond with a special commitment to tribal and rural communities, while nurturing the next generation of medical professionals.`,
+    text: "To serve the unserved and reach the unreached — delivering advanced, ethical, and compassionate healthcare to the people of North Maharashtra and adjoining regions of Madhya Pradesh and Gujarat, regardless of economic or social background.",
   },
   mission: {
     icon: "fa-solid fa-arrows-up-down-left-right",
@@ -12,23 +12,23 @@ export const missionVisionData: VisionMissionData = {
     points: [
       {
         icon: "fa-solid fa-stethoscope",
-        text: "Deliver advanced medical care that combines modern technology with compassionate service.",
+        text: "Provide comprehensive multi-specialty care under one roof — from primary care to super-specialty treatment — ensuring seamless continuity of care.",
       },
       {
         icon: "fa-solid fa-hand-holding-medical",
-        text: 'Keep healthcare affordable and accessible to all through our "No Profit, No Loss" philosophy.',
+        text: 'Uphold the principle of "Equal Care, Equal Dignity" — ensuring every patient, regardless of economic or social background, receives the same standard of clinical excellence, safety, and compassion.',
       },
       {
         icon: "fa-solid fa-user-graduate",
-        text: "Train and inspire future doctors, nurses, and researchers through a world-class Medical Education Hub.",
+        text: "Drive integrated medical education and research through a strong academic foundation, fostering ethical practice, innovation, skilled training, and evidence-based patient care.",
       },
       {
         icon: "fa-solid fa-seedling",
-        text: "Lead innovation in tribal and rural health, setting benchmarks for India.",
+        text: "Deliver affordable and equitable healthcare with access to government health schemes (PMJAY/MJPJAY) to serve the underserved without compromise.",
       },
       {
         icon: "fa-solid fa-heart-pulse",
-        text: "Uphold ethical care, integrity, empathy, and patient-first values in everything we do.",
+        text: "Strengthen regional and rural healthcare outcomes through a mission-driven institution rooted in SVKM's legacy of service and social upliftment.",
       },
     ],
   },

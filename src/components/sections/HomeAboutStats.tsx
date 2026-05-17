@@ -36,7 +36,7 @@ export function AboutSection() {
               />
               {/* Video play */}
               <a
-                href="https://youtu.be/TgYY6cRazHM"
+                href="https://www.youtube.com/watch?v=mdxWXNYaTN4"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute inset-0 flex items-center justify-center group"
@@ -49,13 +49,13 @@ export function AboutSection() {
             </div>
 
             {/* Floating stat card */}
-            <div
+            {/* <div
               className="absolute -bottom-6 -right-4 hidden sm:flex flex-col items-center justify-center w-32 h-32 rounded-2xl text-white shadow-xl"
               style={{ background: "var(--gradient-main)" }}
             >
               <span className="text-4xl font-bold leading-none">25</span>
               <span className="text-xs text-white/80 mt-1 text-center leading-tight">Years of<br />Excellence</span>
-            </div>
+            </div> */}
 
             {/* Accent box */}
             <div
@@ -82,11 +82,7 @@ export function AboutSection() {
             </h2>
             <div className="divider-accent mb-6"></div>
             <p className="text-neutral-600 leading-relaxed mb-5">
-              SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital is a 1200-bedded premier
-              multispecialty medical centre in Shirpur — blending compassionate care with
-              advanced infrastructure. With multiple surgical suites, specialized ICUs, and a
-              fully equipped obstetric unit, it stands as a beacon of healing and medical
-              excellence.
+              SVKM&rsquo;S Tapanbai Mukeshbhai Patel Memorial Hospital (TMPMH), Shirpur, is a state‑of‑the‑art tertiary care hospital established under the esteemed Shri Vile Parle Kelavani Mandal (SVKM&rsquo;S). Guided by a strong social commitment to serve the unserved and reach the unreached, the hospital has been developed to deliver advanced, ethical, and compassionate healthcare to the people of North Maharashtra and the adjoining regions of Madhya Pradesh and Gujarat. Strategically located at the tri‑state junction.
             </p>
 
             {/* Pillar list */}
@@ -105,12 +101,12 @@ export function AboutSection() {
             {/* Stats mini-grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
               {[
-                { Icon: BedDouble,   label: "Total Beds",         value: "1,200+" },
-                { Icon: HeartPulse,  label: "Critical Care Beds", value: "120+"   },
-                { Icon: Building2,   label: "Emergency Beds",     value: "34+"    },
-                { Icon: Scissors,    label: "OTs",                value: "17"     },
-                { Icon: Stethoscope, label: "Doctors",            value: "50+"    },
-                { Icon: Heart,       label: "Cath Lab",           value: "1"      },
+                { Icon: BedDouble,   label: "Total Beds",            value: "1,200" },
+                { Icon: HeartPulse,  label: "ICU Beds (incl. NICU)",  value: "150+"  },
+                { Icon: Building2,   label: "Emergency Beds",         value: "34"    },
+                { Icon: Scissors,    label: "Major OTs",              value: "17"    },
+                { Icon: Stethoscope, label: "Minor OTs",              value: "9"     },
+                { Icon: Heart,       label: "Cath Lab",               value: "1"     },
               ].map(({ Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-3 p-3 rounded-xl transition-colors"
                      style={{ background: "var(--color-primary-pale)" }}>
