@@ -29,7 +29,7 @@ const nextConfig = {
       {
         // Vendor Strapi backend — images uploaded here
         protocol: "https",
-        hostname: "shirpurhospital.kwebmakerdigitalagency.com",
+        hostname: "admin.tmpmhospital.com",
         pathname: "/uploads/**",  // Only allow the uploads path, not all routes
       },
       {

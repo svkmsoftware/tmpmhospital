@@ -1,198 +1,154 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Briefcase, Users, Calendar, MapPin, GraduationCap, Clock } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, ArrowRight, Briefcase, ExternalLink } from "lucide-react";
 import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
-import { getJobOpenings } from "@/lib/api";
-import { whyWorkWithUs } from "@/data/static";
-import { formatDate } from "@/lib/utils";
+import { getCareerPageData } from "@/lib/graphql/services";
+import { whyWorkWithUs as localWhy } from "@/data/static";
+import { jobOpenings as localJobs } from "@/data/services";
 
 export const metadata: Metadata = {
   title: "Careers",
-  description:
-    "Join the team at SVKM's TMPM Hospital. Explore current job openings for doctors, nurses, technicians, and administrative staff in Shirpur, Maharashtra.",
+  description: "Join the SVKM's TMPM Hospital team. Explore current job openings and build a meaningful career in healthcare.",
   alternates: { canonical: "https://www.tmpmhospital.com/careers" },
 };
 
 export default async function CareersPage() {
-  const { data: jobs } = await getJobOpenings();
+  let gql = null;
+  try { gql = await getCareerPageData(); } catch { /* use local fallback */ }
+
+  const bannerImage    = gql?.bannerImage    ?? "/images/careers_banner.png";
+  const bannerHeading  = gql?.bannerHeading  ?? "Careers at SVKM's TMPM Hospital";
+  const bannerSub      = gql?.bannerSubheading ?? "Join a team driven by compassion, excellence, and purpose.";
+  const whyItems       = gql?.whyWorkWithUs  ?? [];
+  const jobSections    = gql?.jobSections    ?? [];
+
+  // Fall back to local data if GraphQL returns nothing
+  const showLocalJobs = jobSections.length === 0;
+  const showLocalWhy  = whyItems.length === 0;
 
   return (
     <>
-
-      <PageBanner
-        image="/images/careers_page_banner.png"
-        title="Careers"
-        subtitle="Join a hospital that values excellence, innovation, and people above all."
-        breadcrumb={[{ label: "Home", href: "/" }, { label: "Careers" }]}
-      />
+      <PageBanner image={bannerImage} title={bannerHeading} subtitle={bannerSub}
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Careers" }]} />
 
       {/* Why Work With Us */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <SectionHeader
-            tag="Work With Us"
-            title="Why Join TMPM Hospital?"
-            subtitle="Be part of a mission-driven team making real differences in people's lives across rural Maharashtra."
-          />
+          <SectionHeader tag="Why Join Us" title="Why Work With TMPM Hospital?"
+            subtitle="Be part of a mission-driven team that makes a real difference in people's lives." />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-            {whyWorkWithUs.map((item) => (
-              <div key={item.id} className="card overflow-hidden group">
-                <div className="relative h-44 overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-neutral-800 group-hover:text-cyan-700 transition-colors mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-neutral-500 leading-relaxed">{item.description}</p>
-                </div>
+            {(showLocalWhy ? localWhy : whyItems).map((item, i) => (
+              <div key={i} className="card p-6 group hover:border-cyan-200 border border-transparent">
+                {'image' in item && item.image && (
+                  <div className="relative h-40 rounded-xl overflow-hidden mb-4">
+                    <Image src={item.image as string} alt={item.title} fill className="object-cover" sizes="(max-width:640px) 100vw, 33vw" />
+                  </div>
+                )}
+                <h3 className="font-bold text-neutral-800 mb-2 group-hover:text-cyan-700 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Current Openings */}
-      <section id="openings" className="section-padding bg-neutral-50">
+      {/* Job Openings */}
+      <section id="openings" className="section-padding bg-gradient-section">
         <div className="container-custom">
-          <SectionHeader
-            tag="Now Hiring"
-            title="Current Job Openings"
-            subtitle="Explore current vacancies and apply to be part of a growing, purpose-driven team."
-          />
+          <SectionHeader tag="Opportunities" title="Current Openings"
+            subtitle="Explore roles across clinical, technical, administrative, and support functions." />
 
-          {jobs.length === 0 ? (
-            <div className="text-center py-16 text-neutral-400">
-              <Briefcase className="w-12 h-12 mx-auto mb-4 opacity-40" />
-              <p className="text-lg">No current openings. Check back soon.</p>
+          {showLocalJobs ? (
+            <div className="space-y-5 stagger-children">
+              {localJobs.map((job) => (
+                <div key={job.id} className="card p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Briefcase className="w-4 h-4" color="var(--color-primary)" />
+                        <h3 className="font-bold text-neutral-800">{job.designation}</h3>
+                        <span className="badge badge-primary text-xs">{job.numberOfPost} post{job.numberOfPost > 1 ? "s" : ""}</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 mt-3 text-sm text-neutral-500">
+                        <p><span className="font-semibold text-neutral-700">Department:</span> {job.department}</p>
+                        <p><span className="font-semibold text-neutral-700">Location:</span> {job.location}</p>
+                        <p><span className="font-semibold text-neutral-700">Apply by:</span> {job.applicationEndDate}</p>
+                      </div>
+                      <div className="mt-3">
+                        <p className="text-xs font-semibold text-neutral-600 mb-1">Qualifications:</p>
+                        <ul className="space-y-0.5">
+                          {job.educationQualification.map((q, i) => (
+                            <li key={i} className="flex items-center gap-2 text-xs text-neutral-500">
+                              <CheckCircle2 className="w-3 h-3 shrink-0" color="var(--color-accent)" /> {q}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <Link href="/contact" className="btn-gradient shrink-0 text-sm py-2 px-4">
+                      Apply Now <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : (
-            <div className="space-y-4">
-              {jobs.map((job) => (
-                <div key={job.id} className="card p-6 hover:border-cyan-200 border border-transparent transition-all">
-                  <div className="flex flex-col sm:flex-row sm:items-start gap-4 justify-between">
+            <div className="space-y-5 stagger-children">
+              {jobSections.map((section, si) => (
+                <div key={si} className="card p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-2 mb-3">
-                        <h3 className="font-bold text-neutral-800 text-lg">{job.designation}</h3>
-                        {job.numberOfPost > 1 && (
-                          <span className="badge badge-success">
-                            {job.numberOfPost} Posts
-                          </span>
-                        )}
+                      <div className="flex items-center gap-2 mb-1">
+                        <Briefcase className="w-4 h-4" color="var(--color-primary)" />
+                        <h3 className="font-bold text-neutral-800">{section.heading}</h3>
                       </div>
-
-                      <div className="flex flex-wrap gap-4 text-sm text-neutral-500 mb-4">
-                        {job.department && (
-                          <span className="flex items-center gap-1.5">
-                            <Briefcase className="w-3.5 h-3.5" />
-                            {job.department}
-                          </span>
-                        )}
-                        {job.location && (
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5" />
-                            {job.location}
-                          </span>
-                        )}
-                        <span className="flex items-center gap-1.5">
-                          <Users className="w-3.5 h-3.5" />
-                          {job.numberOfPost} Vacancy{job.numberOfPost > 1 ? "ies" : ""}
-                        </span>
-                      </div>
-
-                      {/* Education */}
-                      <div className="mb-3">
-                        <p className="text-xs font-semibold text-neutral-600 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                          <GraduationCap className="w-3.5 h-3.5" />
-                          Education
-                        </p>
-                        <div className="space-y-1">
-                          {job.educationQualification.map((q, i, arr) => (
-                            <div key={i}>
-                              <p className="text-sm text-neutral-600">{q}</p>
-                              {i < arr.length - 1 && (
-                                <div className="flex items-center gap-2 my-1">
-                                  <hr className="flex-1 border-neutral-200" />
-                                  <span className="text-xs text-neutral-400 font-medium">OR</span>
-                                  <hr className="flex-1 border-neutral-200" />
-                                </div>
-                              )}
-                            </div>
-                          ))}
+                      {section.subheading && (
+                        <p className="text-sm text-neutral-500 mb-3">{section.subheading}</p>
+                      )}
+                      {section.openings.map((opening, oi) => (
+                        <div key={oi} className="mt-3 p-3 rounded-xl bg-neutral-50">
+                          <p className="font-semibold text-sm text-neutral-700 mb-1">{opening.heading}</p>
+                          {opening.details && (
+                            <p className="text-xs text-neutral-500">{String(opening.details)}</p>
+                          )}
+                          {opening.applyNow && (
+                            <a href={opening.applyNow} target="_blank" rel="noopener noreferrer"
+                               className="inline-flex items-center gap-1 text-xs font-semibold mt-2"
+                               style={{ color: "var(--color-primary)" }}>
+                              Apply Now <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
                         </div>
-                      </div>
-
-                      {/* Experience */}
-                      <div>
-                        <p className="text-xs font-semibold text-neutral-600 uppercase tracking-wide mb-1.5 flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5" />
-                          Experience
-                        </p>
-                        <div className="space-y-1">
-                          {job.yearsOfExperience.map((exp, i, arr) => (
-                            <div key={i}>
-                              <p className="text-sm text-neutral-600">
-                                <span className="font-medium">{exp.year} yr{exp.year > 1 ? "s" : ""}:</span>{" "}
-                                {exp.description}
-                              </p>
-                              {i < arr.length - 1 && (
-                                <div className="flex items-center gap-2 my-1">
-                                  <hr className="flex-1 border-neutral-200" />
-                                  <span className="text-xs text-neutral-400 font-medium">OR</span>
-                                  <hr className="flex-1 border-neutral-200" />
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                      ))}
                     </div>
-
-                    {/* Dates + Apply */}
-                    <div className="flex flex-col items-start sm:items-end gap-3 shrink-0 sm:min-w-[180px]">
-                      <div className="text-sm text-neutral-500 space-y-1 text-left sm:text-right">
-                        <p className="flex items-center gap-1.5 sm:flex-row-reverse">
-                          <Calendar className="w-3.5 h-3.5" />
-                          Start: {job.applicationStartDate}
-                        </p>
-                        <p className="flex items-center gap-1.5 sm:flex-row-reverse text-red-500 font-medium">
-                          <Calendar className="w-3.5 h-3.5" />
-                          Last: {job.applicationEndDate}
-                        </p>
-                      </div>
-                      <a
-                        href="mailto:careers@tmpmhospital.com?subject=Application for Job Vacancy"
-                        className="btn-primary text-sm py-2 px-4"
-                      >
-                        Apply Now
-                      </a>
-                    </div>
+                    <Link href="/contact" className="btn-gradient shrink-0 text-sm py-2 px-4">
+                      Enquire <ArrowRight className="w-4 h-4" />
+                    </Link>
                   </div>
                 </div>
               ))}
             </div>
           )}
 
-          <div className="mt-10 p-6 rounded-2xl text-center" style={{ background: "#dbeafe" }}>
-            <p className="font-semibold text-neutral-800 mb-1">Don&apos;t see a suitable opening?</p>
-            <p className="text-sm text-neutral-600 mb-4">
-              Send us your CV and we&apos;ll keep you in mind for future opportunities.
-            </p>
-            <a href="mailto:careers@tmpmhospital.com" className="btn-primary text-sm">
-              Send Your CV
-            </a>
-          </div>
+          {/* Generic CTA if no openings */}
+          {showLocalJobs && localJobs.length === 0 && (
+            <div className="card p-10 text-center">
+              <Briefcase className="w-12 h-12 mx-auto mb-4" color="var(--color-primary)" />
+              <h3 className="text-xl font-bold text-neutral-800 mb-2">No Current Openings</h3>
+              <p className="text-neutral-500 mb-5">
+                Don&apos;t see a suitable opening? Send us your CV and we&apos;ll keep you in mind.
+              </p>
+              <Link href="/contact" className="btn-gradient">
+                Send Your CV <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          )}
         </div>
       </section>
-
       <ContactCTA />
     </>
   );

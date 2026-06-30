@@ -5,19 +5,50 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { LucideIcon, Play, ArrowRight, BedDouble, HeartPulse, Scissors,
          Stethoscope, Users, Building2, CheckCircle2, Award, Shield, Microscope,
-         Brain, Eye, Baby, Bone, Zap, Heart } from "lucide-react";
+         Brain, Eye, Baby, Bone, Zap, Heart, 
+         Phone,
+         User,
+         ChevronLeft,
+         ChevronRight} from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
 import type { HospitalStat, DepartmentCategory } from "@/types";
 
 // ─── About ────────────────────────────────────────────────────────────────────
-export function AboutSection() {
+interface AboutSectionProps {
+  /** Optional CMS-driven content from the Home page GraphQL query (home.Abour_US).
+   *  When absent, the section renders its original hardcoded local content unchanged. */
+  data?: {
+    heading: string;
+    subheading: string;
+    description: string;
+    image: string | null;
+    stats: Array<{ label: string; value: string }>;
+  } | null;
+}
+
+export function AboutSection({ data }: AboutSectionProps) {
   const pillars = [
     { Icon: Award,       text: "No Profit, No Loss philosophy"         },
     { Icon: CheckCircle2,text: "NABH Accredited Hospital"              },
     { Icon: Users,       text: "Serving tribal & rural communities"    },
     { Icon: Brain,       text: "Attached Medical & Nursing College"    },
   ];
+
+  // CMS gives 6 stats (features_details) just like the local hardcoded grid below.
+  // Reuse the same icon-per-stat assignment by position so the layout stays identical.
+  const statIcons = [BedDouble, HeartPulse, Building2, Scissors, Stethoscope, Heart];
+  const localStats = [
+    { Icon: BedDouble,   label: "Total Beds",            value: "1,200" },
+    { Icon: HeartPulse,  label: "ICU Beds (incl. NICU)",  value: "150+"  },
+    { Icon: Building2,   label: "Emergency Beds",         value: "34"    },
+    { Icon: Scissors,    label: "Major OTs",              value: "17"    },
+    { Icon: Stethoscope, label: "Minor OTs",              value: "9"     },
+    { Icon: Heart,       label: "Cath Lab",               value: "1"     },
+  ];
+  const statsToRender = data?.stats?.length
+    ? data.stats.slice(0, 6).map((s, i) => ({ Icon: statIcons[i] ?? Stethoscope, label: s.label, value: s.value }))
+    : localStats;
 
   return (
     <section id="about" className="section-padding bg-white overflow-hidden">
@@ -28,7 +59,7 @@ export function AboutSection() {
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
               <Image
-                src="/images/aboutHospitalImage.png"
+                src={data?.image ?? "/images/aboutHospitalImage.png"}
                 alt="SVKM TMPM Hospital"
                 fill
                 className="object-cover"
@@ -36,7 +67,7 @@ export function AboutSection() {
               />
               {/* Video play */}
               <a
-                href="https://www.youtube.com/watch?v=mdxWXNYaTN4"
+                href="https://youtu.be/TgYY6cRazHM"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute inset-0 flex items-center justify-center group"
@@ -64,7 +95,7 @@ export function AboutSection() {
             >
               <Stethoscope className="w-5 h-5 text-white" />
               <div>
-                <p className="font-bold text-sm">50+ Doctors</p>
+                <p className="font-bold text-sm text-white">50+ Doctors</p>
                 <p className="text-green-100 text-xs">Across Specialties</p>
               </div>
             </div>
@@ -74,7 +105,7 @@ export function AboutSection() {
           <div>
             <p className="section-tag">
               <span className="w-6 h-px bg-current"></span>
-              About Us
+              {data?.heading ?? "About Us"}
             </p>
             <h2 className="section-title">
               Where Compassion<br />
@@ -82,7 +113,12 @@ export function AboutSection() {
             </h2>
             <div className="divider-accent mb-6"></div>
             <p className="text-neutral-600 leading-relaxed mb-5">
-              SVKM&rsquo;S Tapanbai Mukeshbhai Patel Memorial Hospital (TMPMH), Shirpur, is a state‑of‑the‑art tertiary care hospital established under the esteemed Shri Vile Parle Kelavani Mandal (SVKM&rsquo;S). Guided by a strong social commitment to serve the unserved and reach the unreached, the hospital has been developed to deliver advanced, ethical, and compassionate healthcare to the people of North Maharashtra and the adjoining regions of Madhya Pradesh and Gujarat. Strategically located at the tri‑state junction.
+              {data?.description ??
+                `SVKM's Tapanbhai Mukeshbhai Patel Memorial Hospital (TMPMH), Shirpur, is a
+                state-of-the-art tertiary care hospital guided by a strong social commitment to
+                serve the unserved and reach the unreached. Strategically located at the tri-state
+                junction of Maharashtra, Madhya Pradesh, and Gujarat, TMPMH combines modern medical
+                technology, expert clinical care, and the principle of "Equal Care, Equal Dignity".`}
             </p>
 
             {/* Pillar list */}
@@ -99,15 +135,8 @@ export function AboutSection() {
             </ul>
 
             {/* Stats mini-grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-              {[
-                { Icon: BedDouble,   label: "Total Beds",            value: "1,200" },
-                { Icon: HeartPulse,  label: "ICU Beds (incl. NICU)",  value: "150+"  },
-                { Icon: Building2,   label: "Emergency Beds",         value: "34"    },
-                { Icon: Scissors,    label: "Major OTs",              value: "17"    },
-                { Icon: Stethoscope, label: "Minor OTs",              value: "9"     },
-                { Icon: Heart,       label: "Cath Lab",               value: "1"     },
-              ].map(({ Icon, label, value }) => (
+            {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+              {statsToRender.map(({ Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-3 p-3 rounded-xl transition-colors"
                      style={{ background: "var(--color-primary-pale)" }}>
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
@@ -120,7 +149,7 @@ export function AboutSection() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             <Link href="/about" className="btn-gradient">
               Learn More <ArrowRight className="w-4 h-4" />
@@ -335,6 +364,127 @@ export function DepartmentsSection({ departments }: { departments: DepartmentCat
               </Link>
             );
           })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Meet Our Doctors (homepage preview grid) ──────────────────────────────────
+// ─── Meet Our Doctors (homepage slider) ────────────────────────────────────────
+export interface DoctorSummary {
+  id: string;
+  name: string;
+  designation: string;
+  profileImage: string | null;
+  viewProfile: string | null;
+  bookAppointment: string | null;
+}
+
+interface MeetOurDoctorsSectionProps {
+  doctors: DoctorSummary[];
+}
+
+export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  if (!doctors || doctors.length === 0) return null;
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const cardWidth = scrollRef.current.firstElementChild?.clientWidth ?? 260;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -(cardWidth + 24) : cardWidth + 24, behavior: "smooth" });
+  };
+
+  return (
+    <section id="doctors" className="section-padding bg-gradient-section">
+      <div className="container-custom">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+          <div>
+            <p className="section-tag"><span className="w-6 h-px bg-current"></span>Our Team</p>
+            <h2 className="section-title">Meet Our <em className="gradient-text">Doctors</em></h2>
+            <div className="divider-accent mt-3"></div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Nav arrows */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => scroll("left")}
+                className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all hover:-translate-x-0.5"
+                style={{ borderColor: "var(--color-primary)", color: "var(--color-primary)" }}
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white transition-all hover:translate-x-0.5"
+                style={{ background: "var(--gradient-main)" }}
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+            <Link href="/doctors" className="btn-outline shrink-0">
+              View All <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Horizontal scroll slider */}
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {doctors.map((doc) => (
+            <div
+              key={doc.id}
+              className="card group text-center shrink-0 snap-start"
+              style={{ width: 240 }}
+            >
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
+                  src={doc.profileImage ?? "/images/male_user.png"}
+                  alt={doc.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="240px"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="font-bold text-neutral-800 mb-1 text-sm">{doc.name}</h3>
+                <p className="text-xs font-semibold mb-4" style={{ color: "var(--color-primary)" }}>
+                  {doc.designation}
+                </p>
+                <div className="flex gap-2">
+                  {doc.viewProfile ? (
+                    <a href={doc.viewProfile} target="_blank" rel="noopener noreferrer"
+                      className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
+                      <User className="w-3 h-3" /> Profile
+                    </a>
+                  ) : (
+                    <Link href={`/doctors/${doc.id}`}
+                      className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
+                      <User className="w-3 h-3" /> Profile
+                    </Link>
+                  )}
+                  {doc.bookAppointment ? (
+                    <a href={doc.bookAppointment} target="_blank" rel="noopener noreferrer"
+                      className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
+                      <Phone className="w-3 h-3" /> Book
+                    </a>
+                  ) : (
+                    <Link href="/contact"
+                      className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
+                      <Phone className="w-3 h-3" /> Book
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

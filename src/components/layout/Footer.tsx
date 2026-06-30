@@ -1,6 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Twitter, Clock } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Clock,
+} from "lucide-react";
 
 const footerLinks = {
   quickLinks: [
@@ -17,7 +26,11 @@ const footerLinks = {
     { label: "IPD Services", href: "/ipd" },
     { label: "Day Care", href: "/day-care" },
     { label: "TPA & Insurance", href: "/tpa-insurance" },
-    { label: "Tariff / Charges", href: "https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing", external: true },
+    {
+      label: "Tariff / Charges",
+      href: "https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing",
+      external: true,
+    },
     { label: "Contact Us", href: "/contact" },
   ],
   legal: [
@@ -31,17 +44,30 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-neutral-300" aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">Footer</h2>
+    <footer
+      className="bg-neutral-900 text-neutral-300"
+      aria-labelledby="footer-heading"
+    >
+      <h2 id="footer-heading" className="sr-only">
+        Footer
+      </h2>
 
       {/* ── Emergency strip ─────────────────────────────────────────────────── */}
       <div className="py-4" style={{ background: "var(--gradient-main)" }}>
         <div className="container-custom flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-white font-bold text-lg">
             <Phone className="w-5 h-5" />
-            Emergency Helpline: <a href="tel:+911234567890" className="underline hover:text-white/80">+91 12345 67890</a>
+            Emergency Helpline:{" "}
+            <a
+              href="tel:+912563351503"
+              className="underline hover:text-white/80"
+            >
+              +91 2563 351503/04
+            </a>
           </div>
-          <p className="text-white/80 text-sm">Available 24 × 7 · 365 days a year</p>
+          <p className="text-white/80 text-sm">
+            Available 24 × 7 · 365 days a year
+          </p>
         </div>
       </div>
 
@@ -52,32 +78,49 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block mb-5">
               <Image
-                src="/images/hospital_website_logo.png"
+                src="/images/hospital_website_logo_1.png"
                 alt="SVKM TMPM Hospital"
                 width={200}
                 height={54}
                 style={{ height: "3rem", width: "auto" }}
-                className="object-contain brightness-0 invert opacity-90"
+                className="object-contain brightness-100 bg-white"
               />
             </Link>
             <p className="text-sm leading-relaxed text-neutral-400 mb-5">
-              SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital &amp; Research Center — a 1200-bed multispecialty hospital in Shirpur delivering world-class, affordable healthcare to tribal and rural communities of Maharashtra.
+              SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital &amp;
+              Research Center — a 1200-bed multispecialty hospital in Shirpur
+              delivering world-class, affordable healthcare to tribal and rural
+              communities of Maharashtra.
             </p>
 
             {/* Address */}
             <address className="not-italic text-sm text-neutral-400 space-y-2 mb-5">
               <div className="flex gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-accent-DEFAULT" color="var(--color-accent)" />
-                <span>Kharde, Budruk, Shirpur, Dhule — 425405, Maharashtra</span>
+                <MapPin
+                  className="w-4 h-4 mt-0.5 shrink-0 text-accent-DEFAULT"
+                  color="var(--color-accent)"
+                />
+                <span>
+                  Kharde, Budruk, Shirpur, Dhule — 425405, Maharashtra
+                </span>
               </div>
               <div className="flex gap-2">
-                <Mail className="w-4 h-4 mt-0.5 shrink-0" color="var(--color-accent)" />
-                <a href="mailto:contact@tmpmhospital.com" className="hover:text-white transition-colors">
-                  contact@tmpmhospital.com
+                <Mail
+                  className="w-4 h-4 mt-0.5 shrink-0"
+                  color="var(--color-accent)"
+                />
+                <a
+                  href="mailto:contact.tmpmh@svkm.ac.in"
+                  className="hover:text-white transition-colors"
+                >
+                  contact.tmpmh@svkm.ac.in
                 </a>
               </div>
               <div className="flex gap-2">
-                <Clock className="w-4 h-4 mt-0.5 shrink-0" color="var(--color-accent)" />
+                <Clock
+                  className="w-4 h-4 mt-0.5 shrink-0"
+                  color="var(--color-accent)"
+                />
                 <span>OPD: 8:00 AM – 8:00 PM · Emergency: 24 × 7</span>
               </div>
             </address>
@@ -104,7 +147,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">Quick Links</h3>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Quick Links
+            </h3>
             <ul className="space-y-2.5">
               {footerLinks.quickLinks.map((link) => (
                 <li key={link.label}>
@@ -112,7 +157,10 @@ export default function Footer() {
                     href={link.href}
                     className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-blue-500 group-hover:bg-accent-DEFAULT transition-colors" style={{ background: "var(--gradient-main)" }}></span>
+                    <span
+                      className="w-1 h-1 rounded-full bg-blue-500 group-hover:bg-accent-DEFAULT transition-colors"
+                      style={{ background: "var(--gradient-main)" }}
+                    ></span>
                     {link.label}
                   </Link>
                 </li>
@@ -122,17 +170,28 @@ export default function Footer() {
 
           {/* Patient Services */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">Patient Services</h3>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Patient Services
+            </h3>
             <ul className="space-y-2.5">
               {footerLinks.patientServices.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    target={"external" in link && link.external ? "_blank" : undefined}
-                    rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
+                    target={
+                      "external" in link && link.external ? "_blank" : undefined
+                    }
+                    rel={
+                      "external" in link && link.external
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                     className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full transition-colors" style={{ background: "var(--gradient-main)" }}></span>
+                    <span
+                      className="w-1 h-1 rounded-full transition-colors"
+                      style={{ background: "var(--gradient-main)" }}
+                    ></span>
                     {link.label}
                   </Link>
                 </li>
@@ -142,10 +201,12 @@ export default function Footer() {
 
           {/* Map */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">Find Us</h3>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">
+              Find Us
+            </h3>
             <div className="rounded-xl overflow-hidden border border-neutral-700">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.0!2d74.8929!3d21.3492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDIwJzU3LjEiTiA3NMKwNTMnMzQuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2204.1302710641085!2d74.87466393876052!3d21.33888429342791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdf2d0000fe6e4b%3A0x75a40f1477d0d050!2sTapanbhai%20Mukesh%20Bhai%20Patel%20Memorial%20hospital%20shirpur!5e1!3m2!1sen!2sin!4v1782803598577!5m2!1sen!2sin"
                 width="100%"
                 height="160"
                 style={{ border: 0 }}
@@ -155,6 +216,16 @@ export default function Footer() {
                 title="TMPM Hospital Location"
                 aria-label="Hospital location map"
               />
+
+              {/* <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2204.1302710641085!2d74.87466393876052!3d21.33888429342791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdf2d0000fe6e4b%3A0x75a40f1477d0d050!2sTapanbhai%20Mukesh%20Bhai%20Patel%20Memorial%20hospital%20shirpur!5e1!3m2!1sen!2sin!4v1782803598577!5m2!1sen!2sin"
+                width="600"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe> */}
             </div>
             <a
               href="https://maps.google.com/?q=Shirpur+Hospital+Maharashtra"
@@ -172,10 +243,17 @@ export default function Footer() {
       {/* ── Bottom bar ──────────────────────────────────────────────────────── */}
       <div className="border-t border-neutral-800">
         <div className="container-custom py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
-          <p>© {year} SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital &amp; Research Center. All rights reserved.</p>
+          <p>
+            © {year} SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital
+            &amp; Research Center. All rights reserved.
+          </p>
           <nav aria-label="Legal links" className="flex gap-4">
             {footerLinks.legal.map((link) => (
-              <Link key={link.label} href={link.href} className="hover:text-neutral-300 transition-colors">
+              <Link
+                key={link.label}
+                href={link.href}
+                className="hover:text-neutral-300 transition-colors"
+              >
                 {link.label}
               </Link>
             ))}

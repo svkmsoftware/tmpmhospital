@@ -4,18 +4,24 @@
  * LEARNING NOTE — This is the most important file in the architecture.
  *
  * Every data request in the app goes through THIS file, never directly.
- * This gives us the "Strapi-first, local-fallback" pattern:
+ * This gives us the "GraphQL-first, local-fallback" pattern:
  *
- *   1. Try Strapi (if USE_STRAPI=true in .env.local)
- *   2. If Strapi fails → use local data silently
+ *   1. Try GraphQL (if USE_STRAPI=true in .env.local)
+ *   2. If GraphQL fails → use local data silently
  *   3. Components never know which source provided the data
  *
- * When the vendor adds a new endpoint (e.g. /api/doctors), you:
- *   a. Add the fetch function in /lib/strapi/client.ts
- *   b. Add the transform function in /lib/strapi/transformers.ts
- *   c. Update the function below to try Strapi first
+ * Most pages (About, Doctors, Departments, Blogs, Careers, Contact,
+ * OPD, IPD, Day Care) call the GraphQL services directly from
+ * src/lib/graphql/services.ts — this file only wraps the handful of
+ * homepage-level helpers (management team, hospital stats, gallery)
+ * that pull from the SAME About-page query, plus everything that has
+ * no CMS endpoint yet and is local-data-only by design (doctors list,
+ * department list, blogs list, job openings, insurance, testimonials, FAQs).
  *
- * That's it. Zero component changes needed.
+ * When the vendor adds a brand-new endpoint, add the query + service
+ * function to src/lib/graphql/queries.ts / services.ts first, then
+ * wire it into the relevant function below or call it directly from
+ * the page — see the developer reference doc, Section 5.
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -55,9 +61,13 @@ import {
   managementTeam    as managementData,
 } from "@/data/static";
 
-// ── Strapi imports ────────────────────────────────────────────────────────────
-import { fetchAboutPage, USE_STRAPI }    from "@/lib/strapi/client";
-import { transformAboutPage }            from "@/lib/strapi/transformers";
+// ── GraphQL imports ────────────────────────────────────────────────────────────
+// The 3 functions below (getManagementTeam, getHospitalStats, getGalleryImages)
+// all pull from the SAME About page query, so they share one fetch via
+// getAboutPageData() — the unified GraphQL service used by the rest of the app.
+import { getAboutPageData } from "@/lib/graphql/services";
+
+const USE_STRAPI = process.env.USE_STRAPI === "true";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DOCTORS
@@ -128,31 +138,36 @@ export async function getBlogById(id: number): Promise<ApiResponse<Blog | null>>
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ABOUT PAGE — STRAPI INTEGRATED ✓
+// HOMEPAGE / ABOUT-DERIVED DATA — GraphQL Integrated ✓
+// (management team, hospital stats, and gallery all come from the same
+//  About-page GraphQL query — see getAboutPageData() in lib/graphql/services.ts)
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Get the About page management team.
- * This is the first function fully powered by Strapi with local fallback.
+ * Get the management team for display on the homepage / about page.
  *
  * LEARNING NOTE — The pattern used here:
  *   1. Check if USE_STRAPI=true in env
- *   2. Try to fetch + transform from Strapi
+ *   2. Try to fetch + transform from GraphQL
  *   3. If any step throws, catch silently and use local data
  *   4. Return same ApiResponse<T> shape regardless of source
  */
 export async function getManagementTeam(): Promise<ApiResponse<ManagementMember[]>> {
   if (USE_STRAPI) {
     try {
-      const raw = await fetchAboutPage();
-      if (raw) {
-        const transformed = transformAboutPage(raw);
-        if (transformed.management.length > 0) {
-          return { data: transformed.management, success: true };
-        }
+      const data = await getAboutPageData();
+      if (data && data.management.length > 0) {
+        const management: ManagementMember[] = data.management.map((m, i) => ({
+          id:          i + 1,
+          name:        m.name,
+          designation: m.designation,
+          image:       m.image ?? "/images/managementTeam/user.png",
+          bio:         m.bio,
+        }));
+        return { data: management, success: true };
       }
     } catch (error) {
-      console.warn("[API] getManagementTeam Strapi failed, using local data:", error);
+      console.warn("[API] getManagementTeam GraphQL failed, using local data:", error);
     }
   }
   return { data: managementData, success: true };
@@ -191,24 +206,21 @@ export async function getTestimonials(): Promise<ApiResponse<Testimonial[]>> {
 export async function getHospitalStats(): Promise<ApiResponse<HospitalStat[]>> {
   if (USE_STRAPI) {
     try {
-      const raw = await fetchAboutPage();
-      if (raw) {
-        const transformed = transformAboutPage(raw);
-        const apiStats = transformed.about?.stats ?? [];
-        if (apiStats.length > 0) {
-          // Map transformer output → HospitalStat shape
-          const stats: HospitalStat[] = apiStats.map((s, i) => ({
-            id:     i + 1,
-            value:  parseInt(s.value.replace(/[^0-9]/g, ""), 10) || 0,
-            suffix: s.value.includes("+") ? "+" : "",
-            label:  s.label,
-            icon:   s.icon,
-          }));
-          return { data: stats, success: true };
-        }
+      const data = await getAboutPageData();
+      const apiStats = data?.about?.stats ?? [];
+      if (apiStats.length > 0) {
+        // Map GraphQL output → HospitalStat shape
+        const stats: HospitalStat[] = apiStats.map((s, i) => ({
+          id:     i + 1,
+          value:  parseInt(s.value.replace(/[^0-9]/g, ""), 10) || 0,
+          suffix: s.value.includes("+") ? "+" : "",
+          label:  s.label,
+          icon:   "stethoscope",
+        }));
+        return { data: stats, success: true };
       }
     } catch (error) {
-      console.warn("[API] getHospitalStats Strapi failed, using local data:", error);
+      console.warn("[API] getHospitalStats GraphQL failed, using local data:", error);
     }
   }
   return { data: statsData, success: true };
@@ -229,15 +241,18 @@ export async function getFAQs(): Promise<ApiResponse<FAQ[]>> {
 export async function getGalleryImages(): Promise<ApiResponse<GalleryImage[]>> {
   if (USE_STRAPI) {
     try {
-      const raw = await fetchAboutPage();
-      if (raw) {
-        const transformed = transformAboutPage(raw);
-        if (transformed.gallery.length > 0) {
-          return { data: transformed.gallery, success: true };
-        }
+      const data = await getAboutPageData();
+      if (data && data.gallery.length > 0) {
+        const gallery: GalleryImage[] = data.gallery.map((g, i) => ({
+          id:       i + 1,
+          src:      g.src,
+          alt:      g.alt,
+          category: "Facilities",
+        }));
+        return { data: gallery, success: true };
       }
     } catch (error) {
-      console.warn("[API] getGalleryImages Strapi failed, using local data:", error);
+      console.warn("[API] getGalleryImages GraphQL failed, using local data:", error);
     }
   }
   return { data: galleryData, success: true };

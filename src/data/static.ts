@@ -135,48 +135,6 @@ export const managementTeam: ManagementMember[] = [
     image: "/images/managementTeam/kawaljeet_oberoi.png",
     bio: "Ms. Oberoi manages talent acquisition, staff development, and organisational culture across the hospital.",
   },
-  {
-    id: 5,
-    name: "Mr. Arunkumar Rangdale",
-    designation: "Head- Marketing & Sales",
-    image: "/images/managementTeam/arunkumar_rangdale.png",
-    bio: "A seasoned healthcare leader, Arunkumar brings over 26 years of experience to the role. He has spent over a decade in hospital management at renowned institutions, including Kokilaben Dhirubhai Ambani Hospital, SRV Hospital, HCG Cancer Hospitals & Apex Group of Hospitals. Complementing this is 16 years of domestic and international experience in the pharmaceutical industry with prestigious firms like Dr. Reddy’s, American Remedies, and Neopharma (Qatar, Abu Dhabi, Dubai).",
-  },
-  {
-    id: 6,
-    name: "Dr. Sagar Ramchandra Mali",
-    designation: "Insurance Administrator",
-    image: "/images/managementTeam/sagar_ramchandra_mali.png",
-    bio: "Public healthcare professional with over 11 years of diverse experience in the public health sector, specializing in government insurance schemes and quality assurance for government hospitals. Actively contributed to the implementation, coordination, and monitoring of state and national-level health insurance programs, ensuring access to care for underserved populations.",
-  },
-  {
-    id: 7,
-    name: "Mr. Vinod B. Tondwal",
-    designation: "Assistant Director of Information Technology",
-    image: "/images/managementTeam/user.png",
-    bio: "Over 25 years of experience in Information Technology Services management, strategic planning, clinical & LIS operation management, infrastructure, training, IT consulting, IT project management, IT security, and IT asset & license management. Certified with internationally recognised certifications like MCSA, ITIL, RedHat, and AWS. He has extensive experience as an IT Head in reputed multinational companies like Birla Precision Technologies Pvt. Ltd., Siddharth Carbochem Products Ltd, and Dubai-based Gulf Jyoti International.",
-  },
-  {
-    id: 8,
-    name: "Dr. Girish Chaudhari",
-    designation: "Consultant, Pathology & Blood Bank",
-    image: "/images/managementTeam/girish_chaudhari.png",
-    bio: "A distinguished medical professional with 33 years of experience in the fields of Pathology and Blood Banking. Throughout a career spanning over three decades in service to the Government of Maharashtra, Dr. Chaudhari has been instrumental in modernizing blood transfusion services and establishing specialized clinical centers across the state.",
-  },
-  {
-    id: 9,
-    name: "Mr. Mithun Gopalan",
-    designation: "Maintenance In-Charge",
-    image: "/images/managementTeam/user.png",
-    bio: "Competent and result-oriented Mechanical Engineer with rich experience across operation & maintenance of mechanical equipment such as electrical, heating, ventilation, plumbing, air conditioning equipment, and other facility services. Skilled in streamlining daily operations, managing people, resources, and processes to achieve organizational objectives.",
-  },
-  {
-    id: 10,
-    name: "Mr. Jignesh Sheth",
-    designation: "Assistant Director – Software & New Initiatives",
-    image: "/images/managementTeam/user.png",
-    bio: "Seasoned Healthcare IT professional with over two decades of experience in Healthcare IT Operations, ERP implementation, and project management. Jignesh has worked with renowned hospitals like Jupiter, Sir H.N. Reliance, HCG, Jaslok, and Bhatia in driving digital transformation, optimizing operational processes, and successfully delivering HMIS/ERP initiatives to improve organizational efficiency.",
-  },
 ];
 
 export const whyWorkWithUs: WhyWorkItem[] = [

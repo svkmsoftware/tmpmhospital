@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useCallback } from "react";
 import { ArrowRight, ChevronDown, Star, Calendar, Tag, Quote,
-         Phone, Mail, ChevronLeft, ChevronRight, Play, Stethoscope } from "lucide-react";
+         Phone, Mail, ChevronLeft, ChevronRight, Play, Stethoscope, 
+         User} from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn, formatDate } from "@/lib/utils";
 import type { Blog, Testimonial, FAQ, GalleryImage } from "@/types";
@@ -201,6 +202,62 @@ export function BlogsSection({ blogs }: { blogs: Blog[] }) {
   );
 }
 
+// ── News & Events ───────────────────────────────────────────────────────────────
+// New section, sourced entirely from the Home page GraphQL query (home.News /
+// home.News_hwading). Renders nothing if there is no news data — there is no
+// local fallback content for this section since it did not previously exist
+// on the site.
+export interface NewsItem {
+  heading: string;
+  content: string;
+  image: string | null;
+}
+
+interface NewsSectionProps {
+  heading?: string;
+  subheading?: string;
+  news: NewsItem[];
+}
+
+export function NewsSection({ heading, subheading, news }: NewsSectionProps) {
+  if (!news || news.length === 0) return null;
+
+  return (
+    <section id="news" className="section-padding bg-white">
+      <div className="container-custom">
+        <SectionHeader
+          tag="News & Events"
+          title={heading ?? "Latest News & Events"}
+          subtitle={subheading ?? "Stay updated with the latest happenings, achievements, and community outreach from our hospital."}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+          {news.map((item, i) => (
+            <article key={i} className="card group flex flex-col">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={item.image ?? "/images/general_hospital_banner.png"}
+                  alt={item.heading}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-col flex-1 p-5">
+                <h3 className="font-bold text-neutral-800 text-sm group-hover:text-cyan-700 transition-colors leading-snug mb-2">
+                  {item.heading}
+                </h3>
+                <p className="text-xs text-neutral-500 leading-relaxed line-clamp-3 flex-1">
+                  {item.content}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Testimonials ───────────────────────────────────────────────────────────────
 export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
@@ -262,8 +319,8 @@ export function FAQSection({ faqs }: { faqs: FAQ[] }) {
             </p>
             <div className="flex flex-col gap-3">
               {[
-                { Icon: Phone, label: "Call Us", sub: "+91 12345 67890", href: "tel:+911234567890" },
-                { Icon: Mail,  label: "Email Us", sub: "contact@tmpmhospital.com", href: "mailto:contact@tmpmhospital.com" },
+                { Icon: Phone, label: "Call Us", sub: "+91 2563 351503/04", href: "tel:+912563351503" },
+                { Icon: Mail,  label: "Email Us", sub: "contact.tmpmh@svkm.ac.in", href: "mailto:contact.tmpmh@svkm.ac.in" },
               ].map(({ Icon, label, sub, href }) => (
                 <a key={label} href={href}
                    className="flex items-center gap-3 p-4 rounded-2xl border border-neutral-100 hover:border-cyan-200 hover:bg-cyan-50 transition-all group">
@@ -370,7 +427,7 @@ export function ContactCTA() {
           <Link href="/contact" className="btn-outline-white font-bold px-8 py-3.5">
             Book an Appointment <ArrowRight className="w-4 h-4" />
           </Link>
-          <a href="tel:+911234567890"
+          <a href="tel:+912563351503"
              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold hover:bg-white/15 hover:border-white transition-all duration-200">
             <Phone className="w-4 h-4" /> Emergency Line
           </a>

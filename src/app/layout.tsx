@@ -158,8 +158,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="antialiased overflow-x-hidden">
-        <div id="gt-root" aria-hidden="true"></div>
+      <body className="antialiased overflow-x-hidden" suppressHydrationWarning>
+        <div id="gt-root" aria-hidden="true" suppressHydrationWarning></div>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] btn-primary"

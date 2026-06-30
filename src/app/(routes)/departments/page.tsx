@@ -5,6 +5,7 @@ import { LucideIcon, ChevronRight, Stethoscope, Scissors, Heart, Users, Building
 import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDepartments } from "@/lib/api";
+import { getDepartmentPageData, getDepartmentCategoriesData } from "@/lib/graphql/services";
 import { cn } from "@/lib/utils";
 import type { DepartmentItem } from "@/types";
 
@@ -65,6 +66,11 @@ function DeptCard({ dept }: { dept: DepartmentItem }) {
 
 export default async function DepartmentsPage() {
   const { data: departments } = await getDepartments();
+  let bannerImage = "/images/departments_banner.png";
+  try {
+    const gqlPage = await getDepartmentPageData();
+    if (gqlPage?.bannerImage) bannerImage = gqlPage.bannerImage;
+  } catch { /* use local fallback */ }
 
   const categoryColors: Record<string, string> = {
     Specialty: "bg-blue-50 text-blue-700 border-cyan-200",
@@ -77,7 +83,7 @@ export default async function DepartmentsPage() {
     <>
 
       <PageBanner
-        image="/images/departments_banner.png"
+        image={bannerImage}
         title="Departments & Services"
         subtitle="Comprehensive healthcare across specialties — all under one roof in Shirpur."
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Departments" }]}

@@ -326,10 +326,13 @@ export default function Navbar() {
         <div className="container-custom flex items-center justify-between py-1.5">
           <div className="flex items-center gap-5 text-xs text-cyan-100">
             <a href="mailto:contact@tmpmhospital.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Mail className="w-3.5 h-3.5" /> contact@tmpmhospital.com
+              <Mail className="w-3.5 h-3.5" /> contact.tmpmh@svkm.ac.in
             </a>
-            <a href="tel:+911234567890" className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
-              <Phone className="w-3.5 h-3.5" /> Emergency: +91 12345 67890
+            <a href="tel:+912563351505" className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
+              <Phone className="w-3.5 h-3.5" /> Emergency: +91 2563 351505/06
+            </a>
+            <a href="tel:+912563351503" className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
+              <Phone className="w-3.5 h-3.5" /> Appointment: +91 2563 351503/04
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -349,7 +352,7 @@ export default function Navbar() {
       <div className={cn("bg-white border-b border-neutral-100 transition-shadow duration-300", scrolled && "shadow-sm")}>
         <div className="container-custom flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="SVKM TMPM Hospital — Home">
-            <Image src="/images/hospital_website_logo.png" alt="SVKM TMPM Hospital" width={220} height={60} style={{ height: "3rem", width: "auto" }} className="object-contain" priority />
+            <Image src="/images/hospital_website_logo_1.png" alt="SVKM TMPM Hospital" width={220} height={60} style={{ height: "3rem", width: "auto" }} className="object-contain" priority />
           </Link>
 
           <nav className="hidden xl:flex items-center gap-0.5" aria-label="Main navigation">

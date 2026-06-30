@@ -1,98 +1,107 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Search } from "lucide-react";
+import { Stethoscope, Phone, User } from "lucide-react";
 import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
-import { getDoctors } from "@/lib/api";
+import { getConsultantsData, getDocterPageData } from "@/lib/graphql/services";
+import { doctors as localDoctors } from "@/data/doctors";
 
 export const metadata: Metadata = {
   title: "Our Doctors",
-  description:
-    "Meet the expert team of doctors at SVKM's TMPM Hospital — specialists across General Medicine, Surgery, Gynaecology, Paediatrics, Anaesthesiology, and more.",
+  description: "Meet SVKM's TMPM Hospital's expert team of specialist doctors and consultants across all medical and surgical departments.",
   alternates: { canonical: "https://www.tmpmhospital.com/doctors" },
 };
 
 export default async function DoctorsPage() {
-  const { data: doctors } = await getDoctors();
+  // Wrap in try/catch so ANY error still renders the page with local data
+  let gqlDoctors = null;
+  let pageData = null;
+  try {
+    [gqlDoctors, pageData] = await Promise.all([
+      getConsultantsData(),
+      getDocterPageData(),
+    ]);
+  } catch {
+    // GraphQL unavailable — page will use local fallback data below
+  }
+
+  const bannerImage = pageData?.bannerImage ?? "/images/doctors_banner.png";
+  const heading     = pageData?.heading     ?? "Our Doctors";
+  const subheading  = pageData?.subheading  ?? "Expert specialists committed to your health";
+
+  // Use GraphQL doctors if available, else fall back to local
+  const doctors = gqlDoctors && gqlDoctors.length > 0
+    ? gqlDoctors
+    : localDoctors.map((d) => ({
+        id: String(d.id),
+        name: d.name,
+        designation: d.tags[0] ?? "",
+        profileImage: d.profilePhoto,
+        viewProfile: null,
+        bookAppointment: null,
+        departments: (d.tags ?? []).map((t) => ({ name: t, slug: t.toLowerCase().replace(/\s+/g, "-") })),
+      }));
 
   return (
     <>
-
-      <PageBanner
-        image="/images/doctors_banner.png"
-        title="Our Doctors"
-        subtitle="Expert specialists committed to your health and well-being."
-        breadcrumb={[{ label: "Home", href: "/" }, { label: "Doctors" }]}
-      />
+      <PageBanner image={bannerImage} title={heading} subtitle={subheading}
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Doctors" }]} />
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <SectionHeader
-            tag="Our Team"
-            title="Meet Our Specialists"
-            subtitle="Our team of experienced and compassionate doctors are dedicated to providing you with the best possible care."
-          />
-
-          {/* Search hint */}
-          <div className="max-w-lg mx-auto mb-10">
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-400 text-sm">
-              <Search className="w-4 h-4 shrink-0" />
-              <span>Search by name or specialty coming soon…</span>
-            </div>
-          </div>
-
+          <SectionHeader tag="Our Team" title="Meet Our Specialists"
+            subtitle="Experienced doctors committed to delivering compassionate, world-class care." />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 stagger-children">
-            {doctors.map((doctor) => (
-              <Link
-                key={doctor.id}
-                href={`/doctors/${doctor.id}`}
-                className="card group p-6 flex flex-col items-center text-center"
-              >
-                <div
-                  className="relative w-28 h-28 rounded-full overflow-hidden mb-4 ring-4 ring-neutral-100 group-hover:ring-cyan-200 transition-all"
-                >
-                  <Image
-                    src={doctor.profilePhoto}
-                    alt={doctor.name}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="112px"
-                  />
+            {doctors.map((doc) => (
+              <div key={doc.id} className="card group text-center">
+                <div className="relative w-full aspect-square overflow-hidden">
+                  <Image src={doc.profileImage ?? "/images/male_user.png"} alt={doc.name}
+                    fill className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw" />
                 </div>
-                <h3 className="font-bold text-neutral-800 group-hover:text-cyan-700 transition-colors">
-                  {doctor.name}
-                </h3>
-                <div className="flex flex-wrap justify-center gap-1.5 mt-2">
-                  {doctor.tags.slice(0, 2).map((tag) => (
-                    <span key={tag} className="badge badge-primary text-2xs">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {doctor.department.length > 0 && (
-                  <p className="mt-2 text-xs text-neutral-400">
-                    {doctor.department.join(", ")}
+                <div className="p-5">
+                  <h3 className="font-bold text-neutral-800 mb-1">{doc.name}</h3>
+                  <p className="text-xs font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
+                    {doc.designation}
                   </p>
-                )}
-                <div
-                  className="mt-4 flex items-center gap-1 text-sm font-medium"
-                  style={{ color: "var(--color-primary)" }}
-                >
-                  View Profile <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {doc.departments.length > 0 && (
+                    <div className="flex flex-wrap gap-1 justify-center mb-4">
+                      {doc.departments.slice(0, 2).map((dept) => (
+                        <span key={dept.slug} className="badge badge-primary text-xs">{dept.name}</span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    {doc.viewProfile ? (
+                      <a href={doc.viewProfile} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <User className="w-3 h-3" /> Profile
+                      </a>
+                    ) : (
+                      <Link href={`/doctors/${doc.id}`}
+                        className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <User className="w-3 h-3" /> Profile
+                      </Link>
+                    )}
+                    {doc.bookAppointment ? (
+                      <a href={doc.bookAppointment} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <Phone className="w-3 h-3" /> Book
+                      </a>
+                    ) : (
+                      <Link href="/contact"
+                        className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <Phone className="w-3 h-3" /> Book
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
-
-          {doctors.length === 0 && (
-            <div className="text-center py-20 text-neutral-400">
-              <p className="text-lg">Doctor profiles coming soon.</p>
-            </div>
-          )}
         </div>
       </section>
-
       <ContactCTA />
     </>
   );

@@ -4,9 +4,9 @@
 export const aboutData = {
   heading:    "About Us",
   subheading: "Where Compassion Meets Commitment: Right Where It's Needed Most.",
-  description: `SVKM’S Tapanbai Mukeshbhai Patel Memorial Hospital (TMPMH), Shirpur, is a state‑of‑the‑art tertiary care hospital established under the esteemed Shri Vile Parle Kelavani Mandal (SVKM’S). Guided by a strong social commitment to serve the unserved and reach the unreached, the hospital has been developed to deliver advanced, ethical, and compassionate healthcare to the people of North Maharashtra and the adjoining regions of Madhya Pradesh and Gujarat. Strategically located at the tri‑state junction,
+  description: `SVKM's Tapanbhai Mukeshbhai Patel Memorial Hospital (TMPMH), Shirpur, is a state-of-the-art tertiary care hospital established under the esteemed Shri Vile Parle Kelavani Mandal (SVKM). Guided by a strong social commitment to serve the unserved and reach the unreached, the hospital has been developed to deliver advanced, ethical, and compassionate healthcare to the people of North Maharashtra and the adjoining regions of Madhya Pradesh and Gujarat.
 
-With a proposed capacity of 1,200 beds and a comprehensive range of core and super‑specialty services, TMPMH combines modern medical technology, expert clinical care, and patient‑centric design. The hospital follows the principle of “Equal Care, Equal Dignity,” ensuring that every patient—regardless of economic or social background—receives the same standard of clinical excellence, safety, and compassion. Rooted in SVKM’S legacy of service and social upliftment, TMPMH stands committed to providing accessible, high‑quality healthcare while strengthening the overall health of the region.`,
+With a proposed capacity of 1,200 beds and a comprehensive range of core and super-specialty services, TMPMH combines modern medical technology, expert clinical care, and patient-centric design. The hospital follows the principle of "Equal Care, Equal Dignity," ensuring that every patient — regardless of economic or social background — receives the same standard of clinical excellence, safety, and compassion.`,
 
   stats: [
     { label: "Area",                          value: "17.5 Lakh sq.ft.", icon: "ruler"         },
