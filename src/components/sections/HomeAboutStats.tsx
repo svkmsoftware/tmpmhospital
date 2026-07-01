@@ -221,6 +221,51 @@ export function WhyChooseUsSection() {
   );
 }
 
+const hospitalStats: HospitalStat[] = [
+  {
+    id: 1,
+    value: 1200,
+    suffix: "",
+    label: "Total Beds",
+    icon: "bed",
+  },
+  {
+    id: 2,
+    value: 150,
+    suffix: "+",
+    label: "ICU Beds",
+    icon: "heart-pulse",
+  },
+  {
+    id: 3,
+    value: 34,
+    suffix: "",
+    label: "Emergency Beds",
+    icon: "heart",
+  },
+  {
+    id: 4,
+    value: 17,
+    suffix: "",
+    label: "Major OTs",
+    icon: "scissors",
+  },
+  {
+    id: 5,
+    value: 9,
+    suffix: "",
+    label: "Minor OTs",
+    icon: "scissors",
+  },
+  {
+    id: 6,
+    value: 1,
+    suffix: "",
+    label: "Cath Lab",
+    icon: "stethoscope",
+  },
+];
+
 // ─── Animated stats counter (Image 2 style — dark bg) ────────────────────────
 function useCountUp(target: number, duration = 1800, enabled = false) {
   const [count, setCount] = useState(0);
@@ -286,7 +331,8 @@ export function StatsSection({ stats }: { stats: HospitalStat[] }) {
       </div>
       <div className="container-custom">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y-2 sm:divide-y-0 sm:divide-x divide-white/10">
-          {stats.map((stat) => <StatCard key={stat.id} stat={stat} enabled={started} />)}
+          {/* {stats.map((stat) => <StatCard key={stat.id} stat={stat} enabled={started} />)} */}
+          {hospitalStats.map((stat) => <StatCard key={stat.id} stat={stat} enabled={started} />)}
         </div>
       </div>
     </section>

@@ -17,6 +17,7 @@ const slides = [
   {
     id: 1,
     image: "/images/hospital_banner_images0.png",
+    image_mobile: "/images/hospital_banner_images0_mobile.png",
     eyebrow: "Shirpur's Premier Healthcare Destination",
     heading: "Compassionate Care,\nAdvanced Medicine",
     body: "A 1200-bed multispecialty hospital serving tribal and rural Maharashtra with world-class, affordable healthcare.",
@@ -26,6 +27,7 @@ const slides = [
   {
     id: 2,
     image: "/images/hospital_banner_images1.png",
+    image_mobile: "/images/hospital_banner_images1_mobile.png",
     eyebrow: "SVKM's TMPM Hospital",
     heading: "Your Health,\nOur Mission",
     body: "17 operation theatres, specialized ICUs, and 50+ expert specialists committed to excellence at every step.",
@@ -35,6 +37,7 @@ const slides = [
   {
     id: 3,
     image: "/images/hospital_banner_images2.png",
+    image_mobile: "/images/hospital_banner_images2_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -44,6 +47,7 @@ const slides = [
   {
     id: 4,
     image: "/images/hospital_banner_images3.png",
+    image_mobile: "/images/hospital_banner_images3_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -53,6 +57,7 @@ const slides = [
   {
     id: 5,
     image: "/images/hospital_banner_images4.png",
+    image_mobile: "/images/hospital_banner_images4_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -62,6 +67,7 @@ const slides = [
   {
     id: 6,
     image: "/images/hospital_banner_images5.png",
+    image_mobile: "/images/hospital_banner_images5_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -71,6 +77,7 @@ const slides = [
   {
     id: 7,
     image: "/images/hospital_banner_images6.png",
+    image_mobile: "/images/hospital_banner_images6_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -80,6 +87,7 @@ const slides = [
   {
     id: 8,
     image: "/images/hospital_banner_images7.png",
+    image_mobile: "/images/hospital_banner_images7_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -89,6 +97,7 @@ const slides = [
   {
     id: 9,
     image: "/images/hospital_banner_images8.png",
+    image_mobile: "/images/hospital_banner_images8_mobile.png",
     eyebrow: "Complete Spectrum of Care",
     heading: "Specialty & Super\nSpecialty Services",
     body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
@@ -153,8 +162,11 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden h-[60vh] md:h-[100svh] min-h-[350px] md:min-h-[600px] max-h-[900px]"
+      className="relative w-full overflow-hidden"
       style={{
+        height: "100svh",
+        minHeight: 600,
+        maxHeight: 900,
         marginTop: "calc(-1 * var(--total-header))",
       }}
       aria-label="Hero banner"
@@ -171,14 +183,27 @@ export default function HeroSection() {
           )}
           aria-hidden={i !== current}
         >
-          <Image
-            src={s.image}
-            alt=""
-            fill
-            className="object-center"
-            priority={i === 0}
-            sizes="100vw"
-          />
+          <>
+            {/* Desktop */}
+            <Image
+              src={s.image}
+              alt=""
+              fill
+              priority={i === 0}
+              sizes="100vw"
+              className="hidden md:block object-contain object-center"
+            />
+
+            {/* Mobile */}
+            <Image
+              src={s.image_mobile}
+              alt=""
+              fill
+              priority={i === 0}
+              sizes="100vw"
+              className="block md:hidden object-contain object-center"
+            />
+          </>
           {/* Directional gradient overlay */}
           {/* <div
             className="absolute inset-0"
@@ -293,7 +318,7 @@ export default function HeroSection() {
       </div>
 
       {/* ── Quick access strip ────────────────────────────────────────────── */}
-      <div className="absolute z-20 bottom-0 left-0 right-0">
+      <div className="absolute z-20 bottom-0 left-0 right-0 hidden md:block">
         <div className="container-custom">
           <div className="grid grid-cols-3 max-w-xl">
             {quickAccess.map(({ icon: Icon, label, sub, href, bg }) => (

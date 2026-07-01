@@ -352,7 +352,7 @@ export default function Navbar() {
       <div className={cn("bg-white border-b border-neutral-100 transition-shadow duration-300", scrolled && "shadow-sm")}>
         <div className="container-custom flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="SVKM TMPM Hospital — Home">
-            <Image src="/images/hospital_website_logo_1.png" alt="SVKM TMPM Hospital" width={220} height={60} style={{ height: "3rem", width: "auto" }} className="object-contain" priority />
+            <Image src="/images/hospital_website_logo_1.png" alt="SVKM TMPM Hospital" width={220} height={60} style={{ height: "3rem", width: "auto" }} className="object-contain md:mr-5" priority />
           </Link>
 
           <nav className="hidden xl:flex items-center gap-0.5" aria-label="Main navigation">
