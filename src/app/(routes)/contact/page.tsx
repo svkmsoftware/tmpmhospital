@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 const defaultContactItems = [
   { icon: MapPin,  label: "Location",   value: "SVKM's TMPM Hospital, Kharde Budruk, Shirpur, Dhule – 425405, Maharashtra" },
-  { icon: Phone,   label: "Call Us",    value: "+91 12345 67890"            },
-  { icon: Mail,    label: "Email Us",   value: "contact@tmpmhospital.com"   },
+  { icon: Phone,   label: "Call Us",    value: "+91 2563 351503/04"            },
+  { icon: Mail,    label: "Email Us",   value: "contact.tmpmh@svkm.ac.in"   },
   { icon: Clock,   label: "OPD Hours",  value: "Mon – Sat: 8:00 AM – 8:00 PM" },
 ];
 
@@ -73,9 +73,9 @@ export default async function ContactPage() {
 
               {/* Emergency CTA */}
               <div className="rounded-2xl p-5 text-white" style={{ background: "var(--gradient-main)" }}>
-                <p className="font-bold mb-1">Emergency Services</p>
+                <p className="font-bold mb-1 text-white">Emergency Services</p>
                 <p className="text-white/80 text-sm mb-3">Available 24 hours, 7 days a week</p>
-                <a href="tel:+911234567890"
+                <a href="tel:+912563351503"
                    className="inline-flex items-center gap-2 bg-white rounded-xl px-4 py-2 text-sm font-bold"
                    style={{ color: "var(--color-primary)" }}>
                   <Phone className="w-4 h-4" /> Call Emergency
