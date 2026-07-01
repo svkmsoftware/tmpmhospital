@@ -31,7 +31,7 @@
  * • This means page loads are always FAST (cached), but content stays fresh
  */
 
-// const GRAPHQL_ENDPOINT = `${process.env.STRAPI_API_URL}/graphql`;
+const GRAPHQL_ENDPOINT = `${process.env.STRAPI_API_URL}/graphql`;
 
 // Optional auth token (if your Strapi GraphQL endpoint requires it)
 const GRAPHQL_TOKEN = process.env.STRAPI_API_TOKEN ?? "";
