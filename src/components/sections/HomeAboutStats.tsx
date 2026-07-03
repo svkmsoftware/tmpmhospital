@@ -266,7 +266,7 @@ const hospitalStats: HospitalStat[] = [
   },
 ];
 
-// ─── Animated stats counter (Image 2 style — dark bg) ────────────────────────
+// ─── Animated stats counter (Image style — light bg, bordered cards) ─────────
 function useCountUp(target: number, duration = 1800, enabled = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -293,16 +293,20 @@ const statIconMap: Record<string, LucideIcon> = {
 
 function StatCard({ stat, enabled }: { stat: HospitalStat; enabled: boolean }) {
   const count = useCountUp(stat.value, 1800, enabled);
-  const Icon  = statIconMap[stat.icon] ?? Stethoscope;
   return (
-    <div className="flex flex-col items-center text-center px-6 py-8">
-      <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-4">
-        <Icon className="w-7 h-7 text-white" />
-      </div>
-      <p className="text-4xl md:text-5xl font-bold text-white leading-none">
+    <div
+      className="relative bg-white rounded-2xl overflow-hidden text-center px-4 py-8
+                 border border-primary-pale shadow-card transition-all duration-300
+                 hover:-translate-y-1 hover:shadow-card-hover"
+    >
+      {/* Gradient top bar */}
+      <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: "var(--gradient-main)" }} />
+      <p className="text-4xl md:text-5xl font-extrabold leading-none" style={{ color: "var(--color-primary)" }}>
         {count.toLocaleString("en-IN")}{stat.suffix}
       </p>
-      <p className="mt-2 text-cyan-100 text-sm">{stat.label}</p>
+      <p className="mt-3 text-sm font-semibold" style={{ color: "var(--color-text)" }}>
+        {stat.label}
+      </p>
     </div>
   );
 }
@@ -321,18 +325,43 @@ export function StatsSection({ stats }: { stats: HospitalStat[] }) {
   }, []);
 
   return (
-    <section ref={ref} className="relative overflow-hidden" style={{ background: "#0f172a" }}>
-      {/* Gradient line at top */}
-      <div className="h-1 w-full" style={{ background: "var(--gradient-main)" }}></div>
-      <div className="container-custom py-2">
-        <p className="text-center text-sm font-bold tracking-widest uppercase text-cyan-400 pt-8 pb-2">
-          Milestones That Speak For Themselves
-        </p>
-      </div>
+    <section ref={ref} className="relative overflow-hidden bg-white py-20 md:py-28">
       <div className="container-custom">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y-2 sm:divide-y-0 sm:divide-x divide-white/10">
-          {/* {stats.map((stat) => <StatCard key={stat.id} stat={stat} enabled={started} />)} */}
-          {hospitalStats.map((stat) => <StatCard key={stat.id} stat={stat} enabled={started} />)}
+        {/* Kicker badge */}
+        <div className="flex justify-center mb-6">
+          <span
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold tracking-[0.15em] uppercase"
+            style={{ background: "var(--color-accent-pale)", color: "var(--color-text)" }}
+          >
+            <span className="w-2 h-2 rounded-full" style={{ background: "var(--color-accent)" }} />
+            Hospital Capacity
+          </span>
+        </div>
+
+        {/* Heading */}
+        <h2
+          className="text-center font-display text-4xl md:text-5xl lg:text-6xl leading-tight max-w-4xl mx-auto mb-6"
+          style={{ color: "var(--color-text)" }}
+        >
+          A Newly Inaugurated{" "}
+          <span style={{ color: "var(--color-accent)" }}>Multispecialty</span>{" "}
+          <span style={{ color: "var(--color-primary)" }}>Hospital</span>
+        </h2>
+
+        {/* Subtitle */}
+        <p
+          className="text-center text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-14"
+          style={{ color: "var(--color-text-muted)" }}
+        >
+          Built with modern infrastructure, advanced care units, and large-scale capacity
+          to serve patients across North Maharashtra and nearby regions.
+        </p>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+          {stats.map((stat) => (
+            <StatCard key={stat.id} stat={stat} enabled={started} />
+          ))}
         </div>
       </div>
     </section>
@@ -484,53 +513,66 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
           className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {doctors.map((doc) => (
-            <div
-              key={doc.id}
-              className="card group text-center shrink-0 snap-start"
-              style={{ width: 240 }}
-            >
-              <div className="relative w-full aspect-square overflow-hidden">
-                <Image
-                  src={doc.profileImage ?? "/images/male_user.png"}
-                  alt={doc.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="240px"
-                />
-              </div>
-              <div className="p-5">
-                <h3 className="font-bold text-neutral-800 mb-1 text-sm">{doc.name}</h3>
-                <p className="text-xs font-semibold mb-4" style={{ color: "var(--color-primary)" }}>
-                  {doc.designation}
-                </p>
-                <div className="flex gap-2">
-                  {doc.viewProfile ? (
-                    <a href={doc.viewProfile} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
-                      <User className="w-3 h-3" /> Profile
-                    </a>
-                  ) : (
-                    <Link href={`/doctors/${doc.id}`}
-                      className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
-                      <User className="w-3 h-3" /> Profile
-                    </Link>
-                  )}
-                  {doc.bookAppointment ? (
-                    <a href={doc.bookAppointment} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
-                      <Phone className="w-3 h-3" /> Book
-                    </a>
-                  ) : (
-                    <Link href="/contact"
-                      className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
-                      <Phone className="w-3 h-3" /> Book
-                    </Link>
-                  )}
+          {doctors.map((doc) => {
+            // Carry image + designation (+ name) through the URL so the
+            // detail page can render even if its own lookup (local-only
+            // getDoctorById) doesn't recognize this doctor's id — e.g.
+            // when this list is sourced from GraphQL/Strapi ids that
+            // don't exist in the local doctors dataset.
+            const profileQuery = new URLSearchParams({
+              image: doc.profileImage ?? "/images/male_user.png",
+              designation: doc.designation ?? "",
+              name: doc.name ?? "",
+            }).toString();
+
+            return (
+              <div
+                key={doc.id}
+                className="card group text-center shrink-0 snap-start"
+                style={{ width: 240 }}
+              >
+                <div className="relative w-full aspect-square overflow-hidden">
+                  <Image
+                    src={doc.profileImage ?? "/images/male_user.png"}
+                    alt={doc.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="240px"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-bold text-neutral-800 mb-1 text-sm">{doc.name}</h3>
+                  <p className="text-xs font-semibold mb-4" style={{ color: "var(--color-primary)" }}>
+                    {doc.designation}
+                  </p>
+                  <div className="flex gap-2">
+                    {doc.viewProfile ? (
+                      <a href={doc.viewProfile} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <User className="w-3 h-3" /> Profile
+                      </a>
+                    ) : (
+                      <Link href={`/doctors/${doc.id}?${profileQuery}`}
+                        className="flex-1 btn-outline text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <User className="w-3 h-3" /> Profile
+                      </Link>
+                    )}
+                    {doc.bookAppointment ? (
+                      <a href={doc.bookAppointment} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <Phone className="w-3 h-3" /> Book
+                      </a>
+                    ) : (
+                      <Link href="/contact"
+                        className="flex-1 btn-gradient text-xs py-2 px-3 flex items-center justify-center gap-1">
+                        <Phone className="w-3 h-3" /> Book
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

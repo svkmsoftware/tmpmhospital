@@ -110,7 +110,7 @@ export default async function AboutPage() {
                     priority
                   />
                 </div>
-                <div
+                {/* <div
                   className="absolute -bottom-5 -right-4 hidden sm:flex flex-col items-center
                              justify-center w-32 h-32 rounded-2xl text-white shadow-xl"
                   style={{ background: "var(--gradient-main)" }}
@@ -119,7 +119,7 @@ export default async function AboutPage() {
                   <span className="text-xs text-white/80 mt-1 text-center leading-tight">
                     Years of<br />Excellence
                   </span>
-                </div>
+                </div> */}
               </div>
 
               <div>
@@ -276,7 +276,7 @@ export default async function AboutPage() {
               <div
                 key={i}
                 className="flex items-center gap-3 p-4 rounded-xl"
-                style={{ background: "var(--color-primary-pale)", border: "1px solid #bae6fd" }}
+                style={{ background: "var(--color-primary-pale)", border: "1px solid #D8EEE8" }}
               >
                 <div className="w-2 h-2 rounded-full shrink-0" style={{ background: "var(--color-accent)" }}></div>
                 <span className="text-sm font-medium text-neutral-700">{scheme}</span>

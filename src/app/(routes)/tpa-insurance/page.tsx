@@ -104,7 +104,7 @@ export default async function TpaInsurancePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-12 stagger-children">
             {aboutData.governmentSchemes.map((scheme, i) => (
               <div key={i} className="flex items-center gap-3 p-4 rounded-xl"
-                   style={{ background: "var(--color-primary-pale)", border: "1px solid #bae6fd" }}>
+                   style={{ background: "var(--color-primary-pale)", border: "1px solid #D8EEE8" }}>
                 <CheckCircle2 className="w-4 h-4 shrink-0" color="var(--color-accent)" />
                 <span className="text-sm font-medium text-neutral-700">{scheme}</span>
               </div>

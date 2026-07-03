@@ -262,7 +262,7 @@ export function NewsSection({ heading, subheading, news }: NewsSectionProps) {
 export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
     <section id="testimonials" className="section-padding relative overflow-hidden"
-             style={{ background: "#0f172a" }}>
+             style={{ background: "#08232D" }}>
       <div className="h-1 absolute top-0 left-0 right-0" style={{ background: "var(--gradient-main)" }}></div>
       <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-cyan-500/5 pointer-events-none"></div>
       <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-green-500/5 pointer-events-none"></div>

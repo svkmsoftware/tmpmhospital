@@ -2,13 +2,22 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { GraduationCap, Award, Clock, ChevronRight, Phone, Calendar } from "lucide-react";
+import {
+  GraduationCap,
+  Award,
+  Clock,
+  ChevronRight,
+  Phone,
+  Calendar,
+} from "lucide-react";
 import { PageBanner } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDoctorById, getDoctors } from "@/lib/api";
+import type { Doctor } from "@/types";
 
 interface Props {
   params: { id: string };
+  searchParams: { image?: string; designation?: string; name?: string };
 }
 
 export async function generateStaticParams() {
@@ -16,27 +25,74 @@ export async function generateStaticParams() {
   return doctors.map((d) => ({ id: String(d.id) }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { data: doctor } = await getDoctorById(Number(params.id));
-  if (!doctor) return { title: "Doctor Not Found" };
+// Build a minimal Doctor object from URL query params when the local
+// dataset doesn't have this id (e.g. the listing page rendered this card
+// from GraphQL/Strapi). Keeps the page from 404ing — just with an empty bio.
+function fallbackDoctorFromQuery(
+  id: string,
+  searchParams: Props["searchParams"],
+): Doctor | null {
+  const { name, image, designation } = searchParams;
+  if (!name && !image && !designation) return null;
+
   return {
-    title: doctor.name,
-    description: `${doctor.name} — ${doctor.tags.join(", ")} at SVKM's TMPM Hospital, Shirpur.`,
-    alternates: { canonical: `https://www.tmpmhospital.com/doctors/${doctor.id}` },
+    id: Number(id) || 0,
+    name: name ?? "Doctor",
+    tags: designation ? [designation] : [],
+    profilePhoto: image ?? "/images/male_user.png",
+    department: [],
+    bio_data: {
+      opdTiming: {},
+      aboutDoctor: [],
+      educationQualification: [],
+      experience: [],
+      honoursAndAwards: [],
+      publication: [],
+    },
   };
 }
 
-const DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const { data } = await getDoctorById(Number(params.id));
+  const doctor = data ?? fallbackDoctorFromQuery(params.id, searchParams);
+  if (!doctor) return { title: "Doctor Not Found" };
+  return {
+    title: doctor.name,
+    description: `${doctor.name}${doctor.tags.length ? ` — ${doctor.tags.join(", ")}` : ""} at SVKM's TMPM Hospital, Shirpur.`,
+    alternates: {
+      canonical: `https://www.tmpmhospital.com/doctors/${params.id}`,
+    },
+  };
+}
 
-export default async function DoctorProfilePage({ params }: Props) {
-  const { data: doctor } = await getDoctorById(Number(params.id));
+const DAYS = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+] as const;
+
+export default async function DoctorProfilePage({
+  params,
+  searchParams,
+}: Props) {
+  // const { data } = await getDoctorById(Number(params.id));
+  const data = null;
+  // const doctor = data ?? fallbackDoctorFromQuery(params.id, searchParams);
+  const doctor = fallbackDoctorFromQuery(params.id, searchParams);
+
+  // Only 404 if we have neither a local match nor anything passed via the URL
   if (!doctor) notFound();
 
   const { bio_data } = doctor;
 
   return (
     <>
-
       <PageBanner
         image="/images/doctors_banner.png"
         title={doctor.name}
@@ -67,23 +123,35 @@ export default async function DoctorProfilePage({ params }: Props) {
                   />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-neutral-800">{doctor.name}</h1>
+                  <h1 className="text-2xl font-bold text-neutral-800">
+                    {doctor.name}
+                  </h1>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {doctor.tags.map((tag) => (
-                      <span key={tag} className="badge badge-primary">{tag}</span>
+                      <span key={tag} className="badge badge-primary">
+                        {tag}
+                      </span>
                     ))}
                   </div>
                   {doctor.department.length > 0 && (
                     <p className="mt-3 text-sm text-neutral-500">
-                      <span className="font-medium text-neutral-700">Department: </span>
+                      <span className="font-medium text-neutral-700">
+                        Department:{" "}
+                      </span>
                       {doctor.department.join(", ")}
                     </p>
                   )}
                   <div className="flex gap-3 mt-4">
-                    <Link href="/contact" className="btn-primary text-sm py-2 px-4">
+                    <Link
+                      href="/contact"
+                      className="btn-primary text-sm py-2 px-4"
+                    >
                       <Calendar className="w-4 h-4" /> Book Appointment
                     </Link>
-                    <a href="tel:+911234567890" className="btn-outline text-sm py-2 px-4">
+                    <a
+                      href="tel:+911234567890"
+                      className="btn-outline text-sm py-2 px-4"
+                    >
                       <Phone className="w-4 h-4" /> Call
                     </a>
                   </div>
@@ -93,10 +161,17 @@ export default async function DoctorProfilePage({ params }: Props) {
               {/* About */}
               {bio_data.aboutDoctor.length > 0 && (
                 <div className="card p-6">
-                  <h2 className="font-bold text-lg text-neutral-800 mb-4">About</h2>
+                  <h2 className="font-bold text-lg text-neutral-800 mb-4">
+                    About
+                  </h2>
                   <div className="space-y-4">
                     {bio_data.aboutDoctor.map((para, i) => (
-                      <p key={i} className="text-neutral-600 leading-relaxed text-sm">{para}</p>
+                      <p
+                        key={i}
+                        className="text-neutral-600 leading-relaxed text-sm"
+                      >
+                        {para}
+                      </p>
                     ))}
                   </div>
                 </div>
@@ -106,13 +181,22 @@ export default async function DoctorProfilePage({ params }: Props) {
               {bio_data.educationQualification.length > 0 && (
                 <div className="card p-6">
                   <h2 className="font-bold text-lg text-neutral-800 mb-4 flex items-center gap-2">
-                    <GraduationCap className="w-5 h-5" color="var(--color-primary)" />
+                    <GraduationCap
+                      className="w-5 h-5"
+                      color="var(--color-primary)"
+                    />
                     Education & Qualifications
                   </h2>
                   <ul className="space-y-2">
                     {bio_data.educationQualification.map((q, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-neutral-600">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-primary)" }}></span>
+                      <li
+                        key={i}
+                        className="flex gap-3 text-sm text-neutral-600"
+                      >
+                        <span
+                          className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
+                          style={{ background: "var(--color-primary)" }}
+                        ></span>
                         {q}
                       </li>
                     ))}
@@ -129,12 +213,27 @@ export default async function DoctorProfilePage({ params }: Props) {
                   </h2>
                   <ul className="space-y-2">
                     {bio_data.honoursAndAwards.map((award, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-neutral-600">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-accent)" }}></span>
+                      <li
+                        key={i}
+                        className="flex gap-3 text-sm text-neutral-600"
+                      >
+                        <span
+                          className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
+                          style={{ background: "var(--color-accent)" }}
+                        ></span>
                         {award}
                       </li>
                     ))}
                   </ul>
+                </div>
+              )}
+
+              {/* Fallback notice when only URL-passed data is available */}
+              {!data && (
+                <div className="card p-6 text-sm text-neutral-500">
+                  Full profile details for this doctor aren&apos;t available
+                  yet. Please call the hospital or book an appointment for more
+                  information.
                 </div>
               )}
             </div>
@@ -151,9 +250,16 @@ export default async function DoctorProfilePage({ params }: Props) {
                   {DAYS.map((day) => {
                     const timing = bio_data.opdTiming[day];
                     return (
-                      <div key={day} className="flex justify-between text-sm py-1.5 border-b border-neutral-100 last:border-0">
-                        <span className="capitalize font-medium text-neutral-700">{day}</span>
-                        <span className="text-neutral-500 text-xs">{timing ?? "—"}</span>
+                      <div
+                        key={day}
+                        className="flex justify-between text-sm py-1.5 border-b border-neutral-100 last:border-0"
+                      >
+                        <span className="capitalize font-medium text-neutral-700">
+                          {day}
+                        </span>
+                        <span className="text-neutral-500 text-xs">
+                          {timing ?? "—"}
+                        </span>
                       </div>
                     );
                   })}

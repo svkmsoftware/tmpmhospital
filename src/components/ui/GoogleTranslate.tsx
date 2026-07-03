@@ -167,7 +167,7 @@ export default function GoogleTranslate({ variant = "dark" }: Props) {
               <div className="flex flex-col gap-0.5">
                 <span
                   className="font-semibold leading-none text-sm"
-                  style={{ color: isActive ? "var(--color-primary)" : "#1f2937" }}
+                  style={{ color: isActive ? "var(--color-primary)" : "#08232D" }}
                 >
                   {lang.native}
                 </span>
