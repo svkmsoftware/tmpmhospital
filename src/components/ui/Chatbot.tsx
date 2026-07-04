@@ -23,11 +23,11 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["appointment", "book", "schedule", "consult", "visit"],
-    answer: "📅 **Book an Appointment:**\nYou can book in 3 ways:\n1. Call **+91 12345 67890**\n2. Visit the [Contact page](/contact)\n3. Walk into the OPD registration desk\n\nShall I help with anything else?",
+    answer: "📅 **Book an Appointment:**\nYou can book in 3 ways:\n1. Call **+91 2563 351503/04**\n2. Visit the [Contact page](/contact)\n3. Walk into the OPD registration desk\n\nShall I help with anything else?",
   },
   {
     patterns: ["emergency", "urgent", "accident", "icu", "critical", "ambulance"],
-    answer: "🚨 **Emergency Services:**\nOur Emergency Department is open **24 hours, 7 days a week**.\n\n📞 **Emergency Hotline:** +91 12345 67890\n\nWe have **34 emergency beds**, dedicated emergency physicians, and **2 ACLS + 4 BLS ambulances** always on duty.",
+    answer: "🚨 **Emergency Services:**\nOur Emergency Department is open **24 hours, 7 days a week**.\n\n📞 **Emergency Hotline:** +91 2563 351503/04\n\nWe have **34 emergency beds**, dedicated emergency physicians, and **2 ACLS + 4 BLS ambulances** always on duty.",
   },
   {
     patterns: ["doctor", "specialist", "physician", "surgeon", "gynaecologist", "paediatric", "ortho"],
@@ -59,7 +59,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["fee", "charge", "cost", "tariff", "price", "bill"],
-    answer: "💳 **Hospital Charges:**\nWe follow transparent, affordable pricing with a commitment to equitable care.\n\n📄 [Download Tariff Sheet](https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing)\n\nFor billing queries, contact us at **+91 12345 67890**.",
+    answer: "💳 **Hospital Charges:**\nWe follow transparent, affordable pricing with a commitment to equitable care.\n\n📄 [Download Tariff Sheet](https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing)\n\nFor billing queries, contact us at **+91 2563 351503/04**.",
   },
   {
     patterns: ["career", "job", "vacancy", "opening", "hiring", "work"],
@@ -67,19 +67,19 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["dialysis", "kidney", "nephrology", "renal"],
-    answer: "💧 **Dialysis Services:**\nWe have an **18-bed Dialysis Unit** providing haemodialysis and peritoneal dialysis.\n\nWe are empanelled under **PMNDP (National Dialysis Programme)** for government-subsidised dialysis for eligible patients.\n\nFor appointments, call **+91 12345 67890**.",
+    answer: "💧 **Dialysis Services:**\nWe have an **18-bed Dialysis Unit** providing haemodialysis and peritoneal dialysis.\n\nWe are empanelled under **PMNDP (National Dialysis Programme)** for government-subsidised dialysis for eligible patients.\n\nFor appointments, call **+91 2563 351503/04**.",
   },
   {
     patterns: ["cancer", "oncology", "chemo", "chemotherapy", "tumour"],
-    answer: "🩺 **Oncology Services:**\nOur dedicated Oncology Unit offers:\n• Medical & Surgical Oncology\n• **16-bed Chemotherapy Unit** (2600 sq.ft. dedicated space)\n• Cancer surgery, targeted therapy, immunotherapy\n• Tumour board discussions\n• Palliative care\n\nFor consultations, call **+91 12345 67890**.",
+    answer: "🩺 **Oncology Services:**\nOur dedicated Oncology Unit offers:\n• Medical & Surgical Oncology\n• **16-bed Chemotherapy Unit** (2600 sq.ft. dedicated space)\n• Cancer surgery, targeted therapy, immunotherapy\n• Tumour board discussions\n• Palliative care\n\nFor consultations, call **+91 2563 351503/04**.",
   },
   {
     patterns: ["mri", "ct scan", "xray", "x-ray", "radiology", "imaging", "scan", "mammography", "ultrasound"],
-    answer: "🔬 **Radiology & Imaging:**\nOur department includes:\n• MRI (Helium-free)\n• CT Scan\n• Mammography\n• Digital X-Ray\n• C-Arm Imaging\n• BDM Scanner\n• Ultrasound\n\nFor appointments, call **+91 12345 67890**.",
+    answer: "🔬 **Radiology & Imaging:**\nOur department includes:\n• MRI (Helium-free)\n• CT Scan\n• Mammography\n• Digital X-Ray\n• C-Arm Imaging\n• BDM Scanner\n• Ultrasound\n\nFor appointments, call **+91 2563 351503/04**.",
   },
   {
     patterns: ["lab", "laboratory", "test", "blood test", "pathology", "ccl"],
-    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOur 2500 sq.ft. state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **+91 12345 67890**.",
+    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOur 2500 sq.ft. state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **+91 2563 351503/04**.",
   },
   {
     patterns: ["area", "size", "sqft", "square feet", "campus", "large", "big"],
@@ -91,7 +91,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["thank", "thanks", "thankyou", "ok", "okay", "great", "perfect"],
-    answer: "😊 You're welcome! If you need any more help, feel free to ask.\n\nFor urgent queries, call us at **+91 12345 67890** (available 24 × 7).",
+    answer: "😊 You're welcome! If you need any more help, feel free to ask.\n\nFor urgent queries, call us at **+91 2563 351503/04** (available 24 × 7).",
   },
   {
     patterns: ["pharmacy", "medicine", "drug", "chemist"],
@@ -107,7 +107,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["blood bank", "blood", "donation", "transfusion"],
-    answer: "🩸 **Blood Bank:**\nOur 24/7 Blood Bank provides:\n• Blood typing & cross-matching\n• Component separation (RBCs, Platelets, Plasma)\n• TTI screening\n• Platelet pheresis\n\nFor blood requirements, call our emergency line: **+91 12345 67890**",
+    answer: "🩸 **Blood Bank:**\nOur 24/7 Blood Bank provides:\n• Blood typing & cross-matching\n• Component separation (RBCs, Platelets, Plasma)\n• TTI screening\n• Platelet pheresis\n\nFor blood requirements, call our emergency line: **+91 2563 351503/04**",
   },
 ];
 
@@ -130,14 +130,14 @@ function getBotResponse(input: string): string {
     }
   }
 
-  return "I'm not sure about that, but our team is happy to help! 😊\n\n📞 **Call us:** +91 12345 67890\n📧 **Email:** contact@tmpmhospital.com\n\nOr visit our [Contact page](/contact) to send us a message.";
+  return "I'm not sure about that, but our team is happy to help! 😊\n\n📞 **Call us:** +91 2563 351503/04\n📧 **Email:** contact@tmpmhospital.com\n\nOr visit our [Contact page](/contact) to send us a message.";
 }
 
 // ─── Render markdown-like bot messages ─────────────────────────────────────────
 function BotMessage({ content }: { content: string }) {
   const html = content
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="underline text-cyan-200 hover:text-white font-medium" target="_self">$1</a>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="underline text-cyan-200 hover:text-neutral-700 font-medium" target="_self">$1</a>')
     .replace(/^• (.+)$/gm, '<li class="ml-3 list-disc">$1</li>')
     .replace(/^(\d+)\. (.+)$/gm, '<li class="ml-3 list-decimal">$2</li>')
     .split("\n")
@@ -150,6 +150,7 @@ function BotMessage({ content }: { content: string }) {
 // ─── Main Chatbot Component ────────────────────────────────────────────────────
 export default function Chatbot() {
   const [open, setOpen]       = useState(false);
+  const [showTooltip, setShowTooltip] = useState(true);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
@@ -211,11 +212,40 @@ export default function Chatbot() {
 
   const handleQuickReply = (text: string) => sendMessage(text);
 
+  const handleToggle = () => {
+    setOpen((prev) => !prev);
+    setShowTooltip(false);
+  };
+
   return (
     <>
+      {/* ── Tooltip bubble ──────────────────────────────────────────────── */}
+      {showTooltip && !open && (
+        <div
+          className="fixed bottom-6 right-24 z-50 h-14 flex items-center animate-slide-up"
+          role="status"
+        >
+          <div className="relative bg-white text-neutral-700 text-sm font-medium rounded-2xl shadow-2xl px-4 py-3 pr-8 max-w-[220px]">
+            May I help you?
+            <button
+              onClick={() => setShowTooltip(false)}
+              aria-label="Dismiss"
+              className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-colors"
+            >
+              <X className="w-3 h-3" />
+            </button>
+            {/* Speech-bubble arrow pointing right, toward the button */}
+            <span
+              className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-white rotate-45"
+              aria-hidden
+            ></span>
+          </div>
+        </div>
+      )}
+
       {/* ── Floating button ─────────────────────────────────────────────── */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={handleToggle}
         className={cn(
           "fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full text-white shadow-2xl",
           "flex items-center justify-center transition-all duration-300",
@@ -224,13 +254,17 @@ export default function Chatbot() {
         style={{ background: "var(--gradient-main)" }}
         aria-label={open ? "Close chat" : "Open chat"}
       >
-        {/* Pulse ring */}
+        {/* Pulse ring — sits behind the icon and never intercepts clicks */}
         {!open && (
           <span
-            className="absolute inset-0 rounded-full animate-pulse-ring"
+            className="absolute inset-0 rounded-full animate-pulse-ring pointer-events-none -z-10"
             style={{ background: "var(--color-primary)" }}></span>
         )}
-        {open ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        {open ? (
+          <X className="w-6 h-6 relative z-10" />
+        ) : (
+          <MessageSquare className="w-6 h-6 relative z-10 shrink-0" />
+        )}
       </button>
 
       {/* ── Chat window ─────────────────────────────────────────────────── */}
@@ -260,7 +294,7 @@ export default function Chatbot() {
             <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-400 border-2 border-white"></span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-sm leading-tight">TMPM Hospital Assistant</p>
+            <p className="font-bold text-sm leading-tight text-white">TMPM Hospital Assistant</p>
             <p className="text-xs text-white/70">Online · Usually replies instantly</p>
           </div>
           <a
@@ -308,7 +342,7 @@ export default function Chatbot() {
               style={msg.role === "user" ? { background: "var(--gradient-main)" } : undefined}>
                 {msg.role === "bot"
                   ? <BotMessage content={msg.content} />
-                  : <p>{msg.content}</p>
+                  : <p className="leading-relaxed text-white">{msg.content}</p>
                 }
                 <p className={cn("text-xs mt-1.5", msg.role === "bot" ? "text-neutral-300" : "text-white/50")}>
                   {msg.timestamp.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}

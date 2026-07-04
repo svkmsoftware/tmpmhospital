@@ -116,13 +116,13 @@ export default function Footer() {
                   contact.tmpmh@svkm.ac.in
                 </a>
               </div>
-              <div className="flex gap-2">
+              {/* <div className="flex gap-2">
                 <Clock
                   className="w-4 h-4 mt-0.5 shrink-0"
                   color="var(--color-accent)"
                 />
                 <span>OPD: 8:00 AM – 8:00 PM · Emergency: 24 × 7</span>
-              </div>
+              </div> */}
             </address>
 
             {/* Social */}
