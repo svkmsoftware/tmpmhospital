@@ -607,7 +607,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -1084,8 +1083,7 @@ export default function Navbar() {
               alt="SVKM TMPM Hospital"
               width={220}
               height={60}
-              style={{ height: "3rem", width: "auto" }}
-              className="object-contain md:mr-5"
+              className="object-contain md:mr-5 hidden md:block h-9 md:h-14 w-auto"
               priority
             />
           </Link>
@@ -1167,12 +1165,12 @@ export default function Navbar() {
           style={{ background: "var(--gradient-main)" }}
         >
           <Image
-            src="/images/hospital_website_logo.png"
+            src="/images/hospital_logo_mnc.png"
             alt="TMPM Hospital"
             width={160}
             height={44}
-            style={{ height: "2.25rem", width: "auto" }}
-            className="object-contain brightness-0 invert"
+            style={{ height: "3.25rem", width: "auto" }}
+            className="object-contain"
           />
           <button
             onClick={closeMobile}
