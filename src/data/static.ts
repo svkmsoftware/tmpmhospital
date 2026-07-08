@@ -96,14 +96,14 @@ export const faqs: FAQ[] = [
 ];
 
 export const galleryImages: GalleryImage[] = [
-  { id: 1, src: "/images/gallery/gallery-1.jpg", alt: "Hospital Facility",      category: "Facilities"  },
-  { id: 2, src: "/images/gallery/gallery-2.jpg", alt: "Patient Care",           category: "Care"        },
-  { id: 3, src: "/images/gallery/gallery-3.jpg", alt: "Medical Team",           category: "Team"        },
-  { id: 4, src: "/images/gallery/gallery-4.jpg", alt: "Hospital Building",      category: "Facilities"  },
-  { id: 5, src: "/images/gallery/gallery-5.jpg", alt: "OPD Area",              category: "Facilities"  },
-  { id: 6, src: "/images/gallery/gallery-6.jpg", alt: "Laboratory",             category: "Technology"  },
-  { id: 7, src: "/images/gallery/gallery-7.jpg", alt: "Operation Theatre",      category: "Technology"  },
-  { id: 8, src: "/images/gallery/gallery-8.jpg", alt: "ICU Unit",              category: "Technology"  },
+  { id: 1, src: "/images/gallery/image7.jpg", alt: "Hospital Facility",      category: "Facilities"  },
+  { id: 2, src: "/images/gallery/image8.jpg", alt: "Patient Care",           category: "Care"        },
+  { id: 3, src: "/images/gallery/image10.jpg", alt: "Medical Team",           category: "Team"        },
+  { id: 4, src: "/images/gallery/image12.jpg", alt: "Hospital Building",      category: "Facilities"  },
+  { id: 5, src: "/images/gallery/image13.jpg", alt: "OPD Area",              category: "Facilities"  },
+  { id: 6, src: "/images/gallery/image14.jpg", alt: "Laboratory",             category: "Technology"  },
+  // { id: 7, src: "/images/gallery/gallery-7.jpg", alt: "Operation Theatre",      category: "Technology"  },
+  // { id: 8, src: "/images/gallery/gallery-8.jpg", alt: "ICU Unit",              category: "Technology"  },
 ];
 
 export const managementTeam: ManagementMember[] = [

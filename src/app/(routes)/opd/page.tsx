@@ -120,7 +120,7 @@ export default async function OpdPage() {
           </div>
         </div>
       </section>
-      <ContactCTA />
+      {/* <ContactCTA /> */}
     </>
   );
 }

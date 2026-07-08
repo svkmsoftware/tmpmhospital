@@ -101,7 +101,7 @@ export default async function IpdPage() {
           </div>
         </div>
       </section>
-      <ContactCTA />
+      {/* <ContactCTA /> */}
     </>
   );
 }

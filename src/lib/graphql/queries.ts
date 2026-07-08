@@ -43,6 +43,11 @@
  * • Blog: blogs[] (ComponentSharedBlog[]) — each has heading, subheading, featured_image
  * • BlogPage: heading_section + a single Blog reference
  * • Docter (typo in the CMS) = the doctors LISTING page: Banner, Docters (heading), department_category
+ *
+ * NOTE (pagination update): the old standalone `GET_CONSULTANTS_QUERY`
+ * (top-level `consultants { ... }`, no pagination) has been removed —
+ * doctor data now comes exclusively from `GET_DOCTOR_PAGE_QUERY` below,
+ * which nests `consultants` under `docter` and supports page/pageSize.
  */
 
 // ── About Page ─────────────────────────────────────────────────────────────
@@ -271,23 +276,36 @@ export const GET_HOME_PAGE_QUERY = /* GraphQL */ `
   }
 `;
 
-export const GET_CONSULTANTS_QUERY = /* GraphQL */ `
-  query GetConsultants {
-    consultants {
-      documentId
-      name
-      designation
-      view_profile
-      book_appointment
-      profile_image {
+// ── Doctors — combined banner + heading + paginated consultants list ──────
+// Used by both the homepage doctors slider (page: 1, small pageSize) and
+// the full /doctors listing page (page: N, pageSize: 10).
+export const GET_DOCTOR_PAGE_QUERY = /* GraphQL */ `
+  query GetDoctorPage($page: Int, $pageSize: Int) {
+    docter {
+      Banner {
         url
         alternativeText
       }
-      departments {
+      Docters {
+        heading
+        subheading
+      }
+      consultants(pagination: { page: $page, pageSize: $pageSize }) {
         documentId
-        department_categories {
-          name
-          slug
+        name
+        designation
+        view_profile
+        book_appointment
+        profile_image {
+          url
+          alternativeText
+        }
+        departments {
+          documentId
+          department_categories {
+            name
+            slug
+          }
         }
       }
     }

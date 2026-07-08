@@ -18,7 +18,6 @@ import { fetchGraphQL, CACHE_TAGS } from "@/lib/graphql/client";
 import {
   ABOUT_PAGE_QUERY,
   GET_HOME_PAGE_QUERY,
-  GET_CONSULTANTS_QUERY,
   GET_DOCTER_PAGE_QUERY,
   GET_DEPARTMENT_CATEGORIES_QUERY,
   GET_DEPARTMENT_PAGE_QUERY,
@@ -30,13 +29,13 @@ import {
   GET_OPD_PAGE_QUERY,
   GET_IPD_PAGE_QUERY,
   GET_DAYCARE_PAGE_QUERY,
+  GET_DOCTOR_PAGE_QUERY,
 } from "@/lib/graphql/queries";
 import type {
   GQLAboutData, GQLAboutSection, GQLAboutInfo, GQLVisionSection,
   GQLPresidentSection, GQLTrusteesSection, GQLManagementSection,
   GQLWhyChooseSection, GQLGallerySection,
-  GQLHome,
-  GQLConsultant, GQLDocterPage,
+  GQLHome, GQLDocterPage,
   GQLDepartmentCategory, GQLDepartmentPage, GQLDepartment,
   GQLBlogPage, GQLBlog,
   GQLCareer, GQLContactPage,
@@ -335,18 +334,23 @@ export interface CleanDoctor {
   departments: Array<{ name: string; slug: string }>;
 }
 
-export async function getConsultantsData(): Promise<CleanDoctor[] | null> {
+export async function getConsultantsData(limit = 12): Promise<CleanDoctor[] | null> {
   try {
-    const result = await fetchGraphQL<{ consultants: GQLConsultant[] }>(
-      GET_CONSULTANTS_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.doctors] }
+    const result = await fetchGraphQL<GQLDoctorPageResponse>(
+      GET_DOCTOR_PAGE_QUERY,
+      { page: 1, pageSize: limit },
+      { revalidate: 300, tags: [CACHE_TAGS.doctors] }
     );
-    return (result.consultants ?? []).map((c) => ({
+
+    const consultants = result.docter?.consultants ?? [];
+
+    return consultants.map((c) => ({
       id:              c.documentId,
       name:            c.name,
       designation:     c.designation ?? "",
       profileImage:    mediaUrl(c.profile_image?.url),
-      viewProfile:     c.view_profile,
-      bookAppointment: c.book_appointment,
+      viewProfile:     c.view_profile ?? null,
+      bookAppointment: c.book_appointment ?? null,
       departments:     (c.departments ?? []).flatMap((d) =>
                          (d.department_categories ?? []).map((cat) => ({ name: cat.name, slug: cat.slug }))
                        ),
@@ -381,6 +385,81 @@ export async function getDocterPageData(): Promise<CleanDocterPage | null> {
     };
   } catch (e) {
     console.error("[GraphQL] getDocterPageData failed:", e);
+    return null;
+  }
+}
+
+const DOCTORS_PAGE_SIZE = 10;
+
+interface GQLConsultant {
+  documentId: string;
+  name: string;
+  designation?: string;
+  view_profile?: string | null;
+  book_appointment?: string | null;
+  profile_image?: { url: string; alternativeText?: string };
+  departments?: {
+    documentId: string;
+    department_categories?: { name: string; slug: string }[];
+  }[];
+}
+
+interface GQLDoctorPageResponse {
+  docter: {
+    Banner?: { url: string; alternativeText?: string };
+    Docters?: { heading?: string; subheading?: string };
+    consultants: GQLConsultant[];
+  } | null;
+}
+
+export interface CleanDoctorPageResult {
+  bannerImage: string;
+  heading: string;
+  subheading: string;
+  doctors: CleanDoctor[];
+  hasNextPage: boolean;
+}
+
+export async function getDoctorPageData(
+  page = 1,
+  pageSize = DOCTORS_PAGE_SIZE,
+): Promise<CleanDoctorPageResult | null> {
+  try {
+    const result = await fetchGraphQL<GQLDoctorPageResponse>(
+      GET_DOCTOR_PAGE_QUERY,
+      { page, pageSize },
+      { revalidate: 300, tags: [CACHE_TAGS.doctors] },
+    );
+
+    const d = result.docter;
+    if (!d) return null;
+
+    const consultants = d.consultants ?? [];
+
+    return {
+      bannerImage: mediaUrl(d.Banner?.url) || "/images/doctors_banner.png",
+      heading: d.Docters?.heading ?? "Our Doctors",
+      subheading: d.Docters?.subheading ?? "",
+      doctors: consultants.map((c) => ({
+        id: c.documentId,
+        name: c.name,
+        designation: c.designation ?? "",
+        profileImage: mediaUrl(c.profile_image?.url),
+        viewProfile: c.view_profile ?? null,
+        bookAppointment: c.book_appointment ?? null,
+        departments: (c.departments ?? []).flatMap((dep) =>
+          (dep.department_categories ?? []).map((cat) => ({
+            name: cat.name,
+            slug: cat.slug,
+          })),
+        ),
+      })),
+      // Strapi doesn't return a total count for this nested-relation query,
+      // so we infer "more pages exist" by checking if this page came back full.
+      hasNextPage: consultants.length === pageSize,
+    };
+  } catch (e) {
+    console.error("[GraphQL] getDoctorPageData failed:", e);
     return null;
   }
 }

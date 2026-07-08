@@ -111,7 +111,7 @@ export function BlogsSection({ blogs }: { blogs: Blog[] }) {
   const [featured, ...rest] = blogs;
 
   return (
-    <section id="blogs" className="section-padding bg-gradient-section">
+    <section id="blogs" className="section-padding bg-white">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
@@ -221,9 +221,9 @@ interface NewsSectionProps {
 
 export function NewsSection({ heading, subheading, news }: NewsSectionProps) {
   if (!news || news.length === 0) return null;
-
+  
   return (
-    <section id="news" className="section-padding bg-white">
+    <section id="news" className="section-padding bg-gradient-section">
       <div className="container-custom">
         <SectionHeader
           tag="News & Events"

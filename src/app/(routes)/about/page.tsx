@@ -408,7 +408,7 @@ export default async function AboutPage() {
         </section>
       )}
 
-      <ContactCTA />
+      {/* <ContactCTA /> */}
     </>
   );
 }

@@ -6,6 +6,7 @@ interface SectionHeaderProps {
   id?: string;
   tag?: string;
   title: string;
+  gardientTitle?: string;
   subtitle?: string;
   centered?: boolean;
   className?: string;
@@ -16,6 +17,7 @@ export function SectionHeader({
   id,
   tag,
   title,
+  gardientTitle,
   subtitle,
   centered = true,
   className,
@@ -24,26 +26,32 @@ export function SectionHeader({
   return (
     <div className={cn("mb-12", centered && "text-center", className)}>
       {tag && (
-        <p className={cn("section-tag", centered && "justify-center", light && "text-amber-300")}>
+        <p
+          className={cn(
+            "section-tag",
+            centered && "justify-center",
+            light && "text-amber-300",
+          )}
+        >
           <span className="w-6 h-px bg-current opacity-80"></span>
           {tag}
           <span className="w-6 h-px bg-current opacity-80"></span>
         </p>
       )}
-      <h2
-        id={id}
-        className={cn("section-title", light ? "text-white" : "")}
-      >
+      <h2 id={id} className={cn("section-title", light ? "text-white" : "")}>
         {title}
       </h2>
-      <div className={cn("divider-accent mt-3", centered ? "mx-auto" : "mx-0")}></div>
+
+      <div
+        className={cn("divider-accent mt-3", centered ? "mx-auto" : "mx-0")}
+      ></div>
       {subtitle && (
         <p
           className={cn(
             "section-subtitle mt-4",
             centered && "mx-auto",
             light ? "text-cyan-100/80" : "",
-            !centered && "text-left mx-0 max-w-none"
+            !centered && "text-left mx-0 max-w-none",
           )}
         >
           {subtitle}
@@ -62,7 +70,13 @@ interface PageBannerProps {
   height?: "sm" | "md" | "lg";
 }
 
-export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }: PageBannerProps) {
+export function PageBanner({
+  image,
+  title,
+  subtitle,
+  breadcrumb,
+  height = "md",
+}: PageBannerProps) {
   const heights: Record<string, string> = {
     sm: "h-52 md:h-64",
     md: "h-64 md:h-80 lg:h-96",
@@ -71,7 +85,10 @@ export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }
 
   return (
     <section
-      className={cn("relative w-full overflow-hidden flex items-end", heights[height])}
+      className={cn(
+        "relative w-full overflow-hidden flex items-end",
+        heights[height],
+      )}
       aria-label={`${title} page banner`}
     >
       <Image
@@ -83,7 +100,13 @@ export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }
         sizes="100vw"
       />
       {/* Rich overlay: dark at bottom, lighter at top */}
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)" }}></div>
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)",
+        }}
+      ></div>
 
       <div className="relative container-custom pb-10 pt-16">
         {breadcrumb && breadcrumb.length > 0 && (
@@ -93,9 +116,16 @@ export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }
                 <li key={i} className="flex items-center gap-2">
                   {i > 0 && <span className="text-white/30">/</span>}
                   {crumb.href ? (
-                    <a href={crumb.href} className="hover:text-white transition-colors">{crumb.label}</a>
+                    <a
+                      href={crumb.href}
+                      className="hover:text-white transition-colors"
+                    >
+                      {crumb.label}
+                    </a>
                   ) : (
-                    <span className="text-white font-medium">{crumb.label}</span>
+                    <span className="text-white font-medium">
+                      {crumb.label}
+                    </span>
                   )}
                 </li>
               ))}
@@ -109,7 +139,9 @@ export function PageBanner({ image, title, subtitle, breadcrumb, height = "md" }
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-2 text-cyan-100/80 text-base md:text-lg max-w-2xl">{subtitle}</p>
+          <p className="mt-2 text-cyan-100/80 text-base md:text-lg max-w-2xl">
+            {subtitle}
+          </p>
         )}
       </div>
     </section>

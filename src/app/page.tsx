@@ -92,8 +92,6 @@ export default async function HomePage() {
     getGalleryImages(),
   ]);
 
-  // console.log("stats", stats);
-
   return (
     <>
       <HeroSection />
@@ -101,18 +99,18 @@ export default async function HomePage() {
       <StatsSection stats={stats} />
       <WhyChooseUsSection />
       <DepartmentsSection departments={departments} />
-      <DoctorsAdviceSection />
       <MeetOurDoctorsSection doctors={doctorsForHome} />
+      <GalleryPreview images={gallery} />
+      <DoctorsAdviceSection />
+      <TestimonialsSection testimonials={testimonials} />
       <BlogsSection blogs={blogs} />
       <NewsSection
         heading={homeData?.newsHeading?.heading}
         subheading={homeData?.newsHeading?.subheading}
         news={homeData?.news ?? []}
       />
-      <TestimonialsSection testimonials={testimonials} />
       <FAQSection faqs={faqs} />
-      <GalleryPreview images={gallery} />
-      <ContactCTA />
+      {/* <ContactCTA /> */}
     </>
   );
 }
