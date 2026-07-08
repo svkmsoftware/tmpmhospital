@@ -393,7 +393,7 @@ export function StatsSection({ stats }: { stats: HospitalStat[] }) {
   return (
     <section
       ref={ref}
-      className="relative overflow-hiddenpy-20 md:py-28 bg-gradient-section"
+      className="relative overflow-hiddenpy-20 section-padding bg-gradient-section"
     >
       <div className="container-custom">
         <div className="mb-12 text-center">
