@@ -27,6 +27,7 @@ import {
   User,
   ChevronLeft,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
@@ -41,11 +42,21 @@ interface AboutSectionProps {
     subheading: string;
     description: string;
     image: string | null;
+    video: string | null;
     stats: Array<{ label: string; value: string }>;
   } | null;
 }
 
+// Only used if the CMS doesn't return a featured_video (e.g. local dev, or empty field)
+const ABOUT_VIDEO_FALLBACK_YT_ID = "mdxWXNYaTN4"; // from https://youtu.be/mdxWXNYaTN4
+
 export function AboutSection({ data }: AboutSectionProps) {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+  // The CMS field (Abour_US.featured_video.url) is a direct MP4 file, not a
+  // YouTube link — play it straight from `data.video` when present.
+  const cmsVideoUrl = data?.video ?? null;
+
   const pillars = [
     { Icon: Award, text: "No Profit, No Loss philosophy" },
     { Icon: CheckCircle2, text: "NABH Accredited Hospital" },
@@ -79,6 +90,20 @@ export function AboutSection({ data }: AboutSectionProps) {
       }))
     : localStats;
 
+  // Close on Escape while the modal is open
+  useEffect(() => {
+    if (!isVideoOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsVideoOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [isVideoOpen]);
+
   return (
     <section id="about" className="section-padding bg-white overflow-hidden">
       <div className="container-custom">
@@ -93,11 +118,10 @@ export function AboutSection({ data }: AboutSectionProps) {
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"
               />
-              {/* Video play */}
-              <a
-                href="https://youtu.be/TgYY6cRazHM"
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Video play — opens lightbox instead of a new tab */}
+              <button
+                type="button"
+                onClick={() => setIsVideoOpen(true)}
                 className="absolute inset-0 flex items-center justify-center group"
                 aria-label="Watch hospital video"
               >
@@ -108,17 +132,8 @@ export function AboutSection({ data }: AboutSectionProps) {
                     color="var(--color-primary)"
                   />
                 </div>
-              </a>
+              </button>
             </div>
-
-            {/* Floating stat card */}
-            {/* <div
-              className="absolute -bottom-6 -right-4 hidden sm:flex flex-col items-center justify-center w-32 h-32 rounded-2xl text-white shadow-xl"
-              style={{ background: "var(--gradient-main)" }}
-            >
-              <span className="text-4xl font-bold leading-none">25</span>
-              <span className="text-xs text-white/80 mt-1 text-center leading-tight">Years of<br />Excellence</span>
-            </div> */}
 
             {/* Accent box */}
             <div
@@ -127,8 +142,8 @@ export function AboutSection({ data }: AboutSectionProps) {
             >
               <Stethoscope className="w-5 h-5 text-white" />
               <div>
-                <p className="font-bold text-sm text-white">50+ Doctors</p>
-                <p className="text-green-100 text-xs">Across Specialties</p>
+                <p className="font-bold text-sm text-white">Multi-Specialty Hospital</p>
+                <p className="text-green-100 text-xs">Comprehensive Healthcare Services</p>
               </div>
             </div>
           </div>
@@ -172,29 +187,62 @@ export function AboutSection({ data }: AboutSectionProps) {
               ))}
             </ul>
 
-            {/* Stats mini-grid */}
-            {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-              {statsToRender.map(({ Icon, label, value }) => (
-                <div key={label} className="flex items-center gap-3 p-3 rounded-xl transition-colors"
-                     style={{ background: "var(--color-primary-pale)" }}>
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                       style={{ background: "var(--color-primary)" }}>
-                    <Icon className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold" style={{ color: "var(--color-primary)" }}>{value}</p>
-                    <p className="leading-tight text-neutral-500" style={{ fontSize: "0.68rem" }}>{label}</p>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
             <Link href="/about" className="btn-gradient">
               Learn More <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </div>
+
+      {/* ── Video lightbox ─────────────────────────────────────────────── */}
+      {isVideoOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 animate-fade-in"
+          onClick={() => setIsVideoOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Hospital video"
+        >
+          <div
+            className="relative w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setIsVideoOpen(false)}
+              className="absolute -top-12 right-0 sm:top-3 sm:right-3 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+              aria-label="Close video"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="relative aspect-video bg-black">
+              {cmsVideoUrl ? (
+                // Play the video URL that comes back from GraphQL (Abour_US.featured_video.url)
+                <video
+                  key={cmsVideoUrl}
+                  src={cmsVideoUrl}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="absolute inset-0 w-full h-full"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                // Fallback only if the CMS returned no video at all
+                <iframe
+                  src={`https://www.youtube.com/embed/${ABOUT_VIDEO_FALLBACK_YT_ID}?autoplay=1&rel=0`}
+                  title="SVKM TMPM Hospital video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -740,4 +788,3 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
     </section>
   );
 }
-

@@ -42,6 +42,8 @@ export default async function HomePage() {
   let homeData = null;
   try {
     homeData = await getHomePageData();
+
+    // console.log("homeData", homeData);
   } catch {
     /* use local fallback for every section below */
   }

@@ -237,6 +237,7 @@ export interface HomePageData {
     subheading: string;
     description: string;
     image: string | null;
+    video: string | null; 
     stats: Array<{ label: string; value: string }>;        // features_details
     highlights: CleanHomeFeature[];                          // features (the 85 doctors / 18 departments style row)
   } | null;
@@ -259,6 +260,7 @@ function transformHomeData(raw: GQLHome): HomePageData {
       subheading:  a.subheading,
       description: flattenRichText(a.description),
       image:       mediaUrl(a.featured_image?.url),
+      video:       mediaUrl(a.featured_video?.url),
       stats:       (a.features_details ?? []).map((f) => ({ label: f.heading, value: f.value })),
       highlights:  (a.features ?? []).map((f) => ({
                      label: f.Heading,             // note: capital H in the CMS schema
