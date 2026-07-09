@@ -62,22 +62,37 @@ export default function Footer() {
         }}
       ></div>
 
-      {/* ── Emergency strip ─────────────────────────────────────────────────── */}
-      <div className="relative py-4 bg-black/15 border-b border-white/10">
-        <div className="container-custom flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-white font-bold text-lg">
-            <Phone className="w-5 h-5" />
-            Emergency Helpline:{" "}
-            <a
-              href="tel:+912563351503"
-              className="underline hover:text-white/80"
-            >
-              +91 2563 351503/04
-            </a>
+      {/* ── Emergency strip (scrolling ticker) ──────────────────────────────── */}
+      <div className="relative py-3 bg-black/15 border-b border-white/10 overflow-hidden">
+        <div className="marquee-viewport">
+          <div className="marquee-track animate-marquee">
+            {/* Two identical halves, each repeated enough times to stay wider
+                than any realistic screen — this is what makes the -50%
+                translateX loop seamless with no blank gap, regardless of
+                monitor width. */}
+            {[0, 1].map((half) => (
+              <div key={half} className="flex items-center shrink-0" aria-hidden={half === 1}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="flex items-center gap-12 shrink-0 pr-12">
+                    <a
+                      href="tel:+912563351505"
+                      className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
+                    >
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                      Emergency: +91 2563 351505/06
+                    </a>
+                    <a
+                      href="tel:+912563351503"
+                      className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
+                    >
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                      Appointment: +91 2563 351503/04
+                    </a>
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
-          <p className="text-white/80 text-sm">
-            Available 24 × 7 · 365 days a year
-          </p>
         </div>
       </div>
 
@@ -224,7 +239,7 @@ export default function Footer() {
       {/* ── Bottom bar ──────────────────────────────────────────────────────── */}
       <div className="relative border-t border-white/15 bg-black/10">
         <div className="container-custom py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
-          <p>
+          <p className="text-white/60">
             © {year} SVKM&apos;s Tapanbhai Mukeshbhai Patel Memorial Hospital
             &amp; Research Center. All rights reserved.
           </p>

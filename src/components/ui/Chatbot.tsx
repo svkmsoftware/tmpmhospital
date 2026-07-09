@@ -222,7 +222,7 @@ export default function Chatbot() {
       {/* ── Tooltip bubble ──────────────────────────────────────────────── */}
       {showTooltip && !open && (
         <div
-          className="fixed bottom-6 right-24 z-50 h-14 flex items-center animate-slide-up"
+          className="fixed bottom-20 right-24 xl:bottom-6 z-50 h-14 flex items-center animate-slide-up"
           role="status"
         >
           <div className="relative bg-white text-neutral-700 text-sm font-medium rounded-2xl shadow-2xl px-4 py-3 pr-8 max-w-[220px]">
@@ -247,7 +247,7 @@ export default function Chatbot() {
       <button
         onClick={handleToggle}
         className={cn(
-          "fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full text-white shadow-2xl",
+          "fixed bottom-20 right-6 xl:bottom-6 z-50 w-14 h-14 rounded-full text-white shadow-2xl",
           "flex items-center justify-center transition-all duration-300",
           open ? "rotate-0 scale-100" : "animate-chat-bounce"
         )}
@@ -270,7 +270,7 @@ export default function Chatbot() {
       {/* ── Chat window ─────────────────────────────────────────────────── */}
       <div
         className={cn(
-          "fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] flex flex-col",
+          "fixed bottom-40 xl:bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] flex flex-col",
           "rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 origin-bottom-right",
           open
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
