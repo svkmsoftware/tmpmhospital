@@ -248,68 +248,86 @@ export function AboutSection({ data }: AboutSectionProps) {
 }
 
 // ─── Why Choose Us cards (Image 4 style) ──────────────────────────────────────
-export function WhyChooseUsSection() {
-  const items = [
-    {
-      Icon: Award,
-      title: "Clinical Excellence",
-      desc: "Evidence-based care through innovation, advanced technology, and qualified professionals, ensuring exceptional patient outcomes.",
-    },
-    {
-      Icon: Heart,
-      title: "Excellent Patient Care",
-      desc: "Compassionate, personalized, holistic approach leading to superior patient care.",
-    },
-    {
-      Icon: Shield,
-      title: "Transparent and Ethical",
-      desc: "Upholding honesty and integrity in all interactions, ensuring trust through clear communication and ethical practices.",
-    },
-    {
-      Icon: Microscope,
-      title: "Modern Infrastructure",
-      desc: "Equipped with state-of-the-art facilities and cutting-edge technology to support superior patient care and innovative treatments.",
-    },
-  ];
+// Icons are purely a presentation detail — the CMS has no icon field for this
+// section, so we cycle through a fixed set of icons by position.
+const WHY_CHOOSE_ICONS = [Award, Heart, Shield, Microscope] as const;
+
+export interface WhyChooseUsItem {
+  title: string;
+  description: string;
+}
+
+export interface WhyChooseUsData {
+  heading: string;
+  subheading: string;
+  items: WhyChooseUsItem[];
+}
+
+const DEFAULT_WHY_CHOOSE_ITEMS: WhyChooseUsItem[] = [
+  {
+    title: "Clinical Excellence",
+    description: "Evidence-based care through innovation, advanced technology, and qualified professionals, ensuring exceptional patient outcomes.",
+  },
+  {
+    title: "Excellent Patient Care",
+    description: "Compassionate, personalized, holistic approach leading to superior patient care.",
+  },
+  {
+    title: "Transparent and Ethical",
+    description: "Upholding honesty and integrity in all interactions, ensuring trust through clear communication and ethical practices.",
+  },
+  {
+    title: "Modern Infrastructure",
+    description: "Equipped with state-of-the-art facilities and cutting-edge technology to support superior patient care and innovative treatments.",
+  },
+];
+
+export function WhyChooseUsSection({ data }: { data?: WhyChooseUsData | null }) {
+  const items = data?.items?.length ? data.items : DEFAULT_WHY_CHOOSE_ITEMS;
+  const title = data?.heading ?? "Why SVKM's TMPM Hospital?";
+  const subtitle = data?.subheading ?? "What makes us the preferred healthcare destination in the region.";
 
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
         <SectionHeader
           tag="Why Choose Us"
-          title="Why SVKM's TMPM Hospital?"
-          subtitle="What makes us the preferred healthcare destination in the region."
+          title={title}
+          subtitle={subtitle}
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 stagger-children">
-          {items.map(({ Icon, title, desc }) => (
-            <div
-              key={title}
-              className="group p-8 rounded-2xl border border-neutral-100 bg-neutral-50
-                         hover:border-cyan-200 hover:shadow-card-hover hover:-translate-y-1
-                         transition-all duration-300 cursor-default"
-            >
-              {/* Icon — style matches image 4: outline-only icon */}
-              <div className="mb-5">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                  style={{
-                    background: "var(--color-primary-pale)",
-                    border: "2px solid var(--color-primary)",
-                  }}
-                >
-                  <Icon
-                    className="w-7 h-7"
-                    color="var(--color-primary)"
-                    strokeWidth={1.5}
-                  />
+          {items.map(({ title, description: desc }, i) => {
+            const Icon = WHY_CHOOSE_ICONS[i % WHY_CHOOSE_ICONS.length];
+            return (
+              <div
+                key={`${title}-${i}`}
+                className="group p-8 rounded-2xl border border-neutral-100 bg-neutral-50
+                           hover:border-cyan-200 hover:shadow-card-hover hover:-translate-y-1
+                           transition-all duration-300 cursor-default"
+              >
+                {/* Icon — style matches image 4: outline-only icon */}
+                <div className="mb-5">
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                    style={{
+                      background: "var(--color-primary-pale)",
+                      border: "2px solid var(--color-primary)",
+                    }}
+                  >
+                    <Icon
+                      className="w-7 h-7"
+                      color="var(--color-primary)"
+                      strokeWidth={1.5}
+                    />
+                  </div>
                 </div>
+                <h3 className="text-lg font-bold text-neutral-800 mb-2 group-hover:text-cyan-700 transition-colors">
+                  {title}
+                </h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
               </div>
-              <h3 className="text-lg font-bold text-neutral-800 mb-2 group-hover:text-cyan-700 transition-colors">
-                {title}
-              </h3>
-              <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -593,16 +611,34 @@ interface MeetOurDoctorsSectionProps {
   doctors: DoctorSummary[];
 }
 
+const AUTOPLAY_INTERVAL_MS = 3200;
+
 export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Duplicate the list once so we can silently reset scrollLeft back to the
+  // start when we pass the halfway point — since the content repeats
+  // identically, that reset is visually invisible, giving a true infinite loop.
+  const loopedDoctors = doctors.length > 1 ? [...doctors, ...doctors] : doctors;
 
   const updateScrollState = () => {
     const el = scrollRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+
+    // Seamless loop: once we've scrolled past the first (original) copy of
+    // the list, silently snap back to the equivalent position in that first
+    // copy — since the second copy is identical, this reset is invisible.
+    if (doctors.length > 1) {
+      const half = el.scrollWidth / 2;
+      if (el.scrollLeft >= half) {
+        el.scrollLeft -= half;
+      }
+    }
   };
 
   useEffect(() => {
@@ -618,15 +654,47 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doctors.length]);
 
+  // Auto-advance the carousel. Pauses on hover/touch (isPaused) and when the
+  // browser tab isn't visible. Looping is handled by updateScrollState above,
+  // so this just keeps scrolling forward indefinitely.
+  useEffect(() => {
+    if (isPaused || doctors.length <= 1) return;
+
+    const id = setInterval(() => {
+      const el = scrollRef.current;
+      if (!el || document.hidden) return;
+
+      const cardWidth = el.firstElementChild?.clientWidth ?? 260;
+      el.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
+    }, AUTOPLAY_INTERVAL_MS);
+
+    return () => clearInterval(id);
+  }, [isPaused, doctors.length]);
+
   if (!doctors || doctors.length === 0) return null;
 
   const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.firstElementChild?.clientWidth ?? 260;
-    scrollRef.current.scrollBy({
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardWidth = el.firstElementChild?.clientWidth ?? 260;
+
+    if (dir === "left" && el.scrollLeft <= 4) {
+      // Jump to the equivalent spot in the duplicated second copy so
+      // scrolling "left" from the very start still feels continuous
+      el.scrollTo({ left: el.scrollWidth / 2, behavior: "auto" });
+      return;
+    }
+
+    el.scrollBy({
       left: dir === "left" ? -(cardWidth + 24) : cardWidth + 24,
       behavior: "smooth",
     });
+  };
+
+  // Manual interaction pauses autoplay briefly so it doesn't fight the user
+  const pauseThenResume = () => {
+    setIsPaused(true);
+    window.setTimeout(() => setIsPaused(false), AUTOPLAY_INTERVAL_MS * 2);
   };
 
   return (
@@ -644,26 +712,30 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            {/* Nav arrows — disabled state at scroll boundaries */}
+            {/* Nav arrows — loop instead of disabling at the ends, since this is now a continuous carousel */}
             <div className="hidden sm:flex gap-2">
               <button
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all hover:-translate-x-0.5 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-x-0"
+                onClick={() => {
+                  scroll("left");
+                  pauseThenResume();
+                }}
+                className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all hover:-translate-x-0.5"
                 style={{
                   borderColor: "var(--color-primary)",
                   color: "var(--color-primary)",
                 }}
-                aria-label="Scroll left"
+                aria-label="Previous doctor"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white transition-all hover:translate-x-0.5 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-x-0"
+                onClick={() => {
+                  scroll("right");
+                  pauseThenResume();
+                }}
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white transition-all hover:translate-x-0.5"
                 style={{ background: "var(--gradient-main)" }}
-                aria-label="Scroll right"
+                aria-label="Next doctor"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -675,7 +747,13 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
         </div>
 
         {/* Slider with edge fade to hint there's more content */}
-        <div className="relative">
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => window.setTimeout(() => setIsPaused(false), AUTOPLAY_INTERVAL_MS)}
+        >
           <div
             className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 z-10 transition-opacity duration-300"
             style={{
@@ -696,7 +774,7 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
             className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {doctors.map((doc) => {
+            {loopedDoctors.map((doc, i) => {
               // Carry image + designation (+ name) through the URL so the
               // detail page can render even if its own lookup (local-only
               // getDoctorById) doesn't recognize this doctor's id — e.g.
@@ -710,7 +788,7 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
 
               return (
                 <div
-                  key={doc.id}
+                  key={`${doc.id}-${i}`}
                   className="group shrink-0 snap-start rounded-3xl overflow-hidden bg-white
                              border border-neutral-100 shadow-card hover:shadow-card-hover
                              hover:-translate-y-1 transition-all duration-300"
@@ -788,3 +866,4 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
     </section>
   );
 }
+

@@ -304,9 +304,173 @@ export interface GQLHomeFeaturedBlog {
   featured_image: GQLImage | null;
 }
 
+// export interface GQLHome {
+//   Banner: GQLImage | null;
+//   Abour_US: GQLHomeAboutUs | null;
+//   Department_heading: GQLHeadingSection | null;
+//   departments: GQLHomeDepartmentPreview[];
+//   News_hwading: GQLHeadingSection | null;
+//   News: GQLHomeNewsItem[];
+//   Blog_heading: GQLHeadingSection | null;
+//   blog: GQLHomeFeaturedBlog | null;
+// }
+
+
 export interface GQLHome {
   Banner: GQLImage | null;
   Abour_US: GQLHomeAboutUs | null;
+
+  WhySVKM: {
+    heading: string;
+    Subheading: string;   // note: capital S in the CMS schema — vendor inconsistency
+    content: string;
+    Why_vkm: Array<{ heading: string; value: string }>;
+  } | null;
+
+  docters_advice: {
+    heading: string;
+    subheading: string;
+    docters_advice_section: Array<{
+      advice_video: { url: string } | null;
+      department_category: { documentId: string; name: string; slug: string } | null;
+    }>;
+  } | null;
+
+  health_insight: {
+    heading: string;
+    subheading: string;
+    blogs: Array<{
+      documentId: string;
+      heading: string;
+      subheading: string;
+      featured_image: GQLImage | null;
+    }>;
+  } | null;
+
+  Testimonial_section: {
+    heading: string;
+    subheading: string;
+    content: string;
+    testimonials: Array<{
+      documentId: string;
+      Author_name: string;
+      message: unknown; // Strapi Blocks rich-text — run through flattenRichText()
+      Department: string;
+    }>;
+  } | null;
+
+  faq_section: {
+    heading: string;
+    subheading: string;
+    content: string;
+    details: Array<{ heading: string; value: string }>;
+    faq_details: Array<{ Question: string; Answer: string }>;
+  } | null;
+
+  our_facilities: {
+    heading: string;
+    subheading: string;
+    gallery: Array<{
+      heading: string;
+      image: GQLImage | null;
+    }>;
+  } | null;
+
+  Department_heading: GQLHeadingSection | null;
+  departments: GQLHomeDepartmentPreview[];
+  News_hwading: GQLHeadingSection | null;
+  News: GQLHomeNewsItem[];
+  Blog_heading: GQLHeadingSection | null;
+  blog: GQLHomeFeaturedBlog | null;
+}
+
+export interface CleanWhyChooseItem {
+  title: string;
+  description: string;
+}
+
+export interface CleanDoctorsAdviceItem {
+  videoUrl: string | null;
+  department: { name: string; slug: string } | null;
+}
+
+export interface CleanTestimonial {
+  id: string;
+  name: string;
+  message: string;
+  department: string;
+}
+
+export interface CleanFaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface CleanBlogItem {
+  id: string;
+  heading: string;
+  subheading: string;
+  image: string | null;
+}
+
+export interface CleanHomeFeature {
+  title: string;
+  description: string;
+  image: string | null;
+}
+
+export interface HomePageData {
+  bannerImage: string | null;
+  about: {
+    heading: string;
+    subheading: string;
+    description: string;
+    image: string | null;
+    video: string | null;
+    stats: Array<{ label: string; value: string }>;
+    highlights: CleanHomeFeature[];
+  } | null;
+
+  whyChooseUs: {
+    heading: string;
+    subheading: string;
+    content: string;
+    items: CleanWhyChooseItem[];
+  } | null;
+
+  doctorsAdvice: {
+    heading: string;
+    subheading: string;
+    items: CleanDoctorsAdviceItem[];
+  } | null;
+
+  healthInsight: {
+    heading: string;
+    subheading: string;
+    blogs: CleanBlogItem[];
+  } | null;
+
+  testimonialsSection: {
+    heading: string;
+    subheading: string;
+    content: string;
+    items: CleanTestimonial[];
+  } | null;
+
+  faqSection: {
+    heading: string;
+    subheading: string;
+    content: string;
+    contactDetails: Array<{ label: string; value: string }>;
+    items: CleanFaqItem[];
+  } | null;
+
+  facilitiesGallery: {
+    heading: string;
+    subheading: string;
+    images: Array<{ src: string | null; alt: string }>;
+  } | null;
+
   Department_heading: GQLHeadingSection | null;
   departments: GQLHomeDepartmentPreview[];
   News_hwading: GQLHeadingSection | null;

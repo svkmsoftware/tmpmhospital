@@ -64,9 +64,9 @@ export interface Blog {
   category: string;
   image: string;
   link: string;
-  date?: string;
-  excerpt?: string;
-  author?: string;
+  date: string;
+  excerpt: string;
+  author: string;
 }
 
 // ─── Job Opening ──────────────────────────────────────────────────────────────

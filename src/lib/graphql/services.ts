@@ -230,6 +230,28 @@ export interface CleanFeaturedBlog {
   image: string | null;
 }
 
+export interface CleanWhyChooseItem {
+  title: string;
+  description: string;
+}
+
+export interface CleanDoctorsAdviceItem {
+  videoUrl: string | null;
+  department: { name: string; slug: string } | null;
+}
+
+export interface CleanTestimonial {
+  id: string;
+  name: string;
+  message: string;
+  department: string;
+}
+
+export interface CleanFaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface HomePageData {
   bannerImage: string | null;
   about: {
@@ -237,10 +259,51 @@ export interface HomePageData {
     subheading: string;
     description: string;
     image: string | null;
-    video: string | null; 
-    stats: Array<{ label: string; value: string }>;        // features_details
-    highlights: CleanHomeFeature[];                          // features (the 85 doctors / 18 departments style row)
+    video: string | null;
+    stats: Array<{ label: string; value: string }>;
+    highlights: CleanHomeFeature[];
   } | null;
+
+  whyChooseUs: {
+    heading: string;
+    subheading: string;
+    content: string;
+    items: CleanWhyChooseItem[];
+  } | null;
+
+  doctorsAdvice: {
+    heading: string;
+    subheading: string;
+    items: CleanDoctorsAdviceItem[];
+  } | null;
+
+  healthInsight: {
+    heading: string;
+    subheading: string;
+    blogs: CleanBlogItem[];
+  } | null;
+
+  testimonialsSection: {
+    heading: string;
+    subheading: string;
+    content: string;
+    items: CleanTestimonial[];
+  } | null;
+
+  faqSection: {
+    heading: string;
+    subheading: string;
+    content: string;
+    contactDetails: Array<{ label: string; value: string }>;
+    items: CleanFaqItem[];
+  } | null;
+
+  facilitiesGallery: {
+    heading: string;
+    subheading: string;
+    images: Array<{ src: string | null; alt: string }>;
+  } | null;
+
   departmentsHeading: { heading: string; subheading: string } | null;
   departments: CleanHomeDeptPreview[];
   newsHeading: { heading: string; subheading: string } | null;
@@ -267,6 +330,70 @@ function transformHomeData(raw: GQLHome): HomePageData {
                      value: f.value,
                      icon:  mediaUrl(f.icon?.url),
                    })),
+    } : null,
+
+    whyChooseUs: raw.WhySVKM ? {
+      heading:    raw.WhySVKM.heading,
+      subheading: raw.WhySVKM.Subheading,   // note: capital S in the CMS schema
+      content:    raw.WhySVKM.content,
+      items:      (raw.WhySVKM.Why_vkm ?? []).map((w) => ({
+                    title:       w.heading,
+                    description: w.value,
+                  })),
+    } : null,
+
+    doctorsAdvice: raw.docters_advice ? {
+      heading:    raw.docters_advice.heading,
+      subheading: raw.docters_advice.subheading,
+      items:      (raw.docters_advice.docters_advice_section ?? []).map((s) => ({
+                    videoUrl:   mediaUrl(s.advice_video?.url),
+                    department: s.department_category
+                      ? { name: s.department_category.name, slug: s.department_category.slug }
+                      : null,
+                  })),
+    } : null,
+
+    healthInsight: raw.health_insight ? {
+      heading:    raw.health_insight.heading,
+      subheading: raw.health_insight.subheading,
+      blogs:      (raw.health_insight.blogs ?? []).map((b) => ({
+                    id:      b.documentId,
+                    title:   b.heading,
+                    excerpt: b.subheading,
+                    image:   mediaUrl(b.featured_image?.url),
+                  })),
+    } : null,
+
+    testimonialsSection: raw.Testimonial_section ? {
+      heading:    raw.Testimonial_section.heading,
+      subheading: raw.Testimonial_section.subheading,
+      content:    raw.Testimonial_section.content,
+      items:      (raw.Testimonial_section.testimonials ?? []).map((t) => ({
+                    id:         t.documentId,
+                    name:       t.Author_name,
+                    message:    flattenRichText(t.message),
+                    department: t.Department,
+                  })),
+    } : null,
+
+    faqSection: raw.faq_section ? {
+      heading:        raw.faq_section.heading,
+      subheading:     raw.faq_section.subheading,
+      content:        raw.faq_section.content,
+      contactDetails: (raw.faq_section.details ?? []).map((d) => ({ label: d.heading, value: d.value })),
+      items:          (raw.faq_section.faq_details ?? []).map((f) => ({
+                        question: f.Question,
+                        answer:   f.Answer,
+                      })),
+    } : null,
+
+    facilitiesGallery: raw.our_facilities ? {
+      heading:    raw.our_facilities.heading,
+      subheading: raw.our_facilities.subheading,
+      images:     (raw.our_facilities.gallery ?? []).map((g) => ({
+                    src: mediaUrl(g.image?.url),
+                    alt: g.heading,
+                  })),
     } : null,
 
     departmentsHeading: raw.Department_heading ? {
@@ -315,6 +442,7 @@ export async function getHomePageData(): Promise<HomePageData | null> {
       console.warn("[GraphQL] getHomePageData: empty response");
       return null;
     }
+    // console.log(transformHomeData(result.home));
     return transformHomeData(result.home);
   } catch (e) {
     console.error("[GraphQL] getHomePageData failed:", e);

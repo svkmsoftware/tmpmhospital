@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 const defaultContactItems = [
   { icon: MapPin,  label: "Location",   value: "SVKM's TMPM Hospital, Kharde Budruk, Shirpur, Dhule – 425405, Maharashtra" },
   { icon: Phone,   label: "Call Us",    value: "+91 2563 351503/04"            },
+  { icon: Phone,   label: "Radiology",    value: "+91 2563 351503/04"            },
   { icon: Mail,    label: "Email Us",   value: "contact.tmpmh@svkm.ac.in"   },
   { icon: Clock,   label: "OPD Hours",  value: "Mon – Sat: 8:00 AM – 8:00 PM" },
 ];

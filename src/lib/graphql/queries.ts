@@ -181,99 +181,204 @@ export const ABOUT_PAGE_QUERY = /* GraphQL */ `
 // without breaking the query.
 export const GET_HOME_PAGE_QUERY = /* GraphQL */ `
   query GetHomePage {
-    home {
-      Banner {
+  home {
+    Banner {
+      url
+      name
+      alternativeText
+    }
+
+    Abour_US {
+      heading
+      subheading
+      description
+
+      featured_image {
         url
         name
         alternativeText
       }
 
-      Abour_US {
+      featured_video {
+        url
+        name
+      }
+
+      features_details {
         heading
-        subheading
-        description
-        featured_image {
-          url
-          name
-          alternativeText
-        }
-        featured_video {
-          url
-          name
-        }
-        features_details {
-          heading
-          value
-        }
-        features {
-          value
-          Heading
-          icon {
-            url
-            name
-            alternativeText
-          }
-        }
+        value
       }
 
-      Department_heading {
-        heading
-        subheading
-      }
-
-      departments {
-        documentId
-        banner {
-          url
-          name
-          alternativeText
-        }
-        general_medicine {
-          heading
-          subheading
-        }
-        consultant_section {
-          heading
-          subheading
-        }
-        Blog_Section {
-          heading
-          subheading
-        }
-        createdAt
-        updatedAt
-        publishedAt
-      }
-
-      News_hwading {
-        heading
-        subheading
-      }
-
-      News {
+      features {
         Heading
-        content
-        featured_image {
+        value
+
+        icon {
           url
           name
           alternativeText
-        }
-      }
-
-      Blog_heading {
-        heading
-        subheading
-      }
-
-      blog {
-        heading
-        subheading
-        featured_image {
-          url
         }
       }
     }
+
+    WhySVKM {
+      heading
+      Subheading
+      content
+
+      Why_vkm {
+        heading
+        value
+      }
+    }
+
+    docters_advice {
+      heading
+      subheading
+
+      docters_advice_section {
+        advice_video {
+          url
+          name
+          alternativeText
+        }
+
+        department_category {
+          documentId
+          name
+          slug
+        }
+      }
+    }
+
+    health_insight {
+      heading
+      subheading
+
+      blogs {
+        documentId
+        heading
+        subheading
+
+        featured_image {
+          url
+          name
+          alternativeText
+        }
+      }
+    }
+
+    Testimonial_section {
+      heading
+      subheading
+      content
+
+      testimonials {
+        documentId
+        Author_name
+        message
+        Department
+      }
+    }
+
+    faq_section {
+      heading
+      subheading
+      content
+
+      details {
+        heading
+        value
+      }
+
+      faq_details {
+        Question
+        Answer
+      }
+    }
+
+    our_facilities {
+      heading
+      subheading
+
+      gallery {
+        heading
+
+        image {
+          url
+          name
+          alternativeText
+        }
+      }
+    }
+
+    Department_heading {
+      heading
+      subheading
+    }
+
+    departments {
+      documentId
+
+      banner {
+        url
+        name
+        alternativeText
+      }
+
+      general_medicine {
+        heading
+        subheading
+      }
+
+      consultant_section {
+        heading
+        subheading
+      }
+
+      Blog_Section {
+        heading
+        subheading
+      }
+
+      createdAt
+      updatedAt
+      publishedAt
+    }
+
+    News_hwading {
+      heading
+      subheading
+    }
+
+    News {
+      Heading
+      content
+
+      featured_image {
+        url
+        name
+        alternativeText
+      }
+    }
+
+    Blog_heading {
+      heading
+      subheading
+    }
+
+    blog {
+      heading
+      subheading
+
+      featured_image {
+        url
+        name
+        alternativeText
+      }
+    }
   }
+}
 `;
 
 // ── Doctors — combined banner + heading + paginated consultants list ──────

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { ArrowRight, ChevronDown, Star, Calendar, Tag, Quote,
          Phone, Mail, ChevronLeft, ChevronRight, Play, Stethoscope, 
          User} from "lucide-react";
@@ -109,7 +109,6 @@ export function DoctorsAdviceSection() {
 // ── Blogs (Image 6 style — featured large + 3 side cards) ─────────────────────
 export function BlogsSection({ blogs }: { blogs: Blog[] }) {
   const [featured, ...rest] = blogs;
-
   return (
     <section id="blogs" className="section-padding bg-white">
       <div className="container-custom">
@@ -262,7 +261,7 @@ export function NewsSection({ heading, subheading, news }: NewsSectionProps) {
 export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
     <section id="testimonials" className="section-padding relative overflow-hidden"
-             style={{ background: "#08232D" }}>
+             style={{ background: "var(--gradient-main)" }}>
       <div className="h-1 absolute top-0 left-0 right-0" style={{ background: "var(--gradient-main)" }}></div>
       <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-cyan-500/5 pointer-events-none"></div>
       <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-green-500/5 pointer-events-none"></div>
@@ -275,7 +274,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
           {testimonials.map((t) => (
             <div key={t.id} className="rounded-2xl p-6 flex flex-col gap-4"
                  style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)" }}>
-              <Quote className="w-7 h-7 text-cyan-400 opacity-80" />
+              <Quote className="w-7 h-7 text-white opacity-80" />
               <p className="text-sm text-cyan-100/90 leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</p>
               <div>
                 <div className="flex gap-0.5 mb-3">
@@ -289,7 +288,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-white">{t.name}</p>
-                    <p className="text-xs text-cyan-200/60">{t.role}</p>
+                    <p className="text-xs text-white/60">{t.role}</p>
                   </div>
                 </div>
               </div>
@@ -370,8 +369,26 @@ export function FAQSection({ faqs }: { faqs: FAQ[] }) {
   );
 }
 
-// ── Gallery preview ────────────────────────────────────────────────────────────
+// ── Gallery preview (single-photo carousel) ────────────────────────────────────
+const GALLERY_AUTOPLAY_MS = 4000;
+
 export function GalleryPreview({ images }: { images: GalleryImage[] }) {
+  const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const count = images.length;
+
+  useEffect(() => {
+    if (isPaused || count <= 1) return;
+    const id = setInterval(() => {
+      setIndex((prev) => (prev + 1) % count);
+    }, GALLERY_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [isPaused, count]);
+
+  if (count === 0) return null;
+
+  const goTo = (i: number) => setIndex(((i % count) + count) % count);
+
   return (
     <section id="gallery" className="section-padding bg-gradient-section">
       <div className="container-custom">
@@ -384,21 +401,74 @@ export function GalleryPreview({ images }: { images: GalleryImage[] }) {
           <Link href="/gallery" className="btn-outline shrink-0">Full Gallery <ArrowRight className="w-4 h-4" /></Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 h-[440px] md:h-[360px]">
-          {images.slice(0, 5).map((img, i) => (
-            <Link key={img.id} href="/gallery"
-                  className={cn("relative rounded-2xl overflow-hidden group",
-                    i === 0 ? "col-span-2 row-span-2" : "")}>
-              <Image src={img.src} alt={img.alt} fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width:768px) 50vw, 25vw" />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-end p-3">
-                <p className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  {img.alt}
-                </p>
-              </div>
+        <div
+          className="relative rounded-3xl overflow-hidden h-[320px] sm:h-[420px] md:h-[480px] shadow-card group"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Slides — cross-fade between the current and previous photo */}
+          {images.map((img, i) => (
+            <Link
+              key={img.id}
+              href="/gallery"
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700",
+                i === index ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none",
+              )}
+              aria-hidden={i !== index}
+              tabIndex={i === index ? 0 : -1}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority={i === 0}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
+              <p className="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 text-white text-sm sm:text-base font-medium max-w-[80%]">
+                {img.alt}
+              </p>
             </Link>
           ))}
+
+          {/* Prev/Next arrows — siblings of the slides, not nested inside them */}
+          {count > 1 && (
+            <>
+              <button
+                onClick={() => goTo(index - 1)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-5 h-5 text-neutral-700" />
+              </button>
+              <button
+                onClick={() => goTo(index + 1)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-5 h-5 text-neutral-700" />
+              </button>
+            </>
+          )}
+
+          {/* Dot indicators */}
+          {count > 1 && (
+            <div className="absolute bottom-4 right-5 sm:right-6 z-20 flex gap-1.5">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all",
+                    i === index ? "w-6 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80",
+                  )}
+                  aria-label={`Go to photo ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

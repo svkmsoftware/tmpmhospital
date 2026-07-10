@@ -430,6 +430,12 @@ export default function Navbar() {
             >
               <Phone className="w-3.5 h-3.5" /> Appointment: +91 2563 351503/04
             </a>
+            <a
+              href="tel:+912563351510"
+              className="xl:flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white hidden"
+            >
+              <Phone className="w-3.5 h-3.5" /> Radiology: +91 2563 351510
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2.5">

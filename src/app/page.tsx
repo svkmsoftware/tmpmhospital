@@ -26,6 +26,7 @@ import {
 } from "@/lib/api";
 import { getHomePageData, getConsultantsData } from "@/lib/graphql/services";
 import { doctors as localDoctors } from "@/data/doctors";
+import type { Blog, Testimonial, FAQ } from "@/types";
 
 export const metadata: Metadata = {
   title: "SVKM's TMPM Hospital | Multispecialty Hospital Shirpur",
@@ -42,8 +43,6 @@ export default async function HomePage() {
   let homeData = null;
   try {
     homeData = await getHomePageData();
-
-    // console.log("homeData", homeData);
   } catch {
     /* use local fallback for every section below */
   }
@@ -80,10 +79,10 @@ export default async function HomePage() {
 
   const [
     { data: departments },
-    { data: blogs },
-    { data: testimonials },
+    { data: localBlogs },
+    { data: localTestimonials },
     { data: stats },
-    { data: faqs },
+    { data: localFaqs },
     { data: gallery },
   ] = await Promise.all([
     getDepartments(),
@@ -94,12 +93,61 @@ export default async function HomePage() {
     getGalleryImages(),
   ]);
 
+  // ── GraphQL (home.health_insight) → Blog[] ────────────────────────────────
+  // The CMS "blog teaser" shape (id/title/excerpt/image) is missing a few
+  // fields the local Blog cards use (category/date/author/link), so we fill
+  // those with sensible defaults rather than fabricating vendor data.
+  const gqlBlogs: Blog[] | undefined = homeData?.healthInsight?.blogs?.length
+    ? homeData.healthInsight.blogs.map((b, i) => ({
+        id: i + 1,
+        title: b.title,
+        category: homeData?.healthInsight?.heading ?? "Health & Wellness",
+        image: b.image ?? "/images/health-and-wellness/image1.jpg",
+        link: "",
+        date: new Date().toISOString(),
+        excerpt: b.excerpt,
+        author: "Hospital Communications",
+      }))
+    : undefined;
+
+  console.log("gqlBlogs", gqlBlogs);
+  const blogs = gqlBlogs && gqlBlogs.length > 0 ? gqlBlogs : localBlogs;
+
+  // ── GraphQL (home.Testimonial_section) → Testimonial[] ────────────────────
+  // The CMS doesn't provide an avatar image or star rating for testimonials,
+  // so those fall back to a default look.
+  const gqlTestimonials: Testimonial[] | undefined = homeData
+    ?.testimonialsSection?.items?.length
+    ? homeData.testimonialsSection.items.map((t, i) => ({
+        id: i + 1,
+        name: t.name,
+        role: t.department,
+        image: "/images/male_user.png",
+        text: t.message,
+        rating: 5,
+      }))
+    : undefined;
+  const testimonials =
+    gqlTestimonials && gqlTestimonials.length > 0
+      ? gqlTestimonials
+      : localTestimonials;
+
+  // ── GraphQL (home.faq_section) → FAQ[] ─────────────────────────────────────
+  const gqlFaqs: FAQ[] | undefined = homeData?.faqSection?.items?.length
+    ? homeData.faqSection.items.map((f, i) => ({
+        id: i + 1,
+        question: f.question,
+        answer: f.answer,
+      }))
+    : undefined;
+  const faqs = gqlFaqs && gqlFaqs.length > 0 ? gqlFaqs : localFaqs;
+
   return (
     <>
       <HeroSection />
       <AboutSection data={homeData?.about} />
       <StatsSection stats={stats} />
-      <WhyChooseUsSection />
+      <WhyChooseUsSection data={homeData?.whyChooseUs} />
       <DepartmentsSection departments={departments} />
       <MeetOurDoctorsSection doctors={doctorsForHome} />
       <GalleryPreview images={gallery} />
