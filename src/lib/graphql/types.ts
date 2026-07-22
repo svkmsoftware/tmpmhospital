@@ -315,9 +315,10 @@ export interface GQLHomeFeaturedBlog {
 //   blog: GQLHomeFeaturedBlog | null;
 // }
 
-
 export interface GQLHome {
-  Banner: GQLImage | null;
+  // Banner: GQLImage | null;
+  Banner: GQLImage[] | null;
+  Mobile_banner: GQLImage[] | null;
   Abour_US: GQLHomeAboutUs | null;
 
   WhySVKM: {

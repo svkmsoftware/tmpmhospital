@@ -13,6 +13,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import Chatbot from "@/components/ui/Chatbot";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
+import Script from "next/script";
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 const SITE_NAME = "SVKM's TMPM Hospital";
@@ -43,6 +44,9 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   formatDetection: { email: false, address: false, telephone: false },
+  verification: {
+    google: "MYZIjuguK_S_XRF5W6EzcAo9CKjF8najN_1djwlhloc",
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -188,6 +192,20 @@ export default function RootLayout({
           src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
           async
         ></script>
+
+      {/* Google Analytics (gtag.js) */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-J1J139XR1G"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-J1J139XR1G');
+        `}
+      </Script>
         {/* JSON-LD */}
         <script
           type="application/ld+json"
@@ -203,7 +221,10 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Navbar />
-        <main id="main-content" className="pt-[var(--total-header)] pb-32 xl:pb-0">
+        <main
+          id="main-content"
+          className="pt-[var(--total-header)] pb-32 xl:pb-0"
+        >
           {children}
         </main>
         <Footer />

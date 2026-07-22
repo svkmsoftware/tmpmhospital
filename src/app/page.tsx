@@ -48,6 +48,7 @@ export default async function HomePage() {
   }
 
   let gqlDoctors = null;
+  // console.log("homeData", homeData);
 
   try {
     const data = await getConsultantsData();
@@ -110,7 +111,7 @@ export default async function HomePage() {
       }))
     : undefined;
 
-  console.log("gqlBlogs", gqlBlogs);
+  // console.log("gqlBlogs", gqlBlogs);
   const blogs = gqlBlogs && gqlBlogs.length > 0 ? gqlBlogs : localBlogs;
 
   // ── GraphQL (home.Testimonial_section) → Testimonial[] ────────────────────
@@ -144,7 +145,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSection />
+      <HeroSection banners={homeData?.bannerImage ?? []} />
       <AboutSection data={homeData?.about} />
       <StatsSection stats={stats} />
       <WhyChooseUsSection data={homeData?.whyChooseUs} />

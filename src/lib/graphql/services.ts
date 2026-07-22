@@ -32,14 +32,27 @@ import {
   GET_DOCTOR_PAGE_QUERY,
 } from "@/lib/graphql/queries";
 import type {
-  GQLAboutData, GQLAboutSection, GQLAboutInfo, GQLVisionSection,
-  GQLPresidentSection, GQLTrusteesSection, GQLManagementSection,
-  GQLWhyChooseSection, GQLGallerySection,
-  GQLHome, GQLDocterPage,
-  GQLDepartmentCategory, GQLDepartmentPage, GQLDepartment,
-  GQLBlogPage, GQLBlog,
-  GQLCareer, GQLContactPage,
-  GQLOpd, GQLIpd, GQLDaycare,
+  GQLAboutData,
+  GQLAboutSection,
+  GQLAboutInfo,
+  GQLVisionSection,
+  GQLPresidentSection,
+  GQLTrusteesSection,
+  GQLManagementSection,
+  GQLWhyChooseSection,
+  GQLGallerySection,
+  GQLHome,
+  GQLDocterPage,
+  GQLDepartmentCategory,
+  GQLDepartmentPage,
+  GQLDepartment,
+  GQLBlogPage,
+  GQLBlog,
+  GQLCareer,
+  GQLContactPage,
+  GQLOpd,
+  GQLIpd,
+  GQLDaycare,
 } from "@/lib/graphql/types";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -47,13 +60,14 @@ import type {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const STRAPI_URL =
-  process.env.STRAPI_API_URL ?? "https://shirpurhospital.kwebmakerdigitalagency.com";
+  process.env.STRAPI_API_URL ??
+  "https://shirpurhospital.kwebmakerdigitalagency.com";
 
 /** Build an absolute URL for a Strapi media file (GraphQL returns relative paths). */
 export function mediaUrl(path: string | null | undefined): string | null {
   if (!path) return null;
-  if (path.startsWith("http")) return path;   // already absolute
-  return `${STRAPI_URL}${path}`;              // make absolute
+  if (path.startsWith("http")) return path; // already absolute
+  return `${STRAPI_URL}${path}`; // make absolute
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -69,12 +83,26 @@ export interface AboutPageData {
     image: string | null;
     stats: Array<{ label: string; value: string }>;
   } | null;
-  vision:  { title: string; text: string } | null;
+  vision: { title: string; text: string } | null;
   mission: { title: string; text: string } | null;
-  founders: Array<{ name: string; role: string; description: string; image: string | null }>;
+  founders: Array<{
+    name: string;
+    role: string;
+    description: string;
+    image: string | null;
+  }>;
   trustees: Array<{ name: string; role: string; image: string | null }>;
-  management: Array<{ name: string; designation: string; bio: string; image: string | null }>;
-  whyChooseUs: Array<{ title: string; description: string; image: string | null }>;
+  management: Array<{
+    name: string;
+    designation: string;
+    bio: string;
+    image: string | null;
+  }>;
+  whyChooseUs: Array<{
+    title: string;
+    description: string;
+    image: string | null;
+  }>;
   gallery: Array<{ src: string; alt: string }>;
 }
 
@@ -116,64 +144,113 @@ function flattenRichText(value: unknown): string {
   return "";
 }
 
-function byType<T extends GQLAboutSection>(sections: GQLAboutSection[], typename: string): T | undefined {
+function byType<T extends GQLAboutSection>(
+  sections: GQLAboutSection[],
+  typename: string,
+): T | undefined {
   return sections.find((s) => s.__typename === typename) as T | undefined;
 }
-function allByType<T extends GQLAboutSection>(sections: GQLAboutSection[], typename: string): T[] {
+function allByType<T extends GQLAboutSection>(
+  sections: GQLAboutSection[],
+  typename: string,
+): T[] {
   return sections.filter((s) => s.__typename === typename) as T[];
 }
 
 function transformAboutData(raw: GQLAboutData): AboutPageData {
   const secs = raw.section ?? [];
 
-  const aboutSec     = byType<GQLAboutInfo>(secs, "ComponentSharedAboutSection");
-  const visionSecs   = allByType<GQLVisionSection>(secs, "ComponentSharedVision");
-  const visionSec    = visionSecs.find((s) => s.heading?.toLowerCase().includes("vision"));
-  const missionSec   = visionSecs.find((s) => s.heading?.toLowerCase().includes("mission"));
-  const presidentSec = byType<GQLPresidentSection>(secs, "ComponentSharedPresident");
-  const trusteesSec  = byType<GQLTrusteesSection>(secs, "ComponentSharedOurTrustees");
-  const mgmtSec      = byType<GQLManagementSection>(secs, "ComponentSharedManagementTeam");
-  const whySec       = byType<GQLWhyChooseSection>(secs, "ComponentSharedWhyChooseUs");
-  const gallerySec   = byType<GQLGallerySection>(secs, "ComponentSharedGallery");
+  const aboutSec = byType<GQLAboutInfo>(secs, "ComponentSharedAboutSection");
+  const visionSecs = allByType<GQLVisionSection>(secs, "ComponentSharedVision");
+  const visionSec = visionSecs.find((s) =>
+    s.heading?.toLowerCase().includes("vision"),
+  );
+  const missionSec = visionSecs.find((s) =>
+    s.heading?.toLowerCase().includes("mission"),
+  );
+  const presidentSec = byType<GQLPresidentSection>(
+    secs,
+    "ComponentSharedPresident",
+  );
+  const trusteesSec = byType<GQLTrusteesSection>(
+    secs,
+    "ComponentSharedOurTrustees",
+  );
+  const mgmtSec = byType<GQLManagementSection>(
+    secs,
+    "ComponentSharedManagementTeam",
+  );
+  const whySec = byType<GQLWhyChooseSection>(
+    secs,
+    "ComponentSharedWhyChooseUs",
+  );
+  const gallerySec = byType<GQLGallerySection>(secs, "ComponentSharedGallery");
 
   const gallery: AboutPageData["gallery"] = [];
   for (const group of gallerySec?.gallery_section ?? []) {
     for (const img of group.Image ?? []) {
       const url = mediaUrl(img.url);
-      if (url) gallery.push({ src: url, alt: img.alternativeText ?? "Gallery image" });
+      if (url)
+        gallery.push({ src: url, alt: img.alternativeText ?? "Gallery image" });
     }
   }
 
   return {
-    bannerImage: mediaUrl(raw.About_banner?.url) ?? "/images/about_us_banner.png",
+    bannerImage:
+      mediaUrl(raw.About_banner?.url) ?? "/images/about_us_banner.png",
 
-    about: aboutSec ? {
-      heading:     aboutSec.heading,
-      subheading:  aboutSec.subheading,
-      description: aboutSec.description,
-      image:       mediaUrl(aboutSec.featured_image?.url) ?? "/images/aboutHospitalImage.png",
-      stats:       (aboutSec.features_details ?? []).map((f) => ({ label: f.heading, value: f.value })),
-    } : null,
+    about: aboutSec
+      ? {
+          heading: aboutSec.heading,
+          subheading: aboutSec.subheading,
+          description: aboutSec.description,
+          image:
+            mediaUrl(aboutSec.featured_image?.url) ??
+            "/images/aboutHospitalImage.png",
+          stats: (aboutSec.features_details ?? []).map((f) => ({
+            label: f.heading,
+            value: f.value,
+          })),
+        }
+      : null,
 
-    vision:  visionSec  ? { title: visionSec.heading,  text: flattenRichText(visionSec.descriptions)  } : null,
-    mission: missionSec ? { title: missionSec.heading, text: flattenRichText(missionSec.descriptions) } : null,
+    vision: visionSec
+      ? {
+          title: visionSec.heading,
+          text: flattenRichText(visionSec.descriptions),
+        }
+      : null,
+    mission: missionSec
+      ? {
+          title: missionSec.heading,
+          text: flattenRichText(missionSec.descriptions),
+        }
+      : null,
 
     founders: (presidentSec?.President_details ?? []).map((p) => ({
-      name: p.name, role: p.position, description: p.description,
+      name: p.name,
+      role: p.position,
+      description: p.description,
       image: mediaUrl(p.featured_image?.url),
     })),
 
     trustees: (trusteesSec?.trustee_details ?? []).map((t) => ({
-      name: t.name, role: t.position, image: mediaUrl(t.featured_image?.url),
+      name: t.name,
+      role: t.position,
+      image: mediaUrl(t.featured_image?.url),
     })),
 
     management: (mgmtSec?.management_details ?? []).map((m) => ({
-      name: m.name, designation: m.position, bio: m.description,
+      name: m.name,
+      designation: m.position,
+      bio: m.description,
       image: mediaUrl(m.featured_image?.url),
     })),
 
     whyChooseUs: (whySec?.why_choose_details ?? []).map((w) => ({
-      title: w.heading, description: w.subheading, image: mediaUrl(w.featured_image?.url),
+      title: w.heading,
+      description: w.subheading,
+      image: mediaUrl(w.featured_image?.url),
     })),
 
     gallery,
@@ -184,7 +261,9 @@ function transformAboutData(raw: GQLAboutData): AboutPageData {
 export async function getAboutPageData(): Promise<AboutPageData | null> {
   try {
     const result = await fetchGraphQL<{ about: GQLAboutData }>(
-      ABOUT_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.about] }
+      ABOUT_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.about] },
     );
     if (!result.about) {
       console.warn("[GraphQL] getAboutPageData: empty response");
@@ -253,7 +332,12 @@ export interface CleanFaqItem {
 }
 
 export interface HomePageData {
-  bannerImage: string | null;
+  bannerImage: Array<{
+    url: string;
+    mobileUrl: string;
+    name: string;
+    alternativeText: string | null;
+  }> | null;
   about: {
     heading: string;
     subheading: string;
@@ -316,119 +400,159 @@ function transformHomeData(raw: GQLHome): HomePageData {
   const a = raw.Abour_US;
 
   return {
-    bannerImage: mediaUrl(raw.Banner?.url),
+    bannerImage: (raw.Banner ?? []).map((img, i) => {
+      const mobileImg = raw.Mobile_banner?.[i];
+      return {
+        url: mediaUrl(img.url) ?? "",
+        mobileUrl: mediaUrl(mobileImg?.url ?? img.url) ?? "",
+        name: img.name ?? "",
+        alternativeText: img.alternativeText ?? "",
+      };
+    }),
 
-    about: a ? {
-      heading:     a.heading,
-      subheading:  a.subheading,
-      description: flattenRichText(a.description),
-      image:       mediaUrl(a.featured_image?.url),
-      video:       mediaUrl(a.featured_video?.url),
-      stats:       (a.features_details ?? []).map((f) => ({ label: f.heading, value: f.value })),
-      highlights:  (a.features ?? []).map((f) => ({
-                     label: f.Heading,             // note: capital H in the CMS schema
-                     value: f.value,
-                     icon:  mediaUrl(f.icon?.url),
-                   })),
-    } : null,
+    about: a
+      ? {
+          heading: a.heading,
+          subheading: a.subheading,
+          description: flattenRichText(a.description),
+          image: mediaUrl(a.featured_image?.url),
+          video: mediaUrl(a.featured_video?.url),
+          stats: (a.features_details ?? []).map((f) => ({
+            label: f.heading,
+            value: f.value,
+          })),
+          highlights: (a.features ?? []).map((f) => ({
+            label: f.Heading, // note: capital H in the CMS schema
+            value: f.value,
+            icon: mediaUrl(f.icon?.url),
+          })),
+        }
+      : null,
 
-    whyChooseUs: raw.WhySVKM ? {
-      heading:    raw.WhySVKM.heading,
-      subheading: raw.WhySVKM.Subheading,   // note: capital S in the CMS schema
-      content:    raw.WhySVKM.content,
-      items:      (raw.WhySVKM.Why_vkm ?? []).map((w) => ({
-                    title:       w.heading,
-                    description: w.value,
-                  })),
-    } : null,
+    whyChooseUs: raw.WhySVKM
+      ? {
+          heading: raw.WhySVKM.heading,
+          subheading: raw.WhySVKM.Subheading, // note: capital S in the CMS schema
+          content: raw.WhySVKM.content,
+          items: (raw.WhySVKM.Why_vkm ?? []).map((w) => ({
+            title: w.heading,
+            description: w.value,
+          })),
+        }
+      : null,
 
-    doctorsAdvice: raw.docters_advice ? {
-      heading:    raw.docters_advice.heading,
-      subheading: raw.docters_advice.subheading,
-      items:      (raw.docters_advice.docters_advice_section ?? []).map((s) => ({
-                    videoUrl:   mediaUrl(s.advice_video?.url),
-                    department: s.department_category
-                      ? { name: s.department_category.name, slug: s.department_category.slug }
-                      : null,
-                  })),
-    } : null,
+    doctorsAdvice: raw.docters_advice
+      ? {
+          heading: raw.docters_advice.heading,
+          subheading: raw.docters_advice.subheading,
+          items: (raw.docters_advice.docters_advice_section ?? []).map((s) => ({
+            videoUrl: mediaUrl(s.advice_video?.url),
+            department: s.department_category
+              ? {
+                  name: s.department_category.name,
+                  slug: s.department_category.slug,
+                }
+              : null,
+          })),
+        }
+      : null,
 
-    healthInsight: raw.health_insight ? {
-      heading:    raw.health_insight.heading,
-      subheading: raw.health_insight.subheading,
-      blogs:      (raw.health_insight.blogs ?? []).map((b) => ({
-                    id:      b.documentId,
-                    title:   b.heading,
-                    excerpt: b.subheading,
-                    image:   mediaUrl(b.featured_image?.url),
-                  })),
-    } : null,
+    healthInsight: raw.health_insight
+      ? {
+          heading: raw.health_insight.heading,
+          subheading: raw.health_insight.subheading,
+          blogs: (raw.health_insight.blogs ?? []).map((b) => ({
+            id: b.documentId,
+            title: b.heading,
+            excerpt: b.subheading,
+            image: mediaUrl(b.featured_image?.url),
+          })),
+        }
+      : null,
 
-    testimonialsSection: raw.Testimonial_section ? {
-      heading:    raw.Testimonial_section.heading,
-      subheading: raw.Testimonial_section.subheading,
-      content:    raw.Testimonial_section.content,
-      items:      (raw.Testimonial_section.testimonials ?? []).map((t) => ({
-                    id:         t.documentId,
-                    name:       t.Author_name,
-                    message:    flattenRichText(t.message),
-                    department: t.Department,
-                  })),
-    } : null,
+    testimonialsSection: raw.Testimonial_section
+      ? {
+          heading: raw.Testimonial_section.heading,
+          subheading: raw.Testimonial_section.subheading,
+          content: raw.Testimonial_section.content,
+          items: (raw.Testimonial_section.testimonials ?? []).map((t) => ({
+            id: t.documentId,
+            name: t.Author_name,
+            message: flattenRichText(t.message),
+            department: t.Department,
+          })),
+        }
+      : null,
 
-    faqSection: raw.faq_section ? {
-      heading:        raw.faq_section.heading,
-      subheading:     raw.faq_section.subheading,
-      content:        raw.faq_section.content,
-      contactDetails: (raw.faq_section.details ?? []).map((d) => ({ label: d.heading, value: d.value })),
-      items:          (raw.faq_section.faq_details ?? []).map((f) => ({
-                        question: f.Question,
-                        answer:   f.Answer,
-                      })),
-    } : null,
+    faqSection: raw.faq_section
+      ? {
+          heading: raw.faq_section.heading,
+          subheading: raw.faq_section.subheading,
+          content: raw.faq_section.content,
+          contactDetails: (raw.faq_section.details ?? []).map((d) => ({
+            label: d.heading,
+            value: d.value,
+          })),
+          items: (raw.faq_section.faq_details ?? []).map((f) => ({
+            question: f.Question,
+            answer: f.Answer,
+          })),
+        }
+      : null,
 
-    facilitiesGallery: raw.our_facilities ? {
-      heading:    raw.our_facilities.heading,
-      subheading: raw.our_facilities.subheading,
-      images:     (raw.our_facilities.gallery ?? []).map((g) => ({
-                    src: mediaUrl(g.image?.url),
-                    alt: g.heading,
-                  })),
-    } : null,
+    facilitiesGallery: raw.our_facilities
+      ? {
+          heading: raw.our_facilities.heading,
+          subheading: raw.our_facilities.subheading,
+          images: (raw.our_facilities.gallery ?? []).map((g) => ({
+            src: mediaUrl(g.image?.url),
+            alt: g.heading,
+          })),
+        }
+      : null,
 
-    departmentsHeading: raw.Department_heading ? {
-      heading:    raw.Department_heading.heading,
-      subheading: raw.Department_heading.subheading,
-    } : null,
+    departmentsHeading: raw.Department_heading
+      ? {
+          heading: raw.Department_heading.heading,
+          subheading: raw.Department_heading.subheading,
+        }
+      : null,
 
     departments: (raw.departments ?? []).map((d) => ({
-      id:          d.documentId,
+      id: d.documentId,
       bannerImage: mediaUrl(d.banner?.url),
-      heading:     d.general_medicine?.heading    ?? "",
-      subheading:  d.general_medicine?.subheading ?? "",
+      heading: d.general_medicine?.heading ?? "",
+      subheading: d.general_medicine?.subheading ?? "",
     })),
 
-    newsHeading: raw.News_hwading ? {            // note: vendor typo, kept as-is
-      heading:    raw.News_hwading.heading,
-      subheading: raw.News_hwading.subheading,
-    } : null,
+    newsHeading: raw.News_hwading
+      ? {
+          // note: vendor typo, kept as-is
+          heading: raw.News_hwading.heading,
+          subheading: raw.News_hwading.subheading,
+        }
+      : null,
 
     news: (raw.News ?? []).map((n) => ({
-      heading: n.Heading,                          // note: capital H in the CMS schema
+      heading: n.Heading, // note: capital H in the CMS schema
       content: n.content,
-      image:   mediaUrl(n.featured_image?.url),
+      image: mediaUrl(n.featured_image?.url),
     })),
 
-    blogHeading: raw.Blog_heading ? {
-      heading:    raw.Blog_heading.heading,
-      subheading: raw.Blog_heading.subheading,
-    } : null,
+    blogHeading: raw.Blog_heading
+      ? {
+          heading: raw.Blog_heading.heading,
+          subheading: raw.Blog_heading.subheading,
+        }
+      : null,
 
-    featuredBlog: raw.blog ? {
-      heading:    raw.blog.heading,
-      subheading: raw.blog.subheading,
-      image:      mediaUrl(raw.blog.featured_image?.url),
-    } : null,
+    featuredBlog: raw.blog
+      ? {
+          heading: raw.blog.heading,
+          subheading: raw.blog.subheading,
+          image: mediaUrl(raw.blog.featured_image?.url),
+        }
+      : null,
   };
 }
 
@@ -436,7 +560,9 @@ function transformHomeData(raw: GQLHome): HomePageData {
 export async function getHomePageData(): Promise<HomePageData | null> {
   try {
     const result = await fetchGraphQL<{ home: GQLHome }>(
-      GET_HOME_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.home] }
+      GET_HOME_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.home] },
     );
     if (!result.home) {
       console.warn("[GraphQL] getHomePageData: empty response");
@@ -464,26 +590,31 @@ export interface CleanDoctor {
   departments: Array<{ name: string; slug: string }>;
 }
 
-export async function getConsultantsData(limit = 12): Promise<CleanDoctor[] | null> {
+export async function getConsultantsData(
+  limit = 12,
+): Promise<CleanDoctor[] | null> {
   try {
     const result = await fetchGraphQL<GQLDoctorPageResponse>(
       GET_DOCTOR_PAGE_QUERY,
       { page: 1, pageSize: limit },
-      { revalidate: 300, tags: [CACHE_TAGS.doctors] }
+      { revalidate: 300, tags: [CACHE_TAGS.doctors] },
     );
 
     const consultants = result.docter?.consultants ?? [];
 
     return consultants.map((c) => ({
-      id:              c.documentId,
-      name:            c.name,
-      designation:     c.designation ?? "",
-      profileImage:    mediaUrl(c.profile_image?.url),
-      viewProfile:     c.view_profile ?? null,
+      id: c.documentId,
+      name: c.name,
+      designation: c.designation ?? "",
+      profileImage: mediaUrl(c.profile_image?.url),
+      viewProfile: c.view_profile ?? null,
       bookAppointment: c.book_appointment ?? null,
-      departments:     (c.departments ?? []).flatMap((d) =>
-                         (d.department_categories ?? []).map((cat) => ({ name: cat.name, slug: cat.slug }))
-                       ),
+      departments: (c.departments ?? []).flatMap((d) =>
+        (d.department_categories ?? []).map((cat) => ({
+          name: cat.name,
+          slug: cat.slug,
+        })),
+      ),
     }));
   } catch (e) {
     console.error("[GraphQL] getConsultantsData failed:", e);
@@ -504,14 +635,16 @@ export interface CleanDocterPage {
 export async function getDocterPageData(): Promise<CleanDocterPage | null> {
   try {
     const result = await fetchGraphQL<{ docter: GQLDocterPage }>(
-      GET_DOCTER_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.doctors] }
+      GET_DOCTER_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.doctors] },
     );
     const d = result.docter;
     if (!d) return null;
     return {
       bannerImage: mediaUrl(d.Banner?.url),
-      heading:     d.Docters?.heading ?? "Our Doctors",
-      subheading:  d.Docters?.subheading ?? "",
+      heading: d.Docters?.heading ?? "Our Doctors",
+      subheading: d.Docters?.subheading ?? "",
     };
   } catch (e) {
     console.error("[GraphQL] getDocterPageData failed:", e);
@@ -605,13 +738,22 @@ export interface CleanDeptCategory {
   description: string;
 }
 
-export async function getDepartmentCategoriesData(): Promise<CleanDeptCategory[] | null> {
+export async function getDepartmentCategoriesData(): Promise<
+  CleanDeptCategory[] | null
+> {
   try {
-    const result = await fetchGraphQL<{ departmentCategories: GQLDepartmentCategory[] }>(
-      GET_DEPARTMENT_CATEGORIES_QUERY, {}, { revalidate: 600, tags: [CACHE_TAGS.departments] }
+    const result = await fetchGraphQL<{
+      departmentCategories: GQLDepartmentCategory[];
+    }>(
+      GET_DEPARTMENT_CATEGORIES_QUERY,
+      {},
+      { revalidate: 600, tags: [CACHE_TAGS.departments] },
     );
     return (result.departmentCategories ?? []).map((c) => ({
-      id: c.documentId, name: c.name, slug: c.slug, description: c.description ?? "",
+      id: c.documentId,
+      name: c.name,
+      slug: c.slug,
+      description: c.description ?? "",
     }));
   } catch (e) {
     console.error("[GraphQL] getDepartmentCategoriesData failed:", e);
@@ -631,7 +773,9 @@ export interface CleanDepartmentPage {
 export async function getDepartmentPageData(): Promise<CleanDepartmentPage | null> {
   try {
     const result = await fetchGraphQL<{ departmentPage: GQLDepartmentPage }>(
-      GET_DEPARTMENT_PAGE_QUERY, {}, { revalidate: 600, tags: [CACHE_TAGS.departments] }
+      GET_DEPARTMENT_PAGE_QUERY,
+      {},
+      { revalidate: 600, tags: [CACHE_TAGS.departments] },
     );
     const sec = result.departmentPage?.Department_section;
     if (!sec) return null;
@@ -665,31 +809,44 @@ export interface CleanDepartment {
   categories: Array<{ name: string; slug: string }>;
 }
 
-export async function getDepartmentBySlug(slug: string): Promise<CleanDepartment | null> {
+export async function getDepartmentBySlug(
+  slug: string,
+): Promise<CleanDepartment | null> {
   try {
     const result = await fetchGraphQL<{ departments: GQLDepartment[] }>(
-      GET_DEPARTMENT_BY_SLUG_QUERY, { slug }, { revalidate: 300, tags: [CACHE_TAGS.departments] }
+      GET_DEPARTMENT_BY_SLUG_QUERY,
+      { slug },
+      { revalidate: 300, tags: [CACHE_TAGS.departments] },
     );
     const dept = result.departments?.[0];
     if (!dept) return null;
 
     const gm = dept.general_medicine;
     return {
-      id:          dept.documentId,
+      id: dept.documentId,
       bannerImage: mediaUrl(dept.banner?.url),
-      heading:     gm?.heading ?? "",
-      subheading:  gm?.subheading ?? "",
-      features:    (gm?.why_choose_details ?? []).map((f) => ({
-                     title: f.heading, description: f.subheading, image: mediaUrl(f.featured_image?.url),
-                   })),
-      consultantSectionHeading: dept.consultant_section?.heading ?? "Our Consultants",
+      heading: gm?.heading ?? "",
+      subheading: gm?.subheading ?? "",
+      features: (gm?.why_choose_details ?? []).map((f) => ({
+        title: f.heading,
+        description: f.subheading,
+        image: mediaUrl(f.featured_image?.url),
+      })),
+      consultantSectionHeading:
+        dept.consultant_section?.heading ?? "Our Consultants",
       consultants: (dept.consultants ?? []).map((c) => ({
-                     id: c.documentId, name: c.name, designation: c.designation ?? "",
-                     profileImage: mediaUrl(c.profile_image?.url),
-                     viewProfile: c.view_profile, bookAppointment: c.book_appointment,
-                     departments: [],
-                   })),
-      categories:  (dept.department_categories ?? []).map((c) => ({ name: c.name, slug: c.slug })),
+        id: c.documentId,
+        name: c.name,
+        designation: c.designation ?? "",
+        profileImage: mediaUrl(c.profile_image?.url),
+        viewProfile: c.view_profile,
+        bookAppointment: c.book_appointment,
+        departments: [],
+      })),
+      categories: (dept.department_categories ?? []).map((c) => ({
+        name: c.name,
+        slug: c.slug,
+      })),
     };
   } catch (e) {
     console.error(`[GraphQL] getDepartmentBySlug(${slug}) failed:`, e);
@@ -716,24 +873,26 @@ export interface CleanBlogPage {
 
 function mapBlogItems(blog: GQLBlog | null | undefined): CleanBlogItem[] {
   return (blog?.blogs ?? []).map((b, i) => ({
-    id:      blog?.documentId ? `${blog.documentId}-${i}` : String(i),
-    title:   b.heading,
+    id: blog?.documentId ? `${blog.documentId}-${i}` : String(i),
+    title: b.heading,
     excerpt: b.subheading,
-    image:   mediaUrl(b.featured_image?.url),
+    image: mediaUrl(b.featured_image?.url),
   }));
 }
 
 export async function getBlogPageData(): Promise<CleanBlogPage | null> {
   try {
     const result = await fetchGraphQL<{ blogPage: GQLBlogPage }>(
-      GET_BLOG_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.blogs] }
+      GET_BLOG_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.blogs] },
     );
     const bp = result.blogPage;
     if (!bp) return null;
     return {
-      heading:    bp.heading_section?.heading    ?? "Health & Wellness Insights",
+      heading: bp.heading_section?.heading ?? "Health & Wellness Insights",
       subheading: bp.heading_section?.subheading ?? "",
-      blogs:      mapBlogItems(bp.blogs),
+      blogs: mapBlogItems(bp.blogs),
     };
   } catch (e) {
     console.error("[GraphQL] getBlogPageData failed:", e);
@@ -744,7 +903,9 @@ export async function getBlogPageData(): Promise<CleanBlogPage | null> {
 export async function getAllBlogsData(): Promise<CleanBlogItem[] | null> {
   try {
     const result = await fetchGraphQL<{ blogs: GQLBlog[] }>(
-      GET_BLOGS_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.blogs] }
+      GET_BLOGS_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.blogs] },
     );
     return (result.blogs ?? []).flatMap((b) => mapBlogItems(b));
   } catch (e) {
@@ -786,7 +947,9 @@ export interface CleanCareerPage {
 export async function getCareerPageData(): Promise<CleanCareerPage | null> {
   try {
     const result = await fetchGraphQL<{ career: GQLCareer }>(
-      GET_CAREER_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.careers] }
+      GET_CAREER_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.careers] },
     );
     const c = result.career;
     if (!c) return null;
@@ -795,21 +958,26 @@ export async function getCareerPageData(): Promise<CleanCareerPage | null> {
     for (const item of c.why_work_with_us ?? []) {
       if (item.__typename === "ComponentSharedWhyChooseUs") {
         for (const d of item.why_choose_details ?? []) {
-          whyWork.push({ title: d.heading, description: d.subheading, image: mediaUrl(d.featured_image?.url) });
+          whyWork.push({
+            title: d.heading,
+            description: d.subheading,
+            image: mediaUrl(d.featured_image?.url),
+          });
         }
       }
     }
 
     return {
-      bannerImage:      mediaUrl(c.banner_image?.url),
-      bannerHeading:    c.Banner?.heading    ?? "Careers at TMPM Hospital",
+      bannerImage: mediaUrl(c.banner_image?.url),
+      bannerHeading: c.Banner?.heading ?? "Careers at TMPM Hospital",
       bannerSubheading: c.Banner?.subheading ?? "",
-      whyWorkWithUs:    whyWork,
+      whyWorkWithUs: whyWork,
       jobSections: (c.current_openings ?? []).map((sec) => ({
-        heading: sec.heading, subheading: sec.subheading,
+        heading: sec.heading,
+        subheading: sec.subheading,
         openings: (sec.current_opening_details ?? []).map((d) => ({
-          heading:  d.heading,
-          details:  d.details != null ? String(d.details) : null,
+          heading: d.heading,
+          details: d.details != null ? String(d.details) : null,
           applyNow: d.apply_now,
         })),
       })),
@@ -833,14 +1001,19 @@ export interface CleanContactInfo {
 export async function getContactPageData(): Promise<CleanContactInfo | null> {
   try {
     const result = await fetchGraphQL<{ contactPage: GQLContactPage }>(
-      GET_CONTACT_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.contact] }
+      GET_CONTACT_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.contact] },
     );
     const sec = result.contactPage?.contact?.Contact_section;
     if (!sec) return null;
     return {
-      heading:    sec.heading,
+      heading: sec.heading,
       subheading: sec.subheading,
-      details:    (sec.contact_detail ?? []).map((d) => ({ label: d.heading, value: d.description })),
+      details: (sec.contact_detail ?? []).map((d) => ({
+        label: d.heading,
+        value: d.description,
+      })),
     };
   } catch (e) {
     console.error("[GraphQL] getContactPageData failed:", e);
@@ -858,27 +1031,44 @@ export interface CleanPatientPage {
   contactInfo: CleanContactInfo | null;
 }
 
-function mapContactSection(cs: { heading: string; subheading: string; contact_detail: Array<{ heading: string; description: string }> } | null | undefined): CleanContactInfo | null {
+function mapContactSection(
+  cs:
+    | {
+        heading: string;
+        subheading: string;
+        contact_detail: Array<{ heading: string; description: string }>;
+      }
+    | null
+    | undefined,
+): CleanContactInfo | null {
   if (!cs) return null;
   return {
     heading: cs.heading,
     subheading: cs.subheading,
-    details: (cs.contact_detail ?? []).map((d) => ({ label: d.heading, value: d.description })),
+    details: (cs.contact_detail ?? []).map((d) => ({
+      label: d.heading,
+      value: d.description,
+    })),
   };
 }
 
 export async function getOpdPageData(): Promise<CleanPatientPage | null> {
   try {
     const result = await fetchGraphQL<{ opd: GQLOpd }>(
-      GET_OPD_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.opd] }
+      GET_OPD_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.opd] },
     );
     const opd = result.opd;
     if (!opd) return null;
 
-    const sections: CleanWhyItem[] = (opd.outpatient_department ?? []).flatMap((dept) =>
-      (dept.why_choose_details ?? []).map((d) => ({
-        title: d.heading, description: d.subheading, image: mediaUrl(d.featured_image?.url),
-      }))
+    const sections: CleanWhyItem[] = (opd.outpatient_department ?? []).flatMap(
+      (dept) =>
+        (dept.why_choose_details ?? []).map((d) => ({
+          title: d.heading,
+          description: d.subheading,
+          image: mediaUrl(d.featured_image?.url),
+        })),
     );
 
     return {
@@ -895,15 +1085,20 @@ export async function getOpdPageData(): Promise<CleanPatientPage | null> {
 export async function getIpdPageData(): Promise<CleanPatientPage | null> {
   try {
     const result = await fetchGraphQL<{ ipd: GQLIpd }>(
-      GET_IPD_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.ipd] }
+      GET_IPD_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.ipd] },
     );
     const ipd = result.ipd;
     if (!ipd) return null;
 
-    const sections: CleanWhyItem[] = (ipd.Inpatient_department ?? []).flatMap((dept) =>
-      (dept.why_choose_details ?? []).map((d) => ({
-        title: d.heading, description: d.subheading, image: mediaUrl(d.featured_image?.url),
-      }))
+    const sections: CleanWhyItem[] = (ipd.Inpatient_department ?? []).flatMap(
+      (dept) =>
+        (dept.why_choose_details ?? []).map((d) => ({
+          title: d.heading,
+          description: d.subheading,
+          image: mediaUrl(d.featured_image?.url),
+        })),
     );
 
     return {
@@ -920,13 +1115,19 @@ export async function getIpdPageData(): Promise<CleanPatientPage | null> {
 export async function getDaycarePageData(): Promise<CleanPatientPage | null> {
   try {
     const result = await fetchGraphQL<{ daycare: GQLDaycare }>(
-      GET_DAYCARE_PAGE_QUERY, {}, { revalidate: 300, tags: [CACHE_TAGS.daycare] }
+      GET_DAYCARE_PAGE_QUERY,
+      {},
+      { revalidate: 300, tags: [CACHE_TAGS.daycare] },
     );
     const dc = result.daycare;
     if (!dc) return null;
 
-    const sections: CleanWhyItem[] = (dc.day_care?.why_choose_details ?? []).map((d) => ({
-      title: d.heading, description: d.subheading, image: mediaUrl(d.featured_image?.url),
+    const sections: CleanWhyItem[] = (
+      dc.day_care?.why_choose_details ?? []
+    ).map((d) => ({
+      title: d.heading,
+      description: d.subheading,
+      image: mediaUrl(d.featured_image?.url),
     }));
 
     return {

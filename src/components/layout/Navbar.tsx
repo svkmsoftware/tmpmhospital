@@ -109,7 +109,7 @@ function DesktopSubMenu({
     setHoverIdx(i);
   };
   const leave = () => {
-    timerRef.current = setTimeout(() => setHoverIdx(null), 100);
+    timerRef.current = setTimeout(() => setHoverIdx(null), 250); // ← was 100
   };
   const keepAlive = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -156,15 +156,15 @@ function DesktopSubMenu({
                   />
                 </button>
 
-                {/* Nested menu */}
+                {/* Nested menu — no marginLeft gap; paddingLeft keeps the hit-box contiguous */}
                 <div
                   className={cn(
                     "absolute left-full top-0 z-10 transition-all duration-200",
                     isHovered
-                      ? "opacity-100 translate-x-1 pointer-events-auto"
-                      : "opacity-0 translate-x-0 pointer-events-none",
+                      ? "opacity-100 translate-x-0 pointer-events-auto"
+                      : "opacity-0 -translate-x-1 pointer-events-none",
                   )}
-                  style={{ marginLeft: "4px" }}
+                  style={{ paddingLeft: "4px" }} // ← was marginLeft: "4px"
                   onMouseEnter={keepAlive}
                   onMouseLeave={leave}
                 >

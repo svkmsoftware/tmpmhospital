@@ -188,6 +188,12 @@ export const GET_HOME_PAGE_QUERY = /* GraphQL */ `
       alternativeText
     }
 
+    Mobile_banner {
+    url
+    name
+    alternativeText
+    }
+
     Abour_US {
       heading
       subheading

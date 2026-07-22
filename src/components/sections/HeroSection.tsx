@@ -1,108 +1,28 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  Phone,
-  Clock,
-  MapPin,
-  ChevronLeft,
-  ChevronRight,
-  ArrowRight,
-} from "lucide-react";
+import { Phone, Clock, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const slides = [
+interface BannerImage {
+  url: string;
+  mobileUrl: string;
+  name: string;
+  alternativeText: string | null;
+}
+
+interface HeroSectionProps {
+  banners: BannerImage[];
+}
+
+// Fallback used only if CMS returns nothing (e.g. request failed)
+const fallbackSlides = [
   {
-    id: 1,
-    image: "/images/hospital_banner_images0.png",
-    image_mobile: "/images/hospital_banner_images0_mobile.png",
-    eyebrow: "Shirpur's Premier Healthcare Destination",
-    heading: "Compassionate Care,\nAdvanced Medicine",
-    body: "A 1200-bed multispecialty hospital serving tribal and rural Maharashtra with world-class, affordable healthcare.",
-    cta: { label: "Explore Departments", href: "/departments" },
-    ghost: { label: "Book Appointment", href: "/contact" },
-  },
-  {
-    id: 2,
-    image: "/images/hospital_banner_images1.png",
-    image_mobile: "/images/hospital_banner_images1_mobile.png",
-    eyebrow: "SVKM's TMPM Hospital",
-    heading: "Your Health,\nOur Mission",
-    body: "17 operation theatres, specialized ICUs, and 50+ expert specialists committed to excellence at every step.",
-    cta: { label: "Meet Our Doctors", href: "/doctors" },
-    ghost: { label: "About Us", href: "/about" },
-  },
-  {
-    id: 3,
-    image: "/images/hospital_banner_images2.png",
-    image_mobile: "/images/hospital_banner_images2_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
-  },
-  {
-    id: 4,
-    image: "/images/hospital_banner_images3.png",
-    image_mobile: "/images/hospital_banner_images3_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
-  },
-  {
-    id: 5,
-    image: "/images/hospital_banner_images4.png",
-    image_mobile: "/images/hospital_banner_images4_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
-  },
-  {
-    id: 6,
-    image: "/images/hospital_banner_images5.png",
-    image_mobile: "/images/hospital_banner_images5_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
-  },
-  {
-    id: 7,
-    image: "/images/hospital_banner_images6.png",
-    image_mobile: "/images/hospital_banner_images6_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
-  },
-  {
-    id: 8,
-    image: "/images/hospital_banner_images7.png",
-    image_mobile: "/images/hospital_banner_images7_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
-  },
-  {
-    id: 9,
-    image: "/images/hospital_banner_images8.png",
-    image_mobile: "/images/hospital_banner_images8_mobile.png",
-    eyebrow: "Complete Spectrum of Care",
-    heading: "Specialty & Super\nSpecialty Services",
-    body: "From General Medicine to complex procedures — comprehensive, integrated care under one roof in Shirpur.",
-    cta: { label: "View Departments", href: "/departments" },
-    ghost: { label: "Emergency Line", href: "/contact#emergency" },
+    id: "fallback-1",
+    image: "/images/hospital_banner_images91.png",
+    image_mobile: "/images/hospital_banner_images10.png",
+    alt: "",
   },
 ];
 
@@ -130,7 +50,17 @@ const quickAccess = [
   },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ banners }: HeroSectionProps) {
+  const slides = useMemo(() => {
+    if (!banners || banners.length === 0) return fallbackSlides;
+    return banners.map((b, i) => ({
+      id: `${b.url}-${i}`,
+      image: b.url,
+      image_mobile: b.mobileUrl, // CMS currently gives one image, reused for both breakpoints
+      alt: b.alternativeText || b.name || "",
+    }));
+  }, [banners]);
+
   const [current, setCurrent] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
 
@@ -146,19 +76,23 @@ export default function HeroSection() {
 
   const next = useCallback(
     () => goTo((current + 1) % slides.length),
-    [current, goTo],
+    [current, goTo, slides.length],
   );
   const prev = useCallback(
     () => goTo((current - 1 + slides.length) % slides.length),
-    [current, goTo],
+    [current, goTo, slides.length],
   );
 
   useEffect(() => {
+    if (slides.length <= 1) return;
     const t = setInterval(next, 6000);
     return () => clearInterval(t);
-  }, [next]);
+  }, [next, slides.length]);
 
-  const slide = slides[current];
+  // Reset to first slide if the banner list shrinks below current index
+  useEffect(() => {
+    if (current >= slides.length) setCurrent(0);
+  }, [slides.length, current]);
 
   return (
     <section
@@ -171,7 +105,6 @@ export default function HeroSection() {
       }}
       aria-label="Hero banner"
     >
-      {/* ── Background slides ─────────────────────────────────────────────── */}
       {slides.map((s, i) => (
         <div
           key={s.id}
@@ -183,95 +116,25 @@ export default function HeroSection() {
           )}
           aria-hidden={i !== current}
         >
-          <>
-            {/* Desktop */}
-            <Image
-              src={s.image}
-              alt=""
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="hidden md:block object-contain object-center"
-            />
-
-            {/* Mobile */}
-            <Image
-              src={s.image_mobile}
-              alt=""
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="block md:hidden object-contain object-center"
-            />
-          </>
-          {/* Directional gradient overlay */}
-          {/* <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "var(--gradient-hero)",
-            }}></div> */}
+          <Image
+            src={s.image}
+            alt={s.alt}
+            fill
+            priority={i === 0}
+            sizes="100vw"
+            className="hidden md:block object-contain object-center"
+          />
+          <Image
+            src={s.image_mobile}
+            alt={s.alt}
+            fill
+            priority={i === 0}
+            sizes="100vw"
+            className="block md:hidden object-contain object-center"
+          />
         </div>
       ))}
 
-      {/* ── Content ───────────────────────────────────────────────────────── */}
-      {/* <div className="relative z-20 h-full flex flex-col justify-center">
-        <div className="container-custom w-full">
-          <div className="max-w-3xl"> */}
-      {/* Eyebrow */}
-      {/* <div
-              key={`ey-${current}`}
-              className="flex items-center gap-3 mb-5 animate-fade-in"
-            >
-              <span className="w-8 h-px bg-amber-400 opacity-80"></span>
-              <span className="text-amber-300 text-xs font-semibold tracking-[0.18em] uppercase">
-                {slide.eyebrow}
-              </span>
-            </div> */}
-
-      {/* Heading — display serif */}
-      {/* <h1
-              key={`h-${current}`}
-              className="text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] animate-fade-in-up font-normal"
-              style={{
-                fontFamily: "var(--font-display)",
-                whiteSpace: "pre-line",
-                animationDelay: "60ms",
-              }}
-            >
-              {slide.heading}
-            </h1> */}
-
-      {/* Body */}
-      {/* <p
-              key={`b-${current}`}
-              className="mt-6 text-lg text-cyan-100/90 max-w-xl leading-relaxed animate-fade-in-up"
-              style={{ animationDelay: "120ms" }}
-            >
-              {slide.body}
-            </p> */}
-
-      {/* CTAs */}
-      {/* <div
-              key={`cta-${current}`}
-              className="mt-9 flex flex-wrap gap-4 animate-fade-in-up"
-              style={{ animationDelay: "180ms" }}
-            >
-              <Link href={slide.cta.href} className="btn-accent font-bold text-base px-7 py-3.5">
-                {slide.cta.label} <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href={slide.ghost.href}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border-2 border-white/40 text-white font-semibold text-base hover:bg-white/15 hover:border-white transition-all duration-200"
-              >
-                {slide.ghost.label}
-              </Link>
-            </div> */}
-      {/* </div>
-        </div>
-      </div> */}
-
-      {/* ── Prev / Next arrows ─────────────────────────────────────────────── */}
       <div className="absolute z-20 right-6 bottom-36 hidden md:flex flex-col items-center gap-3">
         <button
           onClick={prev}
@@ -292,7 +155,6 @@ export default function HeroSection() {
         </button>
       </div>
 
-      {/* ── Dot indicators (mobile) ────────────────────────────────────────── */}
       <div className="absolute z-20 bottom-36 left-1/2 -translate-x-1/2 flex gap-2 md:hidden">
         {slides.map((_, i) => (
           <button
@@ -309,7 +171,6 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* ── Progress bar ──────────────────────────────────────────────────── */}
       <div className="absolute bottom-[4.5rem] z-20 left-0 right-0 h-0.5 bg-white/10">
         <div
           key={current}
@@ -317,7 +178,6 @@ export default function HeroSection() {
         ></div>
       </div>
 
-      {/* ── Quick access strip ────────────────────────────────────────────── */}
       <div className="absolute z-20 bottom-0 left-0 right-0 hidden md:block">
         <div className="container-custom">
           <div className="grid grid-cols-3 max-w-xl">
