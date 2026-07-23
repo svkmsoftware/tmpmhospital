@@ -476,13 +476,14 @@ export default function Navbar() {
             aria-label="SVKM TMPM Hospital — Home"
           >
             <Image
-              src="/images/hospital_website_logo.png"
+              src="/images/logo.png"
               alt="SVKM TMPM Hospital"
               width={220}
               height={60}
               className="object-contain md:mr-5 h-9 md:h-14 w-auto"
               priority
             />
+            
           </Link>
 
           <nav
@@ -510,7 +511,7 @@ export default function Navbar() {
             </Link>
 
             <Image
-              src="/images/hospital_logo_mnc.png"
+              src="/images/SVKM-Logo.png"
               alt="Accreditation"
               width={44}
               height={44}
