@@ -19,11 +19,11 @@ jobs:
 
           ssh-keyscan \
             -p ${{ secrets.SERVER_PORT }} \
-            ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+            ${{ secrets.SERVER_UAT_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy
         run: |
           ssh \
             -p ${{ secrets.SERVER_PORT }} \
-            ${{ secrets.SERVER_UAT_USER }}@${{ secrets.SERVER_HOST }} \
+            ${{ secrets.SERVER_UAT_USER }}@${{ secrets.SERVER_UAT_HOST }} \
             "/home/kwebmaker-tmpmhospital/scripts/deploy.sh"
