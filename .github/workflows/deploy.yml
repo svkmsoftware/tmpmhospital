@@ -1,9 +1,9 @@
-name: Deploy Production
+name: Deploy UAT
 
 on:
   push:
     branches:
-      - main
+      - uat
 
 jobs:
   deploy:
@@ -26,4 +26,4 @@ jobs:
           ssh \
             -p ${{ secrets.SERVER_PORT }} \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
-            "/home/tmpmhospital/scripts/deploy.sh"
+            "/home/kwebmaker-tmpmhospital/scripts/deploy.sh"
