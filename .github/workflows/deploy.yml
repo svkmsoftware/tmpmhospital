@@ -25,5 +25,5 @@ jobs:
         run: |
           ssh \
             -p ${{ secrets.SERVER_PORT }} \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            ${{ secrets.SERVER_UAT_USER }}@${{ secrets.SERVER_HOST }} \
             "/home/kwebmaker-tmpmhospital/scripts/deploy.sh"
