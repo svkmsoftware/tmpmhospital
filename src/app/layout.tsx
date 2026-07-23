@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   formatDetection: { email: false, address: false, telephone: false },
   verification: {
-    google: "MYZIjuguK_S_XRF5W6EzcAo9CKjF8najN_1djwlhloc",
+    google: "6esUDsnHXjqAUOWn04XIe-9RABx4nEENk_Dj0wL1QQM",
   },
   openGraph: {
     type: "website",
