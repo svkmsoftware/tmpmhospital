@@ -12,7 +12,7 @@ import type { Blog, Testimonial, FAQ, GalleryImage } from "@/types";
 
 // ── Doctors' Advice (Image 5 style — horizontal scroll cards) ─────────────────
 const doctorAdviceVideos = [
-  { id: 1, title: "Is Your Back Pain a Slipped Disc?",          doctor: "Dr. Umang Shah",    image: "/images/blogs/health_camp.png",      category: "Orthopaedics" },
+  { id: 1, title: "Is Your Back Pain a Slipped Disc?",          doctor: "Dr. Umang Shah",    image: "/images/blogs/Health_camp.png",      category: "Orthopaedics" },
   { id: 2, title: "Felt a Snap in Your Knee? Meniscus Tear?",   doctor: "Dr. Aditya Mehra",  image: "/images/blogs/hospital_opening.png", category: "Orthopaedics" },
   { id: 3, title: "Breast Cancer: What You Never Knew",         doctor: "Dr. Priya Nair",    image: "/images/blogs/Health_camp.png",       category: "Oncology"     },
   { id: 4, title: "Oral Cancer — Recognize It Early",           doctor: "Dr. Haresh Mehta",  image: "/images/blogs/hospital_opening.png", category: "ENT"          },

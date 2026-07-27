@@ -24,6 +24,7 @@ import { getAboutPageData, type AboutPageData } from "@/lib/graphql/services";
 import { missionVisionData } from "@/data/visionMission";
 import { managementTeam as localManagement } from "@/data/static";
 import { aboutData } from "@/data/about";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -293,46 +294,119 @@ export default async function AboutPage() {
 
       {/* ── Founders ─────────────────────────────────────────────────────── */}
       {founders.length > 0 && (
-        <section id="leadership" className="section-padding bg-gradient-section">
-          <div className="container-custom">
-            <SectionHeader
-              tag="Leadership"
-              title="Founders & President"
-              subtitle="Visionary leaders who built this institution with a dream of serving the people of Maharashtra."
+        <section id="leadership" className="relative overflow-hidden">
+          <div
+            className="relative py-20 sm:py-28"
+            style={{ background: "linear-gradient(160deg, #051F38 0%, #0456A8 55%, #063E7D 100%)" }}
+          >
+            {/* top & bottom hairline borders — certificate-style framing */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F2A93B]/50 to-transparent" aria-hidden />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F2A93B]/50 to-transparent" aria-hidden />
+
+            {/* decorative watermark blobs */}
+            <div
+              className="absolute top-1/4 -left-24 w-96 h-96 rounded-full opacity-[0.07] blur-3xl pointer-events-none"
+              style={{ background: "#ffffff" }}
+              aria-hidden
             />
-            <div className="flex flex-wrap justify-center gap-8">
-              {founders.map((f) => (
-                <div
-                  key={f.name}
-                  className="card p-8 flex flex-col sm:flex-row items-start gap-6 w-full max-w-2xl"
-                >
-                  {f.image && (
-                    <div className="relative w-32 h-32 rounded-2xl overflow-hidden shrink-0 shadow-md">
-                      <Image
-                        src={f.image}
-                        alt={f.name}
-                        fill
-                        className="object-cover"
-                        sizes="128px"
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <p
-                      className="text-xs font-bold tracking-wider uppercase mb-1"
-                      style={{ color: "var(--color-accent)" }}
-                    >
-                      {f.role}
-                    </p>
-                    <h3 className="text-lg font-bold text-neutral-800 mb-2">{f.name}</h3>
-                    <p className="text-sm text-neutral-500 leading-relaxed">{f.description}</p>
-                  </div>
+            <div
+              className="absolute bottom-0 -right-20 w-80 h-80 rounded-full opacity-[0.08] blur-3xl pointer-events-none"
+              style={{ background: "#08A2A4" }}
+              aria-hidden
+            />
+
+            <div className="container-custom relative">
+              {/* ── Heading with ornamental flourish ─────────────────────── */}
+              <div className="text-center mb-20 sm:mb-24">
+                <div className="flex items-center justify-center gap-3 mb-5">
+                  <span className="h-px w-10 sm:w-16" style={{ background: "#F2A93B" }} />
+                  <span className="text-[11px] font-semibold tracking-[0.28em] uppercase" style={{ color: "#F2A93B" }}>
+                    Est. 1934
+                  </span>
+                  <span className="h-px w-10 sm:w-16" style={{ background: "#F2A93B" }} />
                 </div>
-              ))}
+                <h2
+                  className="text-4xl sm:text-5xl text-white mb-4"
+                  style={{ fontFamily: "var(--font-display, serif)" }}
+                >
+                  Founders &amp; President
+                </h2>
+                <p className="text-cyan-100/70 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+                  Visionary leaders who built this institution with a dream of serving the people of Maharashtra.
+                </p>
+              </div>
+
+              {/* ── Editorial founder spreads ─────────────────────────────── */}
+              <div className="space-y-20 sm:space-y-28 max-w-5xl mx-auto">
+                {founders.map((f, i) => {
+                  const reversed = i % 2 === 1;
+                  return (
+                    <div
+                      key={f.name}
+                      className={cn(
+                        "grid grid-cols-1 md:grid-cols-[minmax(0,280px)_1px_1fr] gap-8 md:gap-12 items-center",
+                        reversed && "md:[direction:rtl]",
+                      )}
+                    >
+                      {/* Portrait */}
+                      <div className={cn("mx-auto md:mx-0", reversed && "md:[direction:ltr]")}>
+                        <div className="relative w-56 h-72 sm:w-64 sm:h-80">
+                          <div
+                            className="absolute -top-3 -left-3 w-full h-full rounded-sm"
+                            style={{ border: "1px solid #F2A93B99" }}
+                            aria-hidden
+                          />
+                          <div className="relative w-full h-full overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
+                            {f.image && (
+                              <Image
+                                src={f.image}
+                                alt={f.name}
+                                fill
+                                className="object-cover"
+                                sizes="256px"
+                              />
+                            )}
+                          </div>
+                          {/* <span
+                            className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full flex items-center justify-center text-sm font-bold shadow-lg"
+                            style={{ background: "#F2A93B", color: "#051F38" }}
+                          >
+                            {String(i + 1).padStart(2, "0")}
+                          </span> */}
+                        </div>
+                      </div>
+
+                      {/* vertical divider — desktop only */}
+                      <div className="hidden md:block self-stretch w-px bg-white/15" aria-hidden />
+
+                      {/* Text */}
+                      <div className={cn("md:[direction:ltr]", reversed ? "text-center md:text-right" : "text-center md:text-left")}>
+                        <span
+                          className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase mb-3"
+                          style={{ color: "#F2A93B" }}
+                        >
+                          {f.role}
+                        </span>
+                        <h3
+                          className="text-2xl sm:text-3xl text-white mb-5 leading-snug"
+                          style={{ fontFamily: "var(--font-display, serif)" }}
+                        >
+                          {f.name}
+                        </h3>
+                        <p className="text-cyan-50/75 leading-relaxed text-[15px] sm:text-base max-w-xl md:max-w-none mx-auto">
+                          {f.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
       )}
+
+
 
       {/* ── Trustees ─────────────────────────────────────────────────────── */}
       {trustees.length > 0 && (
