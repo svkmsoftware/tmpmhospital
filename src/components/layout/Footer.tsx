@@ -71,9 +71,16 @@ export default function Footer() {
                 translateX loop seamless with no blank gap, regardless of
                 monitor width. */}
             {[0, 1].map((half) => (
-              <div key={half} className="flex items-center shrink-0" aria-hidden={half === 1}>
+              <div
+                key={half}
+                className="flex items-center shrink-0"
+                aria-hidden={half === 1}
+              >
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="flex items-center gap-12 shrink-0 pr-12">
+                  <div
+                    key={i}
+                    className="flex items-center gap-12 shrink-0 pr-12"
+                  >
                     <a
                       href="tel:+912563351505"
                       className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
@@ -87,6 +94,13 @@ export default function Footer() {
                     >
                       <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                       Appointment: +91 2563 351503/04
+                    </a>
+                    <a
+                      href="tel:+912563351510"
+                      className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
+                    >
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                      Radiology: +91 2563 351510
                     </a>
                   </div>
                 ))}
@@ -103,8 +117,8 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block mb-5">
               <Image
-                src="/images/hospital_website_logo_1.png"
-                alt="SVKM TMPM Hospital"
+                src="/images/logo.png"
+                alt="SVKM TMPM Hospital Logo"
                 width={200}
                 height={54}
                 style={{ height: "3rem", width: "auto" }}
