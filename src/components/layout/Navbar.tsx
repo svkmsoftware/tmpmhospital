@@ -15,6 +15,7 @@ import {
   Linkedin,
   Twitter,
   ChevronRight,
+  Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { departments } from "@/data/departments";
@@ -435,6 +436,18 @@ export default function Navbar() {
               className="xl:flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white hidden"
             >
               <Phone className="w-3.5 h-3.5" /> Radiology: +91 2563 351510
+            </a>
+            <span className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
+              <Clock className="w-3.5 h-3.5" /> OPD: 9 AM – 5 PM
+            </span>
+            {/* <span className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
+              <Clock className="w-3.5 h-3.5" /> Toll-Free: 1800 8909 111
+            </span> */}
+            <a
+              href="tel:18008909111"
+              className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20 text-xl"
+            >
+              <Phone className="w-4.5 h-4.5" /> Toll-Free: 1800 8909 111
             </a>
           </div>
           <div className="flex items-center gap-4">
