@@ -26,29 +26,29 @@ const fallbackSlides = [
   },
 ];
 
-const quickAccess = [
-  {
-    icon: Phone,
-    label: "Emergency",
-    sub: "24 × 7 Available",
-    href: "tel:+912563351505",
-    bg: "bg-red-600 hover:bg-red-700",
-  },
-  {
-    icon: Clock,
-    label: "OPD Hours",
-    sub: "8 AM – 8 PM",
-    href: "/opd",
-    bg: "bg-cyan-700 hover:bg-cyan-800",
-  },
-  {
-    icon: MapPin,
-    label: "Our Location",
-    sub: "Shirpur, Dhule",
-    href: "/contact#map",
-    bg: "bg-emerald-700 hover:bg-emerald-800",
-  },
-];
+// const quickAccess = [
+//   {
+//     icon: Phone,
+//     label: "Emergency",
+//     sub: "24 × 7 Available",
+//     href: "tel:+912563351505",
+//     bg: "bg-red-600 hover:bg-red-700",
+//   },
+//   {
+//     icon: Clock,
+//     label: "OPD Hours",
+//     sub: "8 AM – 8 PM",
+//     href: "/opd",
+//     bg: "bg-cyan-700 hover:bg-cyan-800",
+//   },
+//   {
+//     icon: MapPin,
+//     label: "Our Location",
+//     sub: "Shirpur, Dhule",
+//     href: "/contact#map",
+//     bg: "bg-emerald-700 hover:bg-emerald-800",
+//   },
+// ];
 
 export default function HeroSection({ banners }: HeroSectionProps) {
   const slides = useMemo(() => {
@@ -98,10 +98,13 @@ export default function HeroSection({ banners }: HeroSectionProps) {
     <section
       className="relative w-full overflow-hidden"
       style={{
-        height: "100svh",
-        minHeight: 600,
-        maxHeight: 900,
-        marginTop: "calc(-1 * var(--total-header))",
+        // height: "100svh",
+        // minHeight: 600,
+        // maxHeight: 900,
+        // marginTop: "calc(-1 * var(--total-header))",
+        height: "calc(100vh - var(--total-header))",
+        minHeight: 500,
+        maxHeight: 800,        
       }}
       aria-label="Hero banner"
     >
@@ -122,7 +125,8 @@ export default function HeroSection({ banners }: HeroSectionProps) {
             fill
             priority={i === 0}
             sizes="100vw"
-            className="hidden md:block object-contain object-center"
+            className="hidden md:block object-cover object-center"
+            // className="hidden md:block object-contain object-center"
           />
           <Image
             src={s.image_mobile}
@@ -130,7 +134,8 @@ export default function HeroSection({ banners }: HeroSectionProps) {
             fill
             priority={i === 0}
             sizes="100vw"
-            className="block md:hidden object-contain object-center"
+            className="hidden md:block object-cover object-center"
+            // className="hidden md:block object-contain object-center"
           />
         </div>
       ))}
@@ -178,7 +183,7 @@ export default function HeroSection({ banners }: HeroSectionProps) {
         ></div>
       </div>
 
-      <div className="absolute z-20 bottom-0 left-0 right-0 hidden md:block">
+      {/* <div className="absolute z-20 bottom-0 left-0 right-0 hidden md:block">
         <div className="container-custom">
           <div className="grid grid-cols-3 max-w-xl">
             {quickAccess.map(({ icon: Icon, label, sub, href, bg }) => (
@@ -203,7 +208,7 @@ export default function HeroSection({ banners }: HeroSectionProps) {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
