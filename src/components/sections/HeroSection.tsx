@@ -125,8 +125,8 @@ export default function HeroSection({ banners }: HeroSectionProps) {
             fill
             priority={i === 0}
             sizes="100vw"
-            className="hidden md:block object-cover object-center"
-            // className="hidden md:block object-contain object-center"
+            // className="hidden md:block object-cover object-center"
+            className="hidden md:block object-contain object-center"
           />
           <Image
             src={s.image_mobile}
@@ -134,8 +134,8 @@ export default function HeroSection({ banners }: HeroSectionProps) {
             fill
             priority={i === 0}
             sizes="100vw"
-            className="hidden md:block object-cover object-center"
-            // className="hidden md:block object-contain object-center"
+            // className="hidden md:block object-cover object-center"
+            className="hidden md:block object-contain object-center"
           />
         </div>
       ))}
