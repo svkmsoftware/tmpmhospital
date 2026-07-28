@@ -128,15 +128,14 @@ export default function HeroSection({ banners }: HeroSectionProps) {
             // className="hidden md:block object-cover object-center"
             className="hidden md:block object-contain object-center"
           />
-          <Image
+          {/* <Image
             src={s.image_mobile}
             alt={s.alt}
             fill
             priority={i === 0}
             sizes="100vw"
-            // className="hidden md:block object-cover object-center"
             className="hidden md:block object-contain object-center"
-          />
+          /> */}
         </div>
       ))}
 
