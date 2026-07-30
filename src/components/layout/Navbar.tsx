@@ -420,19 +420,19 @@ export default function Navbar() {
               <Mail className="w-3.5 h-3.5" /> contact.tmpmh@svkm.ac.in
             </a>
             <a
-              href="tel:+912563351505"
+              href="tel:02563351505"
               className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white"
             >
               <Phone className="w-3.5 h-3.5" /> Emergency: +91 2563 351505/06
             </a>
             <a
-              href="tel:+912563351503"
+              href="tel:02563351503"
               className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white"
             >
               <Phone className="w-3.5 h-3.5" /> Appointment: +91 2563 351503/04
             </a>
             <a
-              href="tel:+912563351510"
+              href="tel:02563351510"
               className="xl:flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white hidden"
             >
               <Phone className="w-3.5 h-3.5" /> Radiology: +91 2563 351510
