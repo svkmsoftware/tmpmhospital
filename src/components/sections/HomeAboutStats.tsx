@@ -9,6 +9,7 @@ import {
   ArrowRight,
   BedDouble,
   HeartPulse,
+  HeartHandshake,
   Scissors,
   Stethoscope,
   Users,
@@ -28,6 +29,16 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  Ambulance,
+  Ear,
+  Syringe,
+  Smile,
+  Wind,
+  Droplet,
+  Droplets,
+  Scan,
+  Dumbbell,
+  Filter,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
@@ -496,17 +507,28 @@ export function StatsSection({ stats }: { stats: HospitalStat[] }) {
 
 // ─── Departments (Image 1 style — icon cards with + decoration) ───────────────
 const deptIconMap: Record<string, LucideIcon> = {
+  ambulance: Ambulance,
   stethoscope: Stethoscope,
   scissors: Scissors,
-  heart: HeartPulse,
+  heart: Heart,
+  "heart-pulse": HeartPulse,
+  "heart-handshake": HeartHandshake,
   baby: Baby,
   bone: Bone,
-  syringe: Stethoscope,
+  syringe: Syringe,
   eye: Eye,
   user: Users,
-  ear: Stethoscope,
+  ear: Ear,
   brain: Brain,
   zap: Zap,
+  microscope: Microscope,
+  smile: Smile,
+  wind: Wind,
+  droplet: Droplet,
+  droplets: Droplets,
+  scan: Scan,
+  dumbbell: Dumbbell,
+  filter: Filter,
 };
 
 export function DepartmentsSection({

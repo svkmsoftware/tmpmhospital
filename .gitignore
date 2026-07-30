@@ -34,6 +34,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# archives (accidentally committed large files in the past)
+*.rar
+*.zip
+*.7z
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

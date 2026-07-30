@@ -1,7 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { LucideIcon, ChevronRight, Stethoscope, Scissors, Heart, Users, Building2 } from "lucide-react";
+import {
+  LucideIcon,
+  ChevronRight,
+  Stethoscope,
+  Scissors,
+  Heart,
+  HeartPulse,
+  HeartHandshake,
+  Users,
+  Ambulance,
+  Baby,
+  Bone,
+  Brain,
+  Ear,
+  Eye,
+  Microscope,
+  Syringe,
+  Zap,
+  Smile,
+  Wind,
+  Droplet,
+  Droplets,
+  Scan,
+  Dumbbell,
+  Filter,
+} from "lucide-react";
 import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDepartments } from "@/lib/api";
@@ -17,15 +42,28 @@ export const metadata: Metadata = {
 };
 
 const iconMap: Record<string, LucideIcon> = {
+  ambulance: Ambulance,
   stethoscope: Stethoscope,
   scissors: Scissors,
   heart: Heart,
-  baby: Users,
-  bone: Building2,
-  syringe: Stethoscope,
-  eye: Stethoscope,
+  "heart-pulse": HeartPulse,
+  "heart-handshake": HeartHandshake,
+  baby: Baby,
+  bone: Bone,
+  brain: Brain,
+  syringe: Syringe,
+  eye: Eye,
+  ear: Ear,
+  microscope: Microscope,
   user: Users,
-  ear: Stethoscope,
+  zap: Zap,
+  smile: Smile,
+  wind: Wind,
+  droplet: Droplet,
+  droplets: Droplets,
+  scan: Scan,
+  dumbbell: Dumbbell,
+  filter: Filter,
 };
 
 function DeptCard({ dept }: { dept: DepartmentItem }) {
