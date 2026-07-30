@@ -318,7 +318,7 @@ export function FAQSection({ faqs }: { faqs: FAQ[] }) {
             </p>
             <div className="flex flex-col gap-3">
               {[
-                { Icon: Phone, label: "Call Us", sub: "+91 2563 351503/04", href: "tel:+912563351503" },
+                { Icon: Phone, label: "Call Us", sub: "02563 351503/04", href: "tel:02563351503" },
                 { Icon: Mail,  label: "Email Us", sub: "contact.tmpmh@svkm.ac.in", href: "mailto:contact.tmpmh@svkm.ac.in" },
               ].map(({ Icon, label, sub, href }) => (
                 <a key={label} href={href}

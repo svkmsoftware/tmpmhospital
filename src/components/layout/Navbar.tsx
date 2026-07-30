@@ -423,19 +423,19 @@ export default function Navbar() {
               href="tel:02563351505"
               className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white"
             >
-              <Phone className="w-3.5 h-3.5" /> Emergency: +91 2563 351505/06
+              <Phone className="w-3.5 h-3.5" /> Emergency: 02563 351505/06
             </a>
             <a
               href="tel:02563351503"
               className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white"
             >
-              <Phone className="w-3.5 h-3.5" /> Appointment: +91 2563 351503/04
+              <Phone className="w-3.5 h-3.5" /> Appointment: 02563 351503/04
             </a>
             <a
               href="tel:02563351510"
               className="xl:flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white hidden"
             >
-              <Phone className="w-3.5 h-3.5" /> Radiology: +91 2563 351510
+              <Phone className="w-3.5 h-3.5" /> Radiology: 02563 351510
             </a>
             <span className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
               <Clock className="w-3.5 h-3.5" /> OPD: 9 AM – 5 PM

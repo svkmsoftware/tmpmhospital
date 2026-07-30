@@ -23,11 +23,11 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["appointment", "book", "schedule", "consult", "visit"],
-    answer: "📅 **Book an Appointment:**\nYou can book in 3 ways:\n1. Call **+91 2563 351503/04**\n2. Visit the [Contact page](/contact)\n3. Walk into the OPD registration desk\n\nShall I help with anything else?",
+    answer: "📅 **Book an Appointment:**\nYou can book in 3 ways:\n1. Call **02563 351503/04**\n2. Visit the [Contact page](/contact)\n3. Walk into the OPD registration desk\n\nShall I help with anything else?",
   },
   {
     patterns: ["emergency", "urgent", "accident", "icu", "critical", "ambulance"],
-    answer: "🚨 **Emergency Services:**\nOur Emergency Department is open **24 hours, 7 days a week**.\n\n📞 **Emergency Hotline:** +91 2563 351503/04\n\nWe have **34 emergency beds**, dedicated emergency physicians, and **2 ACLS + 4 BLS ambulances** always on duty.",
+    answer: "🚨 **Emergency Services:**\nOur Emergency Department is open **24 hours, 7 days a week**.\n\n📞 **Emergency Hotline:** 02563 351503/04\n\nWe have **34 emergency beds**, dedicated emergency physicians, and **2 ACLS + 4 BLS ambulances** always on duty.",
   },
   {
     patterns: ["doctor", "specialist", "physician", "surgeon", "gynaecologist", "paediatric", "ortho"],
@@ -75,11 +75,11 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["mri", "ct scan", "xray", "x-ray", "radiology", "imaging", "scan", "mammography", "ultrasound"],
-    answer: "🔬 **Radiology & Imaging:**\nOur department includes:\n• MRI (Helium-free)\n• CT Scan\n• Mammography\n• Digital X-Ray\n• C-Arm Imaging\n• BDM Scanner\n• Ultrasound\n\nFor appointments, call **+91 2563 351503/04**.",
+    answer: "🔬 **Radiology & Imaging:**\nOur department includes:\n• MRI (Helium-free)\n• CT Scan\n• Mammography\n• Digital X-Ray\n• C-Arm Imaging\n• BDM Scanner\n• Ultrasound\n\nFor appointments, call **02563 351503/04**.",
   },
   {
     patterns: ["lab", "laboratory", "test", "blood test", "pathology", "ccl"],
-    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOur 2500 sq.ft. state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **+91 2563 351503/04**.",
+    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOur 2500 sq.ft. state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **02563 351503/04**.",
   },
   {
     patterns: ["area", "size", "sqft", "square feet", "campus", "large", "big"],
@@ -91,7 +91,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["thank", "thanks", "thankyou", "ok", "okay", "great", "perfect"],
-    answer: "😊 You're welcome! If you need any more help, feel free to ask.\n\nFor urgent queries, call us at **+91 2563 351503/04** (available 24 × 7).",
+    answer: "😊 You're welcome! If you need any more help, feel free to ask.\n\nFor urgent queries, call us at **02563 351503/04** (available 24 × 7).",
   },
   {
     patterns: ["pharmacy", "medicine", "drug", "chemist"],
@@ -107,7 +107,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["blood bank", "blood", "donation", "transfusion"],
-    answer: "🩸 **Blood Bank:**\nOur 24/7 Blood Bank provides:\n• Blood typing & cross-matching\n• Component separation (RBCs, Platelets, Plasma)\n• TTI screening\n• Platelet pheresis\n\nFor blood requirements, call our emergency line: **+91 2563 351503/04**",
+    answer: "🩸 **Blood Bank:**\nOur 24/7 Blood Bank provides:\n• Blood typing & cross-matching\n• Component separation (RBCs, Platelets, Plasma)\n• TTI screening\n• Platelet pheresis\n\nFor blood requirements, call our emergency line: **02563 351503/04**",
   },
 ];
 
@@ -130,7 +130,7 @@ function getBotResponse(input: string): string {
     }
   }
 
-  return "I'm not sure about that, but our team is happy to help! 😊\n\n📞 **Call us:** +91 2563 351503/04\n📧 **Email:** contact@tmpmhospital.com\n\nOr visit our [Contact page](/contact) to send us a message.";
+  return "I'm not sure about that, but our team is happy to help! 😊\n\n📞 **Call us:** 02563 351503/04\n📧 **Email:** contact@tmpmhospital.com\n\nOr visit our [Contact page](/contact) to send us a message.";
 }
 
 // ─── Render markdown-like bot messages ─────────────────────────────────────────

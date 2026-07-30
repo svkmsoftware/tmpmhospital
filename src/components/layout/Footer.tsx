@@ -82,25 +82,25 @@ export default function Footer() {
                     className="flex items-center gap-12 shrink-0 pr-12"
                   >
                     <a
-                      href="tel:+912563351505"
+                      href="tel:02563351505"
                       className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
                     >
                       <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                      Emergency: +91 2563 351505/06
+                      Emergency: 02563 351505/06
                     </a>
                     <a
-                      href="tel:+912563351503"
+                      href="tel:02563351503"
                       className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
                     >
                       <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                      Appointment: +91 2563 351503/04
+                      Appointment: 02563 351503/04
                     </a>
                     <a
-                      href="tel:+912563351510"
+                      href="tel:02563351510"
                       className="flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:text-white/80 transition-colors"
                     >
                       <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                      Radiology: +91 2563 351510
+                      Radiology: 02563 351510
                     </a>
                   </div>
                 ))}
