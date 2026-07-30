@@ -19,8 +19,8 @@ export const departments: DepartmentCategory[] = [
         consultants: [],
       },
       {
-        slug: "internal-medicine",
-        title: "Internal Medicine",
+        slug: "general-medicine",
+        title: "General Medicine",
         banner_image: "/images/general_medicine_banner.png",
         description: "Comprehensive diagnosis and management of adult diseases including infectious diseases, endocrinology, rheumatology, and geriatric medicine.",
         icon: "stethoscope",
@@ -56,7 +56,8 @@ export const departments: DepartmentCategory[] = [
           { name: "Academics & Research", image: "/images/gynocology_technology.png", intro: "Active participation in maternal health research, FOGSI activities, and community health programmes.", details: "" },
         ],
         consultants: [
-          { name: "Dr. Shakuntala Chhabra", tags: ["Senior Consultant", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/Shakuntala_Chhabra.png" },
+          { name: "Dr. Shivram Gopal Pawara", tags: ["Senior Consultant, MBBS", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/DR_SHIVRAM_PAWARA.png" },
+          { name: "Dr. Disha Biwas", tags: ["Senior Consultant, MBBS, MD", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/Disha_Biwas.png" },
         ],
       },
       {
