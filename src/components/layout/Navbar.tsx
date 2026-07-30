@@ -447,7 +447,7 @@ export default function Navbar() {
               href="tel:18008909111"
               className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20 text-xl"
             >
-              <Phone className="w-3.5 h-3.5" /> Toll-Free: 1800 8909 111
+              <Phone className="w-2.5 h-2.5" /> Toll-Free: 1800 8909 111
             </a>
           </div>
           <div className="flex items-center gap-4">
