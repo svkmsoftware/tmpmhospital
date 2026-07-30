@@ -113,7 +113,7 @@ const jsonLd = {
     postalCode: "425405",
     addressCountry: "IN",
   },
-  telephone: "+91-XXXXXXXXXX",
+  telephone: "02563351503",
   email: "contact@tmpmhospital.com",
   openingHoursSpecification: [
     {
@@ -141,9 +141,9 @@ const jsonLd = {
   ],
   numberOfBeds: 1200,
   sameAs: [
-    "https://www.facebook.com/tmpmhospital",
-    "https://www.instagram.com/tmpmhospital",
-    "https://www.linkedin.com/company/tmpmhospital",
+    "https://www.facebook.com/profile.php?id=61588811532595",
+    "https://www.instagram.com/tmpmh.hospital/",
+    "https://www.linkedin.com/company/svkm-s-tapanbhai-mukeshbhai-patel-memorial-hospital-medical-college-research-centre",
   ],
 };
 

@@ -6,6 +6,8 @@ import { ChevronRight, User, Clock, Phone } from "lucide-react";
 import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDepartmentBySlug, getAllDepartmentSlugs } from "@/lib/api";
+import { isPageActive, getPageStatus } from "@/data/pageStatus";
+import ComingSoon from "@/components/ui/ComingSoon";
 import DeptTabs from "./DeptTabs";
 
 interface Props {
@@ -35,6 +37,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DepartmentDetailPage({ params }: Props) {
   const { data: dept } = await getDepartmentBySlug(params.slug);
   if (!dept) notFound();
+
+  if (!isPageActive(params.slug, "department")) {
+    const status = getPageStatus(params.slug, "department");
+    return <ComingSoon title={dept.title} estimatedLaunch={status?.estimatedLaunch} message={status?.message} />;
+  }
 
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 

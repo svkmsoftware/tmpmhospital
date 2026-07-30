@@ -154,9 +154,9 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-3">
               {[
-                { Icon: Facebook, href: "#", label: "Facebook" },
-                { Icon: Instagram, href: "#", label: "Instagram" },
-                { Icon: Linkedin, href: "#", label: "LinkedIn" },
+                { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61588811532595", label: "Facebook" },
+                { Icon: Instagram, href: "https://www.instagram.com/tmpmh.hospital/", label: "Instagram" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/company/svkm-s-tapanbhai-mukeshbhai-patel-memorial-hospital-medical-college-research-centre", label: "LinkedIn" },
                 { Icon: Twitter, href: "#", label: "Twitter" },
               ].map(({ Icon, href, label }) => (
                 <a

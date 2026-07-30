@@ -454,16 +454,16 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2.5">
               {[
-                { Icon: Facebook, href: "#", label: "Facebook" },
-                { Icon: Instagram, href: "#", label: "Instagram" },
-                { Icon: Linkedin, href: "#", label: "LinkedIn" },
+                { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61588811532595", label: "Facebook" },
+                { Icon: Instagram, href: "https://www.instagram.com/tmpmh.hospital/", label: "Instagram" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/company/svkm-s-tapanbhai-mukeshbhai-patel-memorial-hospital-medical-college-research-centre", label: "LinkedIn" },
                 { Icon: Twitter, href: "#", label: "Twitter" },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="text-cyan-200 hover:text-white transition-colors"
+                  className="text-cyan-50 hover:scale-110 transition-transform"
                 >
                   <Icon className="w-3.5 h-3.5" />
                 </a>

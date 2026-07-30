@@ -270,7 +270,8 @@ h6 {
 }
 
 .header .topbar .social-links a {
-  color: color-mix(in srgb, var(--contrast-color), transparent 40%);
+  /* color: color-mix(in srgb, var(--contrast-color), transparent 40%); */
+  color: var(--contrast-color);
   line-height: 0;
   transition: 0.3s;
   margin-left: 20px;
