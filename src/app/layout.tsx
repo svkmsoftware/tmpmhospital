@@ -193,19 +193,17 @@ export default function RootLayout({
           async
         ></script>
 
-      {/* Google Analytics (gtag.js) */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-J1J139XR1G"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-J1J139XR1G');
-        `}
-      </Script>
+
+      {/* Google tag (gtag.js) */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-S68Q22N20J"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-S68Q22N20J');
+      </script>
+
         {/* JSON-LD */}
         <script
           type="application/ld+json"
