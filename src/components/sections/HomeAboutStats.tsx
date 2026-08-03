@@ -776,7 +776,7 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
           onTouchStart={() => setIsPaused(true)}
           onTouchEnd={() => window.setTimeout(() => setIsPaused(false), AUTOPLAY_INTERVAL_MS)}
         >
-          <div
+          {/* <div
             className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 z-10 transition-opacity duration-300"
             style={{
               background: "linear-gradient(to right, white, transparent)",
@@ -789,7 +789,7 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
               background: "linear-gradient(to left, white, transparent)",
               opacity: canScrollRight ? 1 : 0,
             }}
-          />
+          /> */}
 
           <div
             ref={scrollRef}
