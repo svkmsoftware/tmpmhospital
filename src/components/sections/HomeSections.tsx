@@ -427,9 +427,9 @@ export function GalleryPreview({ images }: { images: GalleryImage[] }) {
                 priority={i === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
-              <p className="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 text-white text-sm sm:text-base font-medium max-w-[80%]">
+              {/* <p className="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 text-white text-sm sm:text-base font-medium max-w-[80%]">
                 {img.alt}
-              </p>
+              </p> */}
             </Link>
           ))}
 

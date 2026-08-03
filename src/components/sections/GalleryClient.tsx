@@ -202,12 +202,12 @@ export default function GalleryClient({ images }: Props) {
             />
 
             {/* Caption */}
-            <div className="absolute bottom-0 left-0 right-0 px-5 py-4" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
+            {/* <div className="absolute bottom-0 left-0 right-0 px-5 py-4" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
               <p className="text-white font-semibold">{currentImage.alt}</p>
               {currentImage.category && (
                 <p className="text-white/60 text-sm mt-0.5">{currentImage.category}</p>
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* Thumbnail strip */}
@@ -263,9 +263,9 @@ function GalleryCard({
       />
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
-        <p className="text-white text-sm font-semibold translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+        {/* <p className="text-white text-sm font-semibold translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
           {img.alt}
-        </p>
+        </p> */}
         {img.category && (
           <p className="text-white/70 text-xs mt-0.5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-75">
             {img.category}
