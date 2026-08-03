@@ -9,6 +9,7 @@ export const departments: DepartmentCategory[] = [
         slug: "emergency-care",
         title: "24/7 Emergency Care",
         banner_image: "/images/dept/24_7_Emergency_Care.png",
+        heroImage: "/images/dept/dept-banner/24_7_Emergency_Care.png",
         description: "Round-the-clock emergency services with 34 emergency beds, advanced life-support ambulances (2 ACLS + 4 BLS), trauma care, and critical care units.",
         icon: "ambulance",
         tabs: [
@@ -22,6 +23,7 @@ export const departments: DepartmentCategory[] = [
         slug: "general-medicine",
         title: "General Medicine",
         banner_image: "/images/dept/General_Medicine.png",
+        heroImage: "/images/dept/dept-banner/General_Medicine.png",
         description: "Comprehensive diagnosis and management of adult diseases including infectious diseases, endocrinology, rheumatology, and geriatric medicine.",
         icon: "stethoscope",
         tabs: [
@@ -35,6 +37,7 @@ export const departments: DepartmentCategory[] = [
         slug: "cardiology",
         title: "Cardiology",
         banner_image: "/images/dept/Cardiology.png",
+        heroImage: "/images/dept/dept-banner/Cardiology.png",
         description: "Advanced cardiac care including interventional cardiology with a dedicated Catheterization Laboratory.",
         icon: "heart",
         tabs: [
@@ -48,6 +51,7 @@ export const departments: DepartmentCategory[] = [
         slug: "obstetrics-gynecology",
         title: "Obstetrics & Gynaecology",
         banner_image: "/images/dept/Obstetrics_&_Gynaecology.png",
+        heroImage: "/images/dept/dept-banner/Obstetrics_&_Gynaecology.png",
         description: "Complete women's health services — from antenatal care and safe delivery to gynaecological surgery and reproductive health.",
         icon: "heart-handshake",
         tabs: [
@@ -64,6 +68,7 @@ export const departments: DepartmentCategory[] = [
         slug: "pediatrics",
         title: "Paediatrics & Neonatology",
         banner_image: "/images/dept/Paediatrics_&_Neonatology.png",
+        heroImage: "/images/dept/dept-banner/Paediatrics_&_Neonatology.png",
         description: "Comprehensive child healthcare from birth through adolescence, with a 28-bed NICU and 20-bed PICU.",
         icon: "baby",
         tabs: [
@@ -77,6 +82,7 @@ export const departments: DepartmentCategory[] = [
         slug: "general-surgery",
         title: "General Surgery",
         banner_image: "/images/dept/General_Surgery.png",
+        heroImage: "/images/dept/dept-banner/General_Surgery.png",
         description: "Comprehensive surgical services — open, laparoscopic, and advanced minimally invasive surgery for a full spectrum of conditions.",
         icon: "scissors",
         tabs: [
@@ -90,6 +96,7 @@ export const departments: DepartmentCategory[] = [
         slug: "orthopedics",
         title: "Orthopaedics & Trauma",
         banner_image: "/images/dept/Orthopaedics.png",
+        heroImage: "/images/dept/dept-banner/Orthopaedics.png",
         description: "Comprehensive musculoskeletal care — joint replacement, spine surgery, arthroscopy, and trauma management.",
         icon: "bone",
         tabs: [
@@ -99,13 +106,13 @@ export const departments: DepartmentCategory[] = [
         ],
         consultants: [],
       },
-      { slug: "ent", title: "ENT (Otorhinolaryngology)", banner_image: "/images/dept/ENT.png", description: "Ear, Nose & Throat care including endoscopic sinus surgery, microscopic ear surgery, and head & neck procedures.", icon: "ear", tabs: [{ name: "Overview", image: "/images/dept/ENT.png.png", intro: "The ENT department provides comprehensive care for disorders of the ear, nose, throat, and head & neck. Services include tonsillectomy, adenoidectomy, sinus surgeries, hearing evaluation, and cochlear implants.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/ENT.png.png", intro: "Endoscopic sinus surgery, microscopic ear surgeries, audiometry, and hearing aid dispensing.", details: "" }, { name: "Academics & Research", image: "/images/dept/ENT.png.png", intro: "Academic involvement in ENT research and community hearing screening programmes.", details: "" }], consultants: [] },
-      { slug: "dental", title: "Dental", banner_image: "/images/dept/Dental.png", description: "Comprehensive dental care including preventive dentistry, oral surgery, orthodontics, and maxillofacial procedures.", icon: "smile", tabs: [{ name: "Overview", image: "/images/dept/Dental.png", intro: "Our Dental department provides a full range of dental services from preventive care and restorations to complex oral surgeries and maxillofacial procedures.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Dental.png", intro: "Digital X-ray, OPG, dental implants, orthodontic braces, and oral cancer screening.", details: "" }, { name: "Academics & Research", image: "/images/dept/Dental.png", intro: "Community dental health camps and academic dental education.", details: "" }], consultants: [] },
-      { slug: "ophthalmology", title: "Ophthalmology", banner_image: "/images/dept/Ophthalmology.png", description: "Complete eye care — cataract surgery, glaucoma management, retinal services, and laser treatments.", icon: "eye", tabs: [{ name: "Overview", image: "/images/dept/Ophthalmology.png", intro: "Comprehensive eye care services including cataract surgery (phacoemulsification), glaucoma management, diabetic retinopathy, and refractive surgery.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Ophthalmology.png", intro: "Slit lamp, fundus camera, OCT, visual field analyser, phaco machine, and YAG laser.", details: "" }, { name: "Academics & Research", image: "/images/dept/Ophthalmology.png", intro: "Eye screening camps in rural areas and research on diabetic retinopathy and blindness control (NPCB empanelled).", details: "" }], consultants: [] },
+      { slug: "ent", title: "ENT (Otorhinolaryngology)", banner_image: "/images/dept/ENT.png", heroImage: "/images/dept/dept-banner/ENT.png", description: "Ear, Nose & Throat care including endoscopic sinus surgery, microscopic ear surgery, and head & neck procedures.", icon: "ear", tabs: [{ name: "Overview", image: "/images/dept/ENT.png.png", intro: "The ENT department provides comprehensive care for disorders of the ear, nose, throat, and head & neck. Services include tonsillectomy, adenoidectomy, sinus surgeries, hearing evaluation, and cochlear implants.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/ENT.png.png", intro: "Endoscopic sinus surgery, microscopic ear surgeries, audiometry, and hearing aid dispensing.", details: "" }, { name: "Academics & Research", image: "/images/dept/ENT.png.png", intro: "Academic involvement in ENT research and community hearing screening programmes.", details: "" }], consultants: [] },
+      { slug: "dental", title: "Dental", banner_image: "/images/dept/Dental.png", heroImage: "/images/dept/dept-banner/Dental.png", description: "Comprehensive dental care including preventive dentistry, oral surgery, orthodontics, and maxillofacial procedures.", icon: "smile", tabs: [{ name: "Overview", image: "/images/dept/Dental.png", intro: "Our Dental department provides a full range of dental services from preventive care and restorations to complex oral surgeries and maxillofacial procedures.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Dental.png", intro: "Digital X-ray, OPG, dental implants, orthodontic braces, and oral cancer screening.", details: "" }, { name: "Academics & Research", image: "/images/dept/Dental.png", intro: "Community dental health camps and academic dental education.", details: "" }], consultants: [] },
+      { slug: "ophthalmology", title: "Ophthalmology", banner_image: "/images/dept/Ophthalmology.png", heroImage: "/images/dept/dept-banner/Ophthalmology.png", description: "Complete eye care — cataract surgery, glaucoma management, retinal services, and laser treatments.", icon: "eye", tabs: [{ name: "Overview", image: "/images/dept/Ophthalmology.png", intro: "Comprehensive eye care services including cataract surgery (phacoemulsification), glaucoma management, diabetic retinopathy, and refractive surgery.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Ophthalmology.png", intro: "Slit lamp, fundus camera, OCT, visual field analyser, phaco machine, and YAG laser.", details: "" }, { name: "Academics & Research", image: "/images/dept/Ophthalmology.png", intro: "Eye screening camps in rural areas and research on diabetic retinopathy and blindness control (NPCB empanelled).", details: "" }], consultants: [] },
       { slug: "dermatology", title: "Dermatology", banner_image: "/images/dermatology_banner.png", description: "Diagnosis and treatment of skin, hair, nail, and sexually transmitted conditions in adults and children.", icon: "user", tabs: [{ name: "Overview", image: "/images/dermatology_banner.png", intro: "Our Dermatology department manages a wide spectrum of skin diseases, hair disorders, nail problems, and STIs. Services include cosmetic dermatology, laser treatments, patch testing, and skin biopsy.", details: "" }, { name: "Technology & Procedure", image: "/images/dermatology_banner.png", intro: "Dermatoscopy, laser for skin conditions, phototherapy (PUVA/NB-UVB), and chemical peels.", details: "" }, { name: "Academics & Research", image: "/images/dermatology_banner.png", intro: "Research in tropical dermatology and CME participation.", details: "" }], consultants: [] },
-      { slug: "psychiatry", title: "Psychiatry", banner_image: "/images/dept/Psychiatry.png", description: "Comprehensive mental health services including diagnosis, counselling, pharmacotherapy, and rehabilitation.", icon: "brain", tabs: [{ name: "Overview", image: "/images/dept/Psychiatry.png", intro: "Our Psychiatry department offers confidential, compassionate mental health services for depression, anxiety, addiction, schizophrenia, bipolar disorders, and child & adolescent psychiatry.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Psychiatry.png", intro: "Psychometric assessments, psychotherapy, CBT, ECT, and de-addiction services.", details: "" }, { name: "Academics & Research", image: "/images/dept/Psychiatry.png", intro: "Mental health awareness campaigns and community outreach.", details: "" }], consultants: [] },
-      { slug: "pulmonology", title: "Pulmonology", banner_image: "/images/dept/Pulmonology.png", description: "Diagnosis and management of respiratory diseases including COPD, asthma, ILD, and sleep disorders.", icon: "wind", tabs: [{ name: "Overview", image: "/images/dept/Pulmonology.png", intro: "The Pulmonology department specialises in diseases of the respiratory system — lungs, airways, and pleura — offering bronchoscopy, spirometry, sleep studies, and critical care support.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Pulmonology.png", intro: "Bronchoscopy, CPAP/BiPAP, spirometry, polysomnography, and high-flow oxygen therapy.", details: "" }, { name: "Academics & Research", image: "/images/dept/Pulmonology.png", intro: "Research in COPD, asthma, and respiratory infections; active CME participation.", details: "" }], consultants: [] },
-      { slug: "laser-surgery", title: "Laser Surgery", banner_image: "/images/dept/Laser_Surgery.png", description: "Precision laser-based surgical procedures for ophthalmic, dermatological, and urological conditions.", icon: "zap", tabs: [{ name: "Overview", image: "/images/dept/Laser_Surgery.png", intro: "Our Laser Surgery unit offers precision, minimally invasive laser treatments across specialties including ophthalmology, dermatology, urology, and ENT.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Laser_Surgery.png", intro: "LASIK, CO2 laser, Nd:YAG laser, green laser for BPH, and KTP laser.", details: "" }, { name: "Academics & Research", image: "/images/dept/Laser_Surgery.png", intro: "Clinical research in laser outcomes and safety protocols.", details: "" }], consultants: [] },
+      { slug: "psychiatry", title: "Psychiatry", banner_image: "/images/dept/Psychiatry.png", heroImage: "/images/dept/dept-banner/Psychiatry.png", description: "Comprehensive mental health services including diagnosis, counselling, pharmacotherapy, and rehabilitation.", icon: "brain", tabs: [{ name: "Overview", image: "/images/dept/Psychiatry.png", intro: "Our Psychiatry department offers confidential, compassionate mental health services for depression, anxiety, addiction, schizophrenia, bipolar disorders, and child & adolescent psychiatry.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Psychiatry.png", intro: "Psychometric assessments, psychotherapy, CBT, ECT, and de-addiction services.", details: "" }, { name: "Academics & Research", image: "/images/dept/Psychiatry.png", intro: "Mental health awareness campaigns and community outreach.", details: "" }], consultants: [] },
+      { slug: "pulmonology", title: "Pulmonology", banner_image: "/images/dept/Pulmonology.png", heroImage: "/images/dept/dept-banner/Pulmonology.png", description: "Diagnosis and management of respiratory diseases including COPD, asthma, ILD, and sleep disorders.", icon: "wind", tabs: [{ name: "Overview", image: "/images/dept/Pulmonology.png", intro: "The Pulmonology department specialises in diseases of the respiratory system — lungs, airways, and pleura — offering bronchoscopy, spirometry, sleep studies, and critical care support.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Pulmonology.png", intro: "Bronchoscopy, CPAP/BiPAP, spirometry, polysomnography, and high-flow oxygen therapy.", details: "" }, { name: "Academics & Research", image: "/images/dept/Pulmonology.png", intro: "Research in COPD, asthma, and respiratory infections; active CME participation.", details: "" }], consultants: [] },
+      { slug: "laser-surgery", title: "Laser Surgery", banner_image: "/images/dept/Laser_Surgery.png", heroImage: "/images/dept/dept-banner/Laser_Surgery.png", description: "Precision laser-based surgical procedures for ophthalmic, dermatological, and urological conditions.", icon: "zap", tabs: [{ name: "Overview", image: "/images/dept/Laser_Surgery.png", intro: "Our Laser Surgery unit offers precision, minimally invasive laser treatments across specialties including ophthalmology, dermatology, urology, and ENT.", details: "" }, { name: "Technology & Procedure", image: "/images/dept/Laser_Surgery.png", intro: "LASIK, CO2 laser, Nd:YAG laser, green laser for BPH, and KTP laser.", details: "" }, { name: "Academics & Research", image: "/images/dept/Laser_Surgery.png", intro: "Clinical research in laser outcomes and safety protocols.", details: "" }], consultants: [] },
     ],
   },
   {

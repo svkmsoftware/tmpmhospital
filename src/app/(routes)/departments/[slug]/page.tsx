@@ -38,9 +38,29 @@ export default async function DepartmentDetailPage({ params }: Props) {
   const { data: dept } = await getDepartmentBySlug(params.slug);
   if (!dept) notFound();
 
+  const banner = (
+    <PageBanner
+      image={dept.heroImage ?? dept.banner_image}
+      title={dept.title}
+      subtitle={dept.description}
+      breadcrumb={[
+        { label: "Home", href: "/" },
+        { label: "Departments", href: "/departments" },
+        { label: dept.title },
+      ]}
+      height="lg"
+    />
+  );
+
   if (!isPageActive(params.slug, "department")) {
     const status = getPageStatus(params.slug, "department");
-    return <ComingSoon title={dept.title} estimatedLaunch={status?.estimatedLaunch} message={status?.message} />;
+    return (
+      <>
+        {banner}
+        <ComingSoon title={dept.title} estimatedLaunch={status?.estimatedLaunch} message={status?.message} />
+        <ContactCTA />
+      </>
+    );
   }
 
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
@@ -48,17 +68,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
   return (
     <>
 
-      <PageBanner
-        image={dept.banner_image}
-        title={dept.title}
-        subtitle={dept.description}
-        breadcrumb={[
-          { label: "Home", href: "/" },
-          { label: "Departments", href: "/departments" },
-          { label: dept.title },
-        ]}
-        height="lg"
-      />
+      {banner}
 
       <section className="section-padding bg-white">
         <div className="container-custom">

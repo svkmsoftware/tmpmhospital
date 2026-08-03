@@ -45,6 +45,9 @@ export interface DepartmentItem {
   slug: string;
   title: string;
   banner_image: string;
+  /** Optional wide (1920x480) image for the department detail page's hero banner.
+   *  Falls back to banner_image when absent, so this is safe to omit. */
+  heroImage?: string;
   description: string;
   icon: string;
   tabs: DepartmentTab[];
