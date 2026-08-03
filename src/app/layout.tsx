@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     description: SITE_DESC,
     images: [
       {
-        url: "/images/hospital_website_logo.png",
+        url: "/images/hospital_logo_mnc.png",
         width: 1200,
         height: 630,
         alt: SITE_NAME,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} | Multispecialty Hospital, Shirpur`,
     description: SITE_DESC,
-    images: ["/images/hospital_website_logo.png"],
+    images: ["/images/hospital_logo_mnc.png"],
   },
   robots: {
     index: true,
@@ -102,7 +102,7 @@ const jsonLd = {
   name: "SVKM's Tapanbhai Mukeshbhai Patel Memorial Hospital & Research Center",
   alternateName: "TMPM Hospital",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/hospital_website_logo.png`,
+  logo: `${SITE_URL}/images/hospital_logo_mnc.png`,
   image: `${SITE_URL}/images/hospital_banner_image1.png`,
   description: SITE_DESC,
   address: {
