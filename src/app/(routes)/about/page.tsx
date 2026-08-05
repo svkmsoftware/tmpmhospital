@@ -140,14 +140,14 @@ export default async function AboutPage() {
       {about && (
         <section id="about" className="section-padding bg-white">
           <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-center">
               <div className="relative">
-                <div className="relative rounded-3xl overflow-hidden aspect-square shadow-xl">
+                <div className="relative rounded-3xl overflow-hidden aspect-[6/5] shadow-xl">
                   <Image
                     src={about.image ?? "/images/aboutHospitalImage.png"}
                     alt="SVKM TMPM Hospital"
                     fill
-                    className="object-cover"
+                    className="object-cover object-bottom"
                     sizes="(max-width:1024px) 100vw, 50vw"
                     priority
                   />

@@ -7,12 +7,34 @@ interface InactivePage {
 
 const inactivePages: InactivePage[] = [
   // ── Example: Add department slugs here when they're not yet operational ──
+
   { slug: "cardiology", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "general-surgery", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "ent", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "dermatology", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "psychiatry", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "pulmonology", type: "department", estimatedLaunch: "Sep 2026" },
+
+  { slug: "dental", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "ophthalmology", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "laser-surgery", type: "department", estimatedLaunch: "Sep 2026" },
+
+
+  { slug: "oncology", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "cardiac-sciences", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "neurosciences", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "nephrology", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "gastroenterology", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "plastic-surgery", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "vascular-surgery", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "pediatric-surgery", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "arthroscopy", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "joint-replacement", type: "department", estimatedLaunch: "Sep 2026" },
+
+
+  { slug: "dialysis", type: "department", estimatedLaunch: "Sep 2026" },
+  { slug: "blood-bank", type: "department", estimatedLaunch: "Sep 2026" },
+
   // { slug: "dermatology", type: "department", estimatedLaunch: "Sep 2026" },
   // { slug: "neurosciences", type: "department", estimatedLaunch: "Oct 2026" },
   // { slug: "vascular-surgery", type: "department", message: "This service will be available shortly." },

@@ -118,10 +118,10 @@ export function AboutSection({ data }: AboutSectionProps) {
   return (
     <section id="about" className="section-padding bg-white overflow-hidden">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-14 lg:gap-20 items-center">
           {/* Image side */}
           <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
+            <div className="relative rounded-3xl overflow-hidden aspect-[8/5] shadow-xl">
               <Image
                 src={data?.image ?? "/images/aboutHospitalImage.png"}
                 alt="SVKM TMPM Hospital"
