@@ -7,10 +7,12 @@ export const departments: DepartmentCategory[] = [
     items: [
       {
         slug: "emergency-care",
+        // title: "",
         title: "24/7 Emergency Care",
-        banner_image: "/images/dept/24_7_Emergency_Care2.png",
-        heroImage: "/images/dept/dept-banner/24_7_Emergency_Care.png",
+        banner_image: "/images/dept/24_7_Emergency_Care.png",
+        heroImage: "/images/dept/dept-banner/24_7_Emergency_Care2.png",
         description: "Round-the-clock emergency services with 34 emergency beds, advanced life-support ambulances (2 ACLS + 4 BLS), trauma care, and critical care units.",
+        // description: "",
         icon: "ambulance",
         tabs: [
           { name: "Overview", image: "/images/dept/24_7_Emergency_Care.png", intro: "Our Emergency Department operates 24 hours a day, 7 days a week, 365 days a year. With 34 dedicated emergency beds and a highly trained emergency response team, we handle all medical and surgical emergencies with speed and precision.", details: "We are equipped with advanced life-support ambulances — 2 ACLS (Advanced Cardiac Life Support) and 4 BLS (Basic Life Support) — ensuring rapid response and safe patient transport. Our trauma bay, resuscitation area, and triage protocols are designed to prioritise care based on clinical urgency." },
