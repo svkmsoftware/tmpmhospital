@@ -8,7 +8,7 @@ export const departments: DepartmentCategory[] = [
       {
         slug: "emergency-care",
         title: "24/7 Emergency Care",
-        banner_image: "/images/dept/24_7_Emergency_Care.png",
+        banner_image: "/images/dept/24_7_Emergency_Care2.png",
         heroImage: "/images/dept/dept-banner/24_7_Emergency_Care.png",
         description: "Round-the-clock emergency services with 34 emergency beds, advanced life-support ambulances (2 ACLS + 4 BLS), trauma care, and critical care units.",
         icon: "ambulance",
