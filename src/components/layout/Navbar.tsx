@@ -73,7 +73,7 @@ const navItems: NavItem[] = [
         children: [
           {
             label: "Tariff / Charges",
-            href: "https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing",
+            href: "/",
             external: true,
           },
           { label: "TPA, Insurance & Corporate", href: "/tpa-insurance" },

@@ -117,7 +117,7 @@ export default async function TpaInsurancePage() {
             <p className="text-neutral-500 mb-5 max-w-md mx-auto">
               Download our official tariff sheet to understand the estimated costs for various procedures and services.
             </p>
-            <a href="https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing"
+            <a href="/"
                target="_blank" rel="noopener noreferrer" className="btn-gradient inline-flex">
               <FileText className="w-4 h-4" /> Download Tariff Sheet
             </a>
