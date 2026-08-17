@@ -297,6 +297,20 @@ export function WhyChooseUsSection({ data }: { data?: WhyChooseUsData | null }) 
   const items = data?.items?.length ? data.items : DEFAULT_WHY_CHOOSE_ITEMS;
   const title = data?.heading ?? "Why SVKM's TMPM Hospital?";
   const subtitle = data?.subheading ?? "What makes us the preferred healthcare destination in the region.";
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (openIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [openIndex]);
 
   return (
     <section className="section-padding bg-white">
@@ -310,37 +324,123 @@ export function WhyChooseUsSection({ data }: { data?: WhyChooseUsData | null }) 
           {items.map(({ title, description: desc }, i) => {
             const Icon = WHY_CHOOSE_ICONS[i % WHY_CHOOSE_ICONS.length];
             return (
-              <div
+              <button
                 key={`${title}-${i}`}
-                className="group p-8 rounded-2xl border border-neutral-100 bg-neutral-50
-                           hover:border-cyan-200 hover:shadow-card-hover hover:-translate-y-1
-                           transition-all duration-300 cursor-default"
+                type="button"
+                onClick={() => setOpenIndex(i)}
+                aria-haspopup="dialog"
+                className="group relative p-8 rounded-2xl overflow-hidden border border-neutral-100 bg-white
+                           hover:-translate-y-1.5 transition-all duration-500 text-left w-full"
+                style={{ boxShadow: "var(--shadow-card)" }}
               >
-                {/* Icon — style matches image 4: outline-only icon */}
-                <div className="mb-5">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                    style={{
-                      background: "var(--color-primary-pale)",
-                      border: "2px solid var(--color-primary)",
-                    }}
+                {/* Gradient wash that fades in on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: "var(--gradient-card)" }}
+                />
+                {/* Soft accent glow, top-right */}
+                <div
+                  className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-25 blur-2xl transition-opacity duration-500 pointer-events-none"
+                  style={{ background: "var(--gradient-main)" }}
+                />
+                {/* Bottom accent bar */}
+                <div
+                  className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500"
+                  style={{ background: "var(--gradient-main)" }}
+                />
+
+                <div className="relative">
+                  <span
+                    className="absolute -top-1 -right-1 text-[11px] font-bold tracking-widest text-primary/30 select-none"
                   >
-                    <Icon
-                      className="w-7 h-7"
-                      color="var(--color-primary)"
-                      strokeWidth={1.5}
-                    />
+                    0{i + 1}
+                  </span>
+
+                  <div className="mb-5">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center border-2 border-primary bg-primary-pale
+                                 transition-all duration-500 group-hover:bg-gradient-main group-hover:border-transparent
+                                 group-hover:scale-110 group-hover:-rotate-3"
+                    >
+                      <Icon
+                        className="w-7 h-7 text-primary transition-colors duration-500 group-hover:text-white"
+                        strokeWidth={1.5}
+                      />
+                    </div>
                   </div>
+                  <h3 className="text-lg font-bold text-neutral-800 mb-2 group-hover:text-cyan-700 transition-colors duration-300">
+                    {title}
+                  </h3>
+                  <p className="text-sm text-neutral-500 leading-relaxed mb-4">{desc}</p>
+
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                    View details
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </div>
-                <h3 className="text-lg font-bold text-neutral-800 mb-2 group-hover:text-cyan-700 transition-colors">
-                  {title}
-                </h3>
-                <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
-              </div>
+              </button>
             );
           })}
         </div>
       </div>
+
+      {/* Modal — opens on card click */}
+      {openIndex !== null && (() => {
+        const item = items[openIndex];
+        const Icon = WHY_CHOOSE_ICONS[openIndex % WHY_CHOOSE_ICONS.length];
+        return (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="why-choose-modal-title"
+          >
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
+              onClick={() => setOpenIndex(null)}
+              aria-hidden="true"
+            />
+            <div className="relative w-full max-w-lg rounded-3xl bg-white shadow-2xl p-8 md:p-10 animate-slide-up">
+              <button
+                type="button"
+                onClick={() => setOpenIndex(null)}
+                className="absolute top-5 right-5 w-9 h-9 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div
+                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+                style={{ background: "var(--gradient-main)" }}
+              >
+                <Icon className="w-8 h-8 text-white" strokeWidth={1.5} />
+              </div>
+
+              <span className="text-xs font-bold tracking-widest uppercase mb-2 block text-primary">
+                Why Choose Us · 0{openIndex + 1}
+              </span>
+              <h3
+                id="why-choose-modal-title"
+                className="text-2xl font-bold text-neutral-800 mb-4"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                {item.title}
+              </h3>
+              <p className="text-neutral-600 leading-relaxed mb-8">{item.description}</p>
+
+              <div className="flex flex-wrap gap-3">
+                <Link href="/contact" className="btn-gradient text-sm py-2.5 px-5">
+                  Book an Appointment <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link href="/about#why-choose-us" className="btn-outline text-sm py-2.5 px-5">
+                  Learn More About Us
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </section>
   );
 }

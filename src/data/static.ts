@@ -8,6 +8,7 @@ export const testimonials: Testimonial[] = [
     image: "/images/male_user.png",
     text: "The surgical team at TMPM Hospital performed my operation with exceptional skill. The post-operative care was outstanding and I was back on my feet within a week. Highly recommend this hospital.",
     rating: 5,
+    videoUrl: "https://www.youtube.com/watch?v=m5fgbvOhGcs",
   },
   {
     id: 2,
@@ -90,7 +91,7 @@ export const faqs: FAQ[] = [
   {
     id: 8,
     question: "What imaging and diagnostic services does the hospital offer?",
-    answer: "Our Radiology department includes MRI (Helium-free), CT Scan, Mammography, X-Ray, C-Arm Imaging, BDM Scanner, and Ultrasound. Our Central Clinical Laboratory (CCL) is a 2500 sq.ft. state-of-the-art facility.",
+    answer: "Our Radiology department includes MRI (Helium-free), CT Scan, Mammography, X-Ray, C-Arm Imaging, BDM Scanner, and Ultrasound. Our Central Clinical Laboratory (CCL) is one of the biggest, state-of-the-art facility.",
     category: "Diagnostics",
   },
 ];

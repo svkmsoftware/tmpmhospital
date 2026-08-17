@@ -149,7 +149,7 @@ export default async function DoctorProfilePage({
                       <Calendar className="w-4 h-4" /> Book Appointment
                     </Link>
                     <a
-                      href="tel:+911234567890"
+                      href="tel:+912563351503"
                       className="btn-outline text-sm py-2 px-4"
                     >
                       <Phone className="w-4 h-4" /> Call

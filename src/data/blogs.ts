@@ -3,12 +3,12 @@ import type { Blog } from "@/types";
 export const blogs: Blog[] = [
   {
     id: 1,
-    title: "comming soon",
+    title: "From Symptoms to Solution: Your Complete Guide to Enlarge Prostate",
     category: "Free Mega Health Camp in Shirpur",
-    image: "/images/health-and-wellness/image1.jpg",
+    image: "/images/blogs/Urology_Blog1.png",
     link: "",
     date: "2025-04-10",
-    excerpt: "comming soon",
+    excerpt: "Dr. Prashant Khairnar [Urologist]",
     author: "Hospital Communications",
   },
   {
