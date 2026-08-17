@@ -30,7 +30,7 @@ With a proposed capacity of 1,200 beds and a comprehensive range of core and sup
     "Intensive Care Units — ICU (150+ beds), NICU (28 beds), PICU (20 beds)",
     "Operation Theatres — 17 Major, 9 Minor",
     "Oncology Unit — 2600 sq.ft., 16-bed Chemotherapy Unit",
-    "Central Clinical Laboratory (CCL) — 2500 sq.ft., latest technology",
+    "Central Clinical Laboratory (CCL) — One of the biggest (~25000 sq.ft.), latest technology",
     "Dialysis Unit — 18 beds, PMNDP empanelled",
     "Radiology — MRI (Helium-free), CT Scan, Mammography, X-Ray, C-Arm, BDM Scanner, Ultrasound",
     "Ambulances — 2 ACLS + 4 BLS",

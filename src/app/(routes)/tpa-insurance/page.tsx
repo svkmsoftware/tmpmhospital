@@ -126,7 +126,7 @@ export default async function TpaInsurancePage() {
           <div className="mt-8 text-center">
             <p className="text-neutral-500 text-sm mb-3">For billing and insurance queries, contact our helpdesk:</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="tel:+911234567890" className="btn-outline text-sm py-2 px-4">Call Helpdesk</a>
+              <a href="tel:+912563351503" className="btn-outline text-sm py-2 px-4">Call Helpdesk</a>
               <Link href="/contact" className="btn-gradient text-sm py-2 px-4">
                 Send Enquiry <ArrowRight className="w-4 h-4" />
               </Link>

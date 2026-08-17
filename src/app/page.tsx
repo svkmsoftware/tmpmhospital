@@ -12,6 +12,7 @@ import {
   BlogsSection,
   NewsSection,
   TestimonialsSection,
+  TestimonialsCarouselSection,
   FAQSection,
   GalleryPreview,
   ContactCTA,
@@ -103,7 +104,7 @@ export default async function HomePage() {
         id: i + 1,
         title: b.title,
         category: homeData?.healthInsight?.heading ?? "Health & Wellness",
-        image: b.image ?? "/images/health-and-wellness/image1.jpg",
+        image: b.image ?? "/images/blogs/Urology_Blog.png",
         link: "",
         date: new Date().toISOString(),
         excerpt: b.excerpt,
@@ -128,10 +129,20 @@ export default async function HomePage() {
         rating: 5,
       }))
     : undefined;
-  const testimonials =
-    gqlTestimonials && gqlTestimonials.length > 0
-      ? gqlTestimonials
-      : localTestimonials;
+  // ── Video overrides ────────────────────────────────────────────────────────
+  // The CMS has no video field for testimonials yet, so videos are managed here
+  // instead — matched by position (1 = first testimonial currently showing,
+  // regardless of whether that list came from the CMS or the local fallback).
+  // Add/remove entries as needed; once the CMS gets a real video field this can
+  // be replaced with that.
+  const testimonialVideoOverrides: Record<number, string> = {
+    1: "https://www.youtube.com/watch?v=m5fgbvOhGcs",
+  };
+  const testimonials = (
+    gqlTestimonials && gqlTestimonials.length > 0 ? gqlTestimonials : localTestimonials
+  ).map((t) =>
+    testimonialVideoOverrides[t.id] ? { ...t, videoUrl: testimonialVideoOverrides[t.id] } : t
+  );
 
   // ── GraphQL (home.faq_section) → FAQ[] ─────────────────────────────────────
   const gqlFaqs: FAQ[] | undefined = homeData?.faqSection?.items?.length
@@ -153,7 +164,8 @@ export default async function HomePage() {
       <MeetOurDoctorsSection doctors={doctorsForHome} />
       <GalleryPreview images={gallery} />
       <DoctorsAdviceSection />
-      <TestimonialsSection testimonials={testimonials} />
+      {/* <TestimonialsSection testimonials={testimonials} /> */}
+      <TestimonialsCarouselSection testimonials={testimonials} />
       <BlogsSection blogs={blogs} />
       <NewsSection
         heading={homeData?.newsHeading?.heading}

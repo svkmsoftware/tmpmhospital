@@ -149,6 +149,9 @@ export interface Testimonial {
   image: string;
   text: string;
   rating: number;
+  /** Optional — paste any YouTube link (watch, youtu.be, or embed form).
+   *  When present, the video plays inline in place of the static photo. */
+  videoUrl?: string;
 }
 
 // ─── Gallery ──────────────────────────────────────────────────────────────────

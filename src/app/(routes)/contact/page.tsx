@@ -76,7 +76,7 @@ export default async function ContactPage() {
               <div className="rounded-2xl p-5 text-white" style={{ background: "var(--gradient-main)" }}>
                 <p className="font-bold mb-1 text-white">Emergency Services</p>
                 <p className="text-white/80 text-sm mb-3">Available 24 hours, 7 days a week</p>
-                <a href="tel:+912563351503"
+                <a href="tel:+912563351505"
                    className="inline-flex items-center gap-2 bg-white rounded-xl px-4 py-2 text-sm font-bold"
                    style={{ color: "var(--color-primary)" }}>
                   <Phone className="w-4 h-4" /> Call Emergency

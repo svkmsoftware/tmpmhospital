@@ -49,6 +49,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
         { label: dept.title },
       ]}
       height="lg"
+      showContent={false}
     />
   );
 
@@ -95,11 +96,11 @@ export default async function DepartmentDetailPage({ params }: Props) {
                   Book Now
                 </Link>
                 <a
-                  href="tel:+911234567890"
+                  href="tel:+912563351505"
                   className="mt-3 flex items-center justify-center gap-2 text-sm text-cyan-100 hover:text-white transition-colors"
                 >
                   <Phone className="w-4 h-4" />
-                  Emergency: +91 12345 67890
+                  Emergency: 02563 351505
                 </a>
               </div>
 

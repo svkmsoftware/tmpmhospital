@@ -12,12 +12,12 @@ import type { Blog, Testimonial, FAQ, GalleryImage } from "@/types";
 
 // ── Doctors' Advice (Image 5 style — horizontal scroll cards) ─────────────────
 const doctorAdviceVideos = [
-  { id: 1, title: "Is Your Back Pain a Slipped Disc?",          doctor: "Dr. Umang Shah",    image: "/images/blogs/Health_camp.png",      category: "Orthopaedics" },
-  { id: 2, title: "Felt a Snap in Your Knee? Meniscus Tear?",   doctor: "Dr. Aditya Mehra",  image: "/images/blogs/hospital_opening.png", category: "Orthopaedics" },
-  { id: 3, title: "Breast Cancer: What You Never Knew",         doctor: "Dr. Priya Nair",    image: "/images/blogs/Health_camp.png",       category: "Oncology"     },
-  { id: 4, title: "Oral Cancer — Recognize It Early",           doctor: "Dr. Haresh Mehta",  image: "/images/blogs/hospital_opening.png", category: "ENT"          },
-  { id: 5, title: "Heart Attacks Kill Silently — Beware!",      doctor: "Dr. Harish Malhotra",image: "/images/blogs/Health_camp.png",       category: "Cardiology"  },
-  { id: 6, title: "Managing Diabetes Through Diet",             doctor: "Dr. R. Sharma",     image: "/images/blogs/hospital_opening.png", category: "Endocrinology"},
+  { id: 1, title: "Is Your Back Pain a Slipped Disc?",          doctor: "Dr. Umang Shah",    image: "/images/blogs/Health_camp.png",      category: "Orthopaedics", video: "/images/blogs/sample1_mp4.mp4" },
+  { id: 2, title: "Felt a Snap in Your Knee? Meniscus Tear?",   doctor: "Dr. Aditya Mehra",  image: "/images/blogs/sample1_png.png",      category: "Orthopaedics", video: "/images/blogs/sample1_mp4.mp4" },
+  { id: 3, title: "Breast Cancer: What You Never Knew",         doctor: "Dr. Priya Nair",    image: "/images/blogs/Health_camp.png",       category: "Oncology",    video: "/images/blogs/sample1_mp4.mp4" },
+  { id: 4, title: "Oral Cancer — Recognize It Early",           doctor: "Dr. Haresh Mehta",  image: "/images/blogs/hospital_opening.png", category: "ENT",         video: "/images/blogs/sample1_mp4.mp4" },
+  { id: 5, title: "Heart Attacks Kill Silently — Beware!",      doctor: "Dr. Harish Malhotra",image: "/images/blogs/Health_camp.png",       category: "Cardiology", video: "/images/blogs/sample1_mp4.mp4" },
+  { id: 6, title: "Managing Diabetes Through Diet",             doctor: "Dr. R. Sharma",     image: "/images/blogs/hospital_opening.png", category: "Endocrinology", video: "/images/blogs/sample1_mp4.mp4" },
 ];
 
 export function DoctorsAdviceSection() {
@@ -70,7 +70,19 @@ export function DoctorsAdviceSection() {
               className="relative shrink-0 snap-start rounded-2xl overflow-hidden cursor-pointer group"
               style={{ width: 220, height: 320 }}
             >
-              <Image src={v.image} alt={v.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="220px" />
+              {v.video ? (
+                <video
+                  src={v.video}
+                  poster={v.image}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              ) : (
+                <Image src={v.image} alt={v.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="220px" />
+              )}
               {/* Dark gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
@@ -294,6 +306,176 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Testimonials Carousel (variant of TestimonialsSection, for review) ─────────
+const TESTIMONIAL_AUTOPLAY_MS = 5000;
+
+// Accepts any YouTube URL shape (watch, youtu.be, embed, with extra query params)
+// and returns just the video ID, or null if it doesn't look like a YouTube link.
+function extractYouTubeId(url: string): string | null {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/
+  );
+  return match ? match[1] : null;
+}
+
+// YouTube serves a thumbnail at this fixed URL for every public video — no API call needed.
+function youTubeThumbnail(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+export function TestimonialsCarouselSection({ testimonials }: { testimonials: Testimonial[] }) {
+  const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const count = testimonials.length;
+
+  useEffect(() => {
+    if (isPaused || count <= 1) return;
+    const id = setInterval(() => {
+      setIndex((prev) => (prev + 1) % count);
+    }, TESTIMONIAL_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [isPaused, count]);
+
+  // Stop any playing video and resume autoplay whenever the slide changes.
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [index]);
+
+  if (count === 0) return null;
+
+  const goTo = (i: number) => setIndex(((i % count) + count) % count);
+  const t = testimonials[index];
+
+  return (
+    <section
+      id="testimonials-carousel"
+      className="section-padding bg-white"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="container-custom">
+        <SectionHeader
+          tag="Patient Stories"
+          title="In Their Own Words"
+          subtitle="Hear directly from the families we've cared for."
+        />
+
+        <div
+          className="relative rounded-3xl overflow-hidden shadow-card"
+          style={{ background: "var(--color-primary-pale)" }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Left: photo, or a playing YouTube embed when the testimonial has a videoUrl */}
+            <div className="relative aspect-video lg:aspect-auto lg:min-h-[420px] bg-black">
+              {isPlaying && t.videoUrl && extractYouTubeId(t.videoUrl) ? (
+                <iframe
+                  key={t.id}
+                  src={`https://www.youtube.com/embed/${extractYouTubeId(t.videoUrl)}?autoplay=1`}
+                  title={`${t.name} — video testimonial`}
+                  className="absolute inset-0 w-full h-full"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <>
+                  <Image
+                    src={
+                      t.videoUrl && extractYouTubeId(t.videoUrl)
+                        ? youTubeThumbnail(extractYouTubeId(t.videoUrl)!)
+                        : t.image
+                    }
+                    alt={t.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width:1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  {t.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setIsPlaying(true)}
+                      className="absolute inset-0 flex items-center justify-center group"
+                      aria-label="Play testimonial video"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-white/90 shadow-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Play className="w-6 h-6 ml-1" fill="var(--color-primary)" color="var(--color-primary)" />
+                      </div>
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Right: quote text, with user info pinned to the bottom */}
+            <div className="flex flex-col justify-between p-8 lg:p-12">
+              <div>
+                <Quote className="w-10 h-10 mb-4" color="var(--color-primary)" />
+                <p className="text-lg md:text-xl text-neutral-700 leading-relaxed">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+              </div>
+
+              <div className="mt-8">
+                <div className="flex gap-0.5 mb-3">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="relative w-12 h-12 rounded-full overflow-hidden border-2 shrink-0"
+                    style={{ borderColor: "var(--color-primary)" }}
+                  >
+                    <Image src={t.image} alt={t.name} fill className="object-cover" sizes="48px" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-neutral-800">{t.name}</p>
+                    <p className="text-sm text-neutral-500">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Carousel controls */}
+          {count > 1 && (
+            <div className="flex items-center justify-center gap-4 py-6 bg-white border-t border-neutral-100">
+              <button
+                onClick={() => goTo(index - 1)}
+                aria-label="Previous testimonial"
+                className="w-9 h-9 rounded-full border flex items-center justify-center hover:bg-neutral-50 transition-colors"
+                style={{ borderColor: "var(--color-primary)" }}
+              >
+                <ChevronLeft className="w-4 h-4" color="var(--color-primary)" />
+              </button>
+              <div className="flex gap-2">
+                {testimonials.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i)}
+                    aria-label={`Go to testimonial ${i + 1}`}
+                    className={cn("h-2 rounded-full transition-all", i === index ? "w-6" : "w-2 bg-neutral-300")}
+                    style={i === index ? { background: "var(--color-primary)" } : undefined}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => goTo(index + 1)}
+                aria-label="Next testimonial"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-white transition-colors"
+                style={{ background: "var(--color-primary)" }}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

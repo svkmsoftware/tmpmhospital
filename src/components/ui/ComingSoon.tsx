@@ -52,7 +52,7 @@ export default function ComingSoon({
                 </div>
                 <div>
                   <p className="text-xs text-neutral-500">Appointment</p>
-                  <p className="text-sm font-semibold text-neutral-800">+91 2563 351503/04</p>
+                  <p className="text-sm font-semibold text-neutral-800">02563 351503/04</p>
                 </div>
               </a>
               <a

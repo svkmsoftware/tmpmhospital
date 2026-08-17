@@ -59,7 +59,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["fee", "charge", "cost", "tariff", "price", "bill"],
-    answer: "💳 **Hospital Charges:**\nWe follow transparent, affordable pricing with a commitment to equitable care.\n\n📄 [Download Tariff Sheet](https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing)\n\nFor billing queries, contact us at **+91 2563 351503/04**.",
+    answer: "💳 **Hospital Charges:**\nWe follow transparent, affordable pricing with a commitment to equitable care.\n\n📄 [Download Tariff Sheet](https://drive.google.com/file/d/1gSUJYhNeN7v6-uOkmAAZN5aL_Uak-Vuu/view?usp=sharing)\n\nFor billing queries, contact us at **02563 351503/04**.",
   },
   {
     patterns: ["career", "job", "vacancy", "opening", "hiring", "work"],
@@ -67,11 +67,11 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["dialysis", "kidney", "nephrology", "renal"],
-    answer: "💧 **Dialysis Services:**\nWe have an **18-bed Dialysis Unit** providing haemodialysis and peritoneal dialysis.\n\nWe are empanelled under **PMNDP (National Dialysis Programme)** for government-subsidised dialysis for eligible patients.\n\nFor appointments, call **+91 2563 351503/04**.",
+    answer: "💧 **Dialysis Services:**\nWe have an **18-bed Dialysis Unit** providing haemodialysis and peritoneal dialysis.\n\nWe are empanelled under **PMNDP (National Dialysis Programme)** for government-subsidised dialysis for eligible patients.\n\nFor appointments, call **02563 351503/04**.",
   },
   {
     patterns: ["cancer", "oncology", "chemo", "chemotherapy", "tumour"],
-    answer: "🩺 **Oncology Services:**\nOur dedicated Oncology Unit offers:\n• Medical & Surgical Oncology\n• **16-bed Chemotherapy Unit** (2600 sq.ft. dedicated space)\n• Cancer surgery, targeted therapy, immunotherapy\n• Tumour board discussions\n• Palliative care\n\nFor consultations, call **+91 2563 351503/04**.",
+    answer: "🩺 **Oncology Services:**\nOur dedicated Oncology Unit offers:\n• Medical & Surgical Oncology\n• **16-bed Chemotherapy Unit** (2600 sq.ft. dedicated space)\n• Cancer surgery, targeted therapy, immunotherapy\n• Tumour board discussions\n• Palliative care\n\nFor consultations, call **02563 351503/04**.",
   },
   {
     patterns: ["mri", "ct scan", "xray", "x-ray", "radiology", "imaging", "scan", "mammography", "ultrasound"],
@@ -79,7 +79,7 @@ const FAQ_KB: { patterns: string[]; answer: string }[] = [
   },
   {
     patterns: ["lab", "laboratory", "test", "blood test", "pathology", "ccl"],
-    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOur 2500 sq.ft. state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **02563 351503/04**.",
+    answer: "🧪 **Central Clinical Laboratory (CCL):**\nOne of the biggest, state-of-the-art CCL operates **24/7** with the latest technology for:\n• Haematology & Biochemistry\n• Microbiology & Culture\n• Histopathology\n• Molecular diagnostics (PCR)\n\nFor test bookings, call **02563 351503/04**.",
   },
   {
     patterns: ["area", "size", "sqft", "square feet", "campus", "large", "big"],
@@ -298,7 +298,7 @@ export default function Chatbot() {
             <p className="text-xs text-white/70">Online · Usually replies instantly</p>
           </div>
           <a
-            href="tel:+911234567890"
+            href="tel:+912563351505"
             className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
             title="Call Emergency"
             aria-label="Emergency call"

@@ -610,10 +610,10 @@ export default function Navbar() {
             <Phone className="w-4 h-4" /> Book Appointment
           </Link>
           <a
-            href="tel:+911234567890"
+            href="tel:+912563351505"
             className="flex items-center justify-center gap-2 text-xs text-neutral-400 hover:text-red-500 transition-colors"
           >
-            <Phone className="w-3 h-3" /> Emergency: +91 12345 67890
+            <Phone className="w-3 h-3" /> Emergency: 02563 351505
           </a>
         </div>
       </div>
