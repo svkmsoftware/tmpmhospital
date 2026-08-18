@@ -129,20 +129,25 @@ export default async function HomePage() {
         rating: 5,
       }))
     : undefined;
-  // ── Video overrides ────────────────────────────────────────────────────────
-  // The CMS has no video field for testimonials yet, so videos are managed here
-  // instead — matched by position (1 = first testimonial currently showing,
+  // ── Media overrides ──────────────────────────────────────────────────────
+  // The CMS has no image/video fields for testimonials yet, so media is managed
+  // here instead — matched by position (1 = first testimonial currently showing,
   // regardless of whether that list came from the CMS or the local fallback).
-  // Add/remove entries as needed; once the CMS gets a real video field this can
-  // be replaced with that.
-  const testimonialVideoOverrides: Record<number, string> = {
-    1: "https://www.youtube.com/watch?v=m5fgbvOhGcs",
+  // Set whichever you have for each entry — `image` alone, `videoUrl` alone, or
+  // both (videoUrl takes the thumbnail from YouTube automatically, so `image` is
+  // only used as the poster when there's no video). Once the CMS gets real
+  // fields for these, this can be replaced with that.
+  const testimonialMediaOverrides: Record<number, { image?: string; videoUrl?: string }> = {
+    1: { videoUrl: "https://www.youtube.com/watch?v=m5fgbvOhGcs" },
+    // 2: { image: "/images/testimonials/some-photo.jpg" },
+    // 3: { image: "/images/testimonials/another-photo.jpg", videoUrl: "https://youtu.be/..." },
   };
   const testimonials = (
     gqlTestimonials && gqlTestimonials.length > 0 ? gqlTestimonials : localTestimonials
-  ).map((t) =>
-    testimonialVideoOverrides[t.id] ? { ...t, videoUrl: testimonialVideoOverrides[t.id] } : t
-  );
+  ).map((t) => {
+    const override = testimonialMediaOverrides[t.id];
+    return override ? { ...t, ...override } : t;
+  });
 
   // ── GraphQL (home.faq_section) → FAQ[] ─────────────────────────────────────
   const gqlFaqs: FAQ[] | undefined = homeData?.faqSection?.items?.length

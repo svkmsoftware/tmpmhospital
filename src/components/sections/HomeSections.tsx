@@ -377,10 +377,13 @@ export function TestimonialsCarouselSection({ testimonials }: { testimonials: Te
               {isPlaying && t.videoUrl && extractYouTubeId(t.videoUrl) ? (
                 <iframe
                   key={t.id}
-                  src={`https://www.youtube.com/embed/${extractYouTubeId(t.videoUrl)}?autoplay=1`}
+                  src={`https://www.youtube.com/embed/${extractYouTubeId(t.videoUrl)}?autoplay=1&origin=${
+                    typeof window !== "undefined" ? window.location.origin : ""
+                  }`}
                   title={`${t.name} — video testimonial`}
                   className="absolute inset-0 w-full h-full"
                   allow="autoplay; encrypted-media; picture-in-picture"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                 />
               ) : (
