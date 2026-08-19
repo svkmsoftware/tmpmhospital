@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { submitContactForm } from "@/app/(routes)/contact/actions";
 
 interface FormState {
   name: string;
@@ -37,11 +38,17 @@ const subjects = [
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>({
-    name: "", email: "", phone: "", subject: "", department: "", message: "",
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    department: "",
+    message: "",
   });
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validate = (): boolean => {
     const e: Partial<FormState> = {};
@@ -61,17 +68,32 @@ export default function ContactForm() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-    // Simulated API call — replace with real endpoint
-    await new Promise((r) => setTimeout(r, 1200));
+    setSubmitError(null);
+
+    const result = await submitContactForm(form);
+
     setLoading(false);
-    setSubmitted(true);
+
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setSubmitError(
+        result.error ?? "Failed to send your message. Please try again.",
+      );
+    }
   };
 
   const field = (key: keyof FormState) => ({
     value: form[key],
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-      setForm((f) => ({ ...f, [key]: e.target.value })),
-    className: cn("input-field", errors[key] && "border-red-400 focus:ring-red-400"),
+    onChange: (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => setForm((f) => ({ ...f, [key]: e.target.value })),
+    className: cn(
+      "input-field",
+      errors[key] && "border-red-400 focus:ring-red-400",
+    ),
   });
 
   if (submitted) {
@@ -80,10 +102,21 @@ export default function ContactForm() {
         <CheckCircle className="w-16 h-16 text-emerald-500" />
         <h3 className="text-2xl font-bold text-neutral-800">Message Sent!</h3>
         <p className="text-neutral-500 max-w-sm">
-          Thank you for reaching out. Our team will get back to you within 24 hours.
+          Thank you for reaching out. Our team will get back to you within 24
+          hours.
         </p>
         <button
-          onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", subject: "", department: "", message: "" }); }}
+          onClick={() => {
+            setSubmitted(false);
+            setForm({
+              name: "",
+              email: "",
+              phone: "",
+              subject: "",
+              department: "",
+              message: "",
+            });
+          }}
           className="btn-outline mt-2"
         >
           Send Another Message
@@ -94,57 +127,111 @@ export default function ContactForm() {
 
   return (
     <div className="card p-6 md:p-8">
-      <h2 className="text-xl font-bold text-neutral-800 mb-6">Send Us a Message</h2>
+      <h2 className="text-xl font-bold text-neutral-800 mb-6">
+        Send Us a Message
+      </h2>
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1.5">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-neutral-700 mb-1.5"
+            >
               Full Name <span className="text-red-500">*</span>
             </label>
-            <input id="name" type="text" placeholder="Your full name" {...field("name")} />
-            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+            <input
+              id="name"
+              type="text"
+              placeholder="Your full name"
+              {...field("name")}
+            />
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            )}
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1.5">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-neutral-700 mb-1.5"
+            >
               Email Address <span className="text-red-500">*</span>
             </label>
-            <input id="email" type="email" placeholder="you@example.com" {...field("email")} />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              {...field("email")}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-1.5">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-neutral-700 mb-1.5"
+            >
               Phone Number
             </label>
-            <input id="phone" type="tel" placeholder="+91 98765 43210" {...field("phone")} />
-            {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+            <input
+              id="phone"
+              type="tel"
+              placeholder="+91 98765 43210"
+              {...field("phone")}
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+            )}
           </div>
           <div>
-            <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 mb-1.5">
+            <label
+              htmlFor="subject"
+              className="block text-sm font-medium text-neutral-700 mb-1.5"
+            >
               Subject <span className="text-red-500">*</span>
             </label>
             <select id="subject" {...field("subject")}>
               <option value="">Select subject…</option>
-              {subjects.map((s) => <option key={s} value={s}>{s}</option>)}
+              {subjects.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
             </select>
-            {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
+            {errors.subject && (
+              <p className="text-red-500 text-xs mt-1">{errors.subject}</p>
+            )}
+            {submitError && (
+              <p className="text-red-500 text-sm text-center">{submitError}</p>
+            )}
           </div>
         </div>
 
         <div>
-          <label htmlFor="department" className="block text-sm font-medium text-neutral-700 mb-1.5">
+          <label
+            htmlFor="department"
+            className="block text-sm font-medium text-neutral-700 mb-1.5"
+          >
             Department (Optional)
           </label>
           <select id="department" {...field("department")}>
             <option value="">Select department…</option>
-            {departments.map((d) => <option key={d} value={d}>{d}</option>)}
+            {departments.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
           </select>
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1.5">
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-neutral-700 mb-1.5"
+          >
             Message <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -152,22 +239,47 @@ export default function ContactForm() {
             rows={5}
             placeholder="Describe your enquiry or appointment details…"
             {...field("message")}
-            className={cn("input-field resize-none", errors.message && "border-red-400")}
+            className={cn(
+              "input-field resize-none",
+              errors.message && "border-red-400",
+            )}
           />
-          {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
-          <p className="text-xs text-neutral-400 mt-1">{form.message.length} / 1000 characters</p>
+          {errors.message && (
+            <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+          )}
+          <p className="text-xs text-neutral-400 mt-1">
+            {form.message.length} / 1000 characters
+          </p>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className={cn("btn-primary w-full justify-center", loading && "opacity-70 cursor-not-allowed")}
+          className={cn(
+            "btn-primary w-full justify-center",
+            loading && "opacity-70 cursor-not-allowed",
+          )}
         >
           {loading ? (
             <span className="flex items-center gap-2">
-              <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+              <svg
+                className="animate-spin w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8z"
+                />
               </svg>
               Sending…
             </span>
@@ -179,7 +291,8 @@ export default function ContactForm() {
         </button>
 
         <p className="text-xs text-neutral-400 text-center">
-          Your information is secure and will never be shared with third parties.
+          Your information is secure and will never be shared with third
+          parties.
         </p>
       </form>
     </div>

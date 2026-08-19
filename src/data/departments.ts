@@ -63,7 +63,7 @@ export const departments: DepartmentCategory[] = [
         ],
         consultants: [
           { name: "Dr. Shivram Gopal Pawara", tags: ["Senior Consultant, MBBS", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/DR_SHIVRAM_PAWARA.png" },
-          { name: "Dr. Disha Biwas", tags: ["Senior Consultant, MBBS, MD", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/Disha_Biwas.png" },
+          { name: "Dr. Disha Biwas", tags: ["Senior Consultant, MBBS, MD", "Obstetrics & Gynaecology"], profilePhoto: "/images/female_user.png" },
         ],
       },
       {

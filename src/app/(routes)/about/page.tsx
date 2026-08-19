@@ -575,7 +575,7 @@ export default async function AboutPage() {
       )}
 
       {/* ── Trustees ─────────────────────────────────────────────────────── */}
-      {trustees.length > 0 && (
+      {/* {trustees.length > 0 && (
         <section id="trustees" className="section-padding bg-white">
           <div className="container-custom">
             <SectionHeader
@@ -609,7 +609,7 @@ export default async function AboutPage() {
             </div>
           </div>
         </section>
-      )}
+      )} */}
 
       {/* ── Management Team ──────────────────────────────────────────────── */}
       {management.length > 0 && (

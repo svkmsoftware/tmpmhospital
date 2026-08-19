@@ -52,6 +52,16 @@
   --shadow-green: 0 8px 24px rgba(8,162,164,.2);
 }
 
+/* Topbar (`.hidden md:block` in Navbar.tsx) disappears below Tailwind's
+   `md` breakpoint (768px). --total-header must match by dropping
+   --topbar-height to 0 at the same breakpoint, otherwise pt-[var(--total-header)]
+   keeps reserving space for a topbar that isn't rendered. */
+@media (max-width: 767.98px) {
+  :root {
+    --topbar-height: 0px;
+  }
+}
+
 /* ── Reset ────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
