@@ -84,7 +84,7 @@ export const departments: DepartmentCategory[] = [
         slug: "general-surgery",
         title: "General Surgery",
         banner_image: "/images/dept/General_Surgery.png",
-        heroImage: "/images/dept/dept-banner/General_Surgery2.png",
+        heroImage: "/images/dept/dept-banner/General_Surgery3.png",
         description: "Comprehensive surgical services — open, laparoscopic, and advanced minimally invasive surgery for a full spectrum of conditions.",
         icon: "scissors",
         tabs: [
