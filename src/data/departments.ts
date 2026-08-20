@@ -52,8 +52,8 @@ export const departments: DepartmentCategory[] = [
       {
         slug: "obstetrics-gynecology",
         title: "Obstetrics & Gynaecology",
-        banner_image: "/images/dept/Obstetrics_&_Gynaecology1.png",
-        heroImage: "/images/dept/dept-banner/Obstetrics_&_Gynaecology.png",
+        banner_image: "/images/dept/Obstetrics_&_Gynaecology.png",
+        heroImage: "/images/dept/dept-banner/Obstetrics_&_Gynaecology1.png",
         description: "Complete women's health services — from antenatal care and safe delivery to gynaecological surgery and reproductive health.",
         icon: "heart-handshake",
         tabs: [
