@@ -642,6 +642,20 @@ export const GET_CONTACT_PAGE_QUERY = /* GraphQL */ `
   }
 `;
 
+export const CREATE_CONTACT_SUBMISSION_MUTATION = /* GraphQL */ `
+  mutation CreateContactSubmission($data: ContactSubmissionInput!) {
+    createContactSubmission(
+      data: $data
+    ) {
+      documentId
+      name
+      email
+      subject
+      message
+    }
+  }
+`;
+
 // ── OPD Page ────────────────────────────────────────────────────────────────
 export const GET_OPD_PAGE_QUERY = /* GraphQL */ `
   query GetOPDPage {

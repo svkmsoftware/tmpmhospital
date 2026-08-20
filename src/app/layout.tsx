@@ -14,6 +14,7 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 import Chatbot from "@/components/ui/Chatbot";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import Script from "next/script";
+import EmergencyContactTab from "@/components/ui/EmergencyContactTab";
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 const SITE_NAME = "SVKM's TMPM Hospital";
@@ -193,8 +194,8 @@ export default function RootLayout({
           async
         ></script>
 
-      {/* Google Analytics (gtag.js) */}
-      {/* <Script
+        {/* Google Analytics (gtag.js) */}
+        {/* <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-J1J139XR1G"
         strategy="afterInteractive"
       />
@@ -207,23 +208,21 @@ export default function RootLayout({
         `}
       </Script> */}
 
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-S68Q22N20J"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-S68Q22N20J"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-S68Q22N20J');
         `}
-      </Script>
+        </Script>
 
-
-
-    {/* Google tag (gtag.js) */}
-    {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-S68Q22N20J"></script>
+        {/* Google tag (gtag.js) */}
+        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-S68Q22N20J"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -257,6 +256,7 @@ export default function RootLayout({
         <MobileBottomNav />
         <ScrollToTop />
         <Chatbot />
+        <EmergencyContactTab />
       </body>
     </html>
   );

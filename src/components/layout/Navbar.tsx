@@ -415,7 +415,7 @@ export default function Navbar() {
           <div className="flex items-center gap-5 text-xs text-cyan-100">
             <a
               href="mailto:contact@tmpmhospital.com"
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
+              className="hidden 2xl:flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Mail className="w-3.5 h-3.5" /> contact.tmpmh@svkm.ac.in
             </a>
@@ -437,7 +437,7 @@ export default function Navbar() {
             >
               <Phone className="w-3.5 h-3.5" /> Radiology: 02563 351510
             </a>
-            <span className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
+            <span className="hidden 2xl:flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
               <Clock className="w-3.5 h-3.5" /> OPD: 9 AM – 5 PM
             </span>
             {/* <span className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white">
@@ -446,7 +446,7 @@ export default function Navbar() {
             <a
               href="tel:18008909111"
               // className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20 text-sm"
-              className="xl:flex items-center gap-1.5 hover:text-white transition-colors font-semibold text-white hidden text-sm"
+              className="xl:flex hidden items-center gap-1.5 hover:text-white transition-colors font-semibold text-white text-sm"
             >
               <Phone className="w-3.5 h-3.5" /> Toll-Free: 1800 8909 111
             </a>

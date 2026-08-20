@@ -65,6 +65,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
   }
 
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const isEmergencyDept = dept.title === "24/7 Emergency Care";
 
   return (
     <>
@@ -92,7 +93,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                 <p className="text-cyan-100 text-sm mb-4">
                   Consult our {dept.title} specialists today.
                 </p>
-                <Link href="/contact" className="block w-full text-center btn-accent text-neutral-900 font-bold">
+                <Link href="/contact" className="block w-full text-center btn-accent text-white font-bold">
                   Book Now
                 </Link>
                 <a
@@ -144,20 +145,28 @@ export default async function DepartmentDetailPage({ params }: Props) {
               <div className="card p-6">
                 <h3 className="font-bold text-neutral-800 mb-4 flex items-center gap-2">
                   <Clock className="w-4 h-4" color="var(--color-primary)" />
-                  OPD Timings
+                  {isEmergencyDept ? "Availability" : "OPD Timings"}
                 </h3>
-                <div className="space-y-2">
-                  {days.map((day) => (
-                    <div key={day} className="flex justify-between text-sm py-1 border-b border-neutral-100 last:border-0">
-                      <span className="capitalize font-medium text-neutral-700">{day}</span>
-                      <span className="text-neutral-500">10:00 AM – 4:00 PM</span>
-                    </div>
-                  ))}
-                  <div className="flex justify-between text-sm py-1">
-                    <span className="capitalize font-medium text-neutral-700">Sunday</span>
-                    <span className="text-red-500">Closed</span>
+
+                {isEmergencyDept ? (
+                  <div className="flex items-center justify-between text-sm py-2">
+                    <span className="font-medium text-neutral-700">All Days</span>
+                    <span className="font-semibold text-green-600">24/7 Available</span>
                   </div>
-                </div>
+                ) : (
+                  <div className="space-y-2">
+                    {days.map((day) => (
+                      <div key={day} className="flex justify-between text-sm py-1 border-b border-neutral-100 last:border-0">
+                        <span className="capitalize font-medium text-neutral-700">{day}</span>
+                        <span className="text-neutral-500">10:00 AM – 4:00 PM</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between text-sm py-1">
+                      <span className="capitalize font-medium text-neutral-700">Sunday</span>
+                      <span className="text-red-500">Closed</span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Quick links */}
