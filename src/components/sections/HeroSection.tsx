@@ -21,7 +21,7 @@ const fallbackSlides = [
   {
     id: "fallback-1",
     image: "/images/Official_Website_Hero Banner_Images_1.png",
-    image_mobile: "/images/hospital_banner_images10.png",
+    image_mobile: "/images/Official_Website_Hero Banner_Images_1.png",
     alt: "",
   },
 ];
