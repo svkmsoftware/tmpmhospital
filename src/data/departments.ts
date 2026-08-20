@@ -53,7 +53,7 @@ export const departments: DepartmentCategory[] = [
         slug: "obstetrics-gynecology",
         title: "Obstetrics & Gynaecology",
         banner_image: "/images/dept/Obstetrics_&_Gynaecology.png",
-        heroImage: "/images/dept/dept-banner/Obstetrics_&_Gynaecology1.png",
+        heroImage: "/images/dept/dept-banner/Obstetrics_&_Gynaecology2.png",
         description: "Complete women's health services — from antenatal care and safe delivery to gynaecological surgery and reproductive health.",
         icon: "heart-handshake",
         tabs: [
@@ -84,7 +84,7 @@ export const departments: DepartmentCategory[] = [
         slug: "general-surgery",
         title: "General Surgery",
         banner_image: "/images/dept/General_Surgery.png",
-        heroImage: "/images/dept/dept-banner/General_Surgery3.png",
+        heroImage: "/images/dept/dept-banner/General_Surgery4.png",
         description: "Comprehensive surgical services — open, laparoscopic, and advanced minimally invasive surgery for a full spectrum of conditions.",
         icon: "scissors",
         tabs: [
