@@ -10,7 +10,7 @@ export const departments: DepartmentCategory[] = [
         // title: "",
         title: "24/7 Emergency Care",
         banner_image: "/images/dept/24_7_Emergency_Care.png",
-        heroImage: "/images/dept/dept-banner/24_7_Emergency_Care.png",
+        heroImage: "/images/dept/dept-banner/24_7_Emergency_Care_new.png",
         description: "Round-the-clock emergency services with 34 emergency beds, advanced life-support ambulances (2 ACLS + 4 BLS), trauma care, and critical care units.",
         // description: "",
         icon: "ambulance",
@@ -39,7 +39,7 @@ export const departments: DepartmentCategory[] = [
         slug: "cardiology",
         title: "Cardiology",
         banner_image: "/images/dept/Cardiology.png",
-        heroImage: "/images/dept/dept-banner/Cardiology.png",
+        heroImage: "/images/dept/dept-banner/Cardiology_new.png",
         description: "Advanced cardiac care including interventional cardiology with a dedicated Catheterization Laboratory.",
         icon: "heart",
         tabs: [
@@ -53,7 +53,7 @@ export const departments: DepartmentCategory[] = [
         slug: "obstetrics-gynecology",
         title: "Obstetrics & Gynaecology",
         banner_image: "/images/dept/Obstetrics_&_Gynaecology.png",
-        heroImage: "/images/dept/dept-banner/Obstetrics_and_Gynaecology.png",
+        heroImage: "/images/dept/dept-banner/Obstetrics_and_Gynaecology_new.png",
         description: "Complete women's health services — from antenatal care and safe delivery to gynaecological surgery and reproductive health.",
         icon: "heart-handshake",
         tabs: [
@@ -70,7 +70,7 @@ export const departments: DepartmentCategory[] = [
         slug: "pediatrics",
         title: "Paediatrics & Neonatology",
         banner_image: "/images/dept/Paediatrics_&_Neonatology.png",
-        heroImage: "/images/dept/dept-banner/Paediatrics_and_Neonatology8.png",
+        heroImage: "/images/dept/dept-banner/Paediatrics_and_Neonatology_new.png",
         description: "Comprehensive child healthcare from birth through adolescence, with a 28-bed NICU and 20-bed PICU.",
         icon: "baby",
         tabs: [
@@ -84,7 +84,7 @@ export const departments: DepartmentCategory[] = [
         slug: "general-surgery",
         title: "General Surgery",
         banner_image: "/images/dept/General_Surgery.png",
-        heroImage: "/images/dept/dept-banner/General_Surgery.png",
+        heroImage: "/images/dept/dept-banner/General_Surgery_new.png",
         description: "Comprehensive surgical services — open, laparoscopic, and advanced minimally invasive surgery for a full spectrum of conditions.",
         icon: "scissors",
         tabs: [
@@ -124,8 +124,8 @@ export const departments: DepartmentCategory[] = [
       {
         slug: "oncology",
         title: "Oncology — Medical & Surgical",
-        banner_image: "/images/dept/Oncology_Medical_&_Surgical1.png",
-        heroImage: "/images/dept/dept-banner/Oncology_Medical_and_Surgical.png",
+        banner_image: "/images/general_hospital_banner.png.png",
+        heroImage: "/images/dept/dept-banner/Oncology_Medical_and_Surgical_new.png",
         description: "Comprehensive cancer care in a dedicated 2600 sq.ft. oncology unit with a 16-bed chemotherapy unit.",
         icon: "heart-pulse",
         tabs: [
