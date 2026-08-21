@@ -124,7 +124,7 @@ export const departments: DepartmentCategory[] = [
       {
         slug: "oncology",
         title: "Oncology — Medical & Surgical",
-        banner_image: "/images/general_hospital_banner.png.png",
+        banner_image: "/images/general_hospital_banner.png",
         heroImage: "/images/dept/dept-banner/Oncology_Medical_and_Surgical_new.png",
         description: "Comprehensive cancer care in a dedicated 2600 sq.ft. oncology unit with a 16-bed chemotherapy unit.",
         icon: "heart-pulse",
