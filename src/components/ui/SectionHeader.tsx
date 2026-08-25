@@ -71,6 +71,9 @@ interface PageBannerProps {
   /** When false, renders only the bare image — no dark overlay, breadcrumb,
    *  title, or subtitle. Defaults to true so every existing caller is unaffected. */
   showContent?: boolean;
+  /** When false, keeps breadcrumb/title/subtitle but drops the dark gradient
+   *  tint behind them, leaving the image clear. Defaults to true (current look). */
+  showOverlay?: boolean;
 }
 
 export function PageBanner({
@@ -80,6 +83,7 @@ export function PageBanner({
   breadcrumb,
   height = "md",
   showContent = true,
+  showOverlay = true,
 }: PageBannerProps) {
   const heights: Record<string, string> = {
     sm: "h-52 md:h-64",
@@ -106,13 +110,15 @@ export function PageBanner({
       {showContent && (
         <>
           {/* Rich overlay: dark at bottom, lighter at top */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)",
-            }}
-          ></div>
+          {showOverlay && (
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)",
+              }}
+            ></div>
+          )}
 
           <div className="relative container-custom pb-10 pt-16">
             {breadcrumb && breadcrumb.length > 0 && (

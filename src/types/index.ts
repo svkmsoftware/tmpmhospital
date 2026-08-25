@@ -61,15 +61,35 @@ export interface DepartmentCategory {
 }
 
 // ─── Blog ─────────────────────────────────────────────────────────────────────
+export interface BlogContentBlock {
+  type: "paragraph" | "heading" | "list" | "orderedList";
+  text?: string; // supports **bold** inline markup
+  items?: string[]; // for "list" / "orderedList" — each item supports **bold** inline markup
+  /** For type "heading" only — 2 = major section (default), 3 = sub-section. */
+  level?: 2 | 3;
+}
+
 export interface Blog {
   id: number;
   title: string;
   category: string;
+  /** Thumbnail — used on the listing page (cards, featured strip). */
   image: string;
+  /** Optional — wide hero image for the individual blog page's banner.
+   *  Falls back to `image` when absent, so this is safe to omit. */
+  heroImage?: string;
   link: string;
   date: string;
   excerpt: string;
   author: string;
+  /** Optional — when present, "Read More" links to /blogs/<slug> instead of being inert. */
+  slug?: string;
+  /** Optional — full article body. Only local blogs with this can have a detail page right now. */
+  content?: BlogContentBlock[];
+  /** Optional SEO metadata for the detail page. */
+  seoTitle?: string;
+  metaDescription?: string;
+  focusKeywords?: string[];
 }
 
 // ─── Job Opening ──────────────────────────────────────────────────────────────

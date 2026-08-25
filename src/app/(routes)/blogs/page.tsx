@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Tag } from "lucide-react";
@@ -12,6 +13,28 @@ export const metadata: Metadata = {
   description: "Stay informed with the latest health tips, medical news, and wellness insights from the expert doctors at SVKM's TMPM Hospital.",
   alternates: { canonical: "https://www.tmpmhospital.com/blogs" },
 };
+
+// Renders as a real link when the blog has a detail page (`slug`), otherwise
+// as a plain (non-clickable) article — same as today, for entries with no
+// article body yet.
+function BlogCard({
+  slug,
+  className,
+  children,
+}: {
+  slug?: string;
+  className: string;
+  children: ReactNode;
+}) {
+  if (slug) {
+    return (
+      <Link href={`/blogs/${slug}`} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return <article className={className}>{children}</article>;
+}
 
 export default async function BlogsPage() {
   let blogPage = null, allBlogs = null;
@@ -28,18 +51,26 @@ export default async function BlogsPage() {
     ...(allBlogs ?? []),
   ].filter((b, i, arr) => arr.findIndex((x) => x.title === b.title) === i);
 
-  const blogs = gqlBlogs.length > 0
+  interface BlogCardData {
+    id: string;
+    title: string;
+    excerpt: string;
+    image: string | null;
+    slug?: string;
+  }
+
+  const blogs: BlogCardData[] = gqlBlogs.length > 0
     ? gqlBlogs
     : localBlogs.map((b) => ({
         id: String(b.id), title: b.title, excerpt: b.excerpt ?? "",
-        image: b.image,
+        image: b.image, slug: b.slug,
       }));
 
   const [featured, ...rest] = blogs;
 
   return (
     <>
-      <PageBanner image="/images/blogs_banner.png" title={heading} subtitle={subheading}
+      <PageBanner image="/images/departments_banner.png" title={heading} subtitle={subheading}
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
 
       <section className="section-padding bg-white">
@@ -51,13 +82,12 @@ export default async function BlogsPage() {
           {featured && (
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-10">
               {/* Featured article */}
-              <article className="lg:col-span-3 card group flex flex-col">
+              <BlogCard slug={featured.slug} className="lg:col-span-3 card group flex flex-col">
                 <div className="relative aspect-video overflow-hidden">
                   <Image src={featured.image ?? "/images/blogs/health_camp.png"}
                     alt={featured.title} fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width:1024px) 100vw, 60vw" priority />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <span className="absolute top-4 left-4 badge badge-accent">Featured</span>
                 </div>
                 <div className="flex flex-col flex-1 p-6">
@@ -74,12 +104,12 @@ export default async function BlogsPage() {
                     Read More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
-              </article>
+              </BlogCard>
 
               {/* Side cards */}
               <div className="lg:col-span-2 flex flex-col gap-4">
                 {rest.slice(0, 3).map((blog, i) => (
-                  <article key={i} className="card group flex overflow-hidden">
+                  <BlogCard key={i} slug={blog.slug} className="card group flex overflow-hidden">
                     <div className="relative w-28 shrink-0 overflow-hidden">
                       <Image src={blog.image ?? "/images/blogs/hospital_opening.png"}
                         alt={blog.title} fill
@@ -95,7 +125,7 @@ export default async function BlogsPage() {
                         Read <ArrowRight className="w-3 h-3" />
                       </div>
                     </div>
-                  </article>
+                  </BlogCard>
                 ))}
               </div>
             </div>
@@ -107,7 +137,7 @@ export default async function BlogsPage() {
               <h3 className="text-xl font-bold text-neutral-800 mb-6">More Articles</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 {rest.slice(3).map((blog, i) => (
-                  <article key={i} className="card group flex flex-col">
+                  <BlogCard key={i} slug={blog.slug} className="card group flex flex-col">
                     <div className="relative aspect-video overflow-hidden">
                       <Image src={blog.image ?? "/images/blogs/health_camp.png"}
                         alt={blog.title} fill
@@ -126,7 +156,7 @@ export default async function BlogsPage() {
                         Read More <ArrowRight className="w-3 h-3" />
                       </div>
                     </div>
-                  </article>
+                  </BlogCard>
                 ))}
               </div>
             </>
