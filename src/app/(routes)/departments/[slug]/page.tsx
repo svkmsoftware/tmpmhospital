@@ -7,6 +7,7 @@ import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDepartmentBySlug, getAllDepartmentSlugs } from "@/lib/api";
 import { isPageActive, getPageStatus } from "@/data/pageStatus";
+import { opdTimings, defaultOpdTimings } from "@/data/opdTimings";
 import ComingSoon from "@/components/ui/ComingSoon";
 import DeptTabs from "./DeptTabs";
 
@@ -64,7 +65,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
     );
   }
 
-  const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const schedule = opdTimings[dept.slug] ?? defaultOpdTimings;
   const isEmergencyDept = dept.title === "24/7 Emergency Care";
 
   return (
@@ -155,16 +156,12 @@ export default async function DepartmentDetailPage({ params }: Props) {
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    {days.map((day) => (
+                    {schedule.map(({ day, hours }) => (
                       <div key={day} className="flex justify-between text-sm py-1 border-b border-neutral-100 last:border-0">
-                        <span className="capitalize font-medium text-neutral-700">{day}</span>
-                        <span className="text-neutral-500">10:00 AM – 4:00 PM</span>
+                        <span className="font-medium text-neutral-700">{day}</span>
+                        <span className={hours === "Closed" ? "text-red-500" : "text-neutral-500"}>{hours}</span>
                       </div>
                     ))}
-                    <div className="flex justify-between text-sm py-1">
-                      <span className="capitalize font-medium text-neutral-700">Sunday</span>
-                      <span className="text-red-500">Closed</span>
-                    </div>
                   </div>
                 )}
               </div>

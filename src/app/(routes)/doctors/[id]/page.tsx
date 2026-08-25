@@ -13,6 +13,7 @@ import {
 import { PageBanner } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDoctorById, getDoctors } from "@/lib/api";
+import { consultantOpdTimings, defaultConsultantOpdTimings } from "@/data/consultantOpdTimings";
 import type { Doctor } from "@/types";
 
 interface Props {
@@ -68,28 +69,18 @@ export async function generateMetadata({
   };
 }
 
-const DAYS = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-] as const;
-
 export default async function DoctorProfilePage({
   params,
   searchParams,
 }: Props) {
-  // const { data } = await getDoctorById(Number(params.id));
-  const data = null;
-  // const doctor = data ?? fallbackDoctorFromQuery(params.id, searchParams);
-  const doctor = fallbackDoctorFromQuery(params.id, searchParams);
+  const { data } = await getDoctorById(Number(params.id));
+  const doctor = data ?? fallbackDoctorFromQuery(params.id, searchParams);
 
   // Only 404 if we have neither a local match nor anything passed via the URL
   if (!doctor) notFound();
 
   const { bio_data } = doctor;
+  const schedule = consultantOpdTimings[doctor.name] ?? defaultConsultantOpdTimings;
 
   return (
     <>
@@ -247,26 +238,17 @@ export default async function DoctorProfilePage({
                   OPD Schedule
                 </h3>
                 <div className="space-y-1.5">
-                  {DAYS.map((day) => {
-                    const timing = bio_data.opdTiming[day];
-                    return (
-                      <div
-                        key={day}
-                        className="flex justify-between text-sm py-1.5 border-b border-neutral-100 last:border-0"
-                      >
-                        <span className="capitalize font-medium text-neutral-700">
-                          {day}
-                        </span>
-                        <span className="text-neutral-500 text-xs">
-                          {timing ?? "—"}
-                        </span>
-                      </div>
-                    );
-                  })}
-                  <div className="flex justify-between text-sm py-1.5">
-                    <span className="font-medium text-neutral-700">Sunday</span>
-                    <span className="text-red-500 text-xs">Closed</span>
-                  </div>
+                  {schedule.map(({ day, hours }) => (
+                    <div
+                      key={day}
+                      className="flex justify-between text-sm py-1.5 border-b border-neutral-100 last:border-0"
+                    >
+                      <span className="font-medium text-neutral-700">{day}</span>
+                      <span className={hours === "Closed" ? "text-red-500 text-xs" : "text-neutral-500 text-xs"}>
+                        {hours}
+                      </span>
+                    </div>
+                  ))}
                 </div>
                 <Link
                   href="/contact"

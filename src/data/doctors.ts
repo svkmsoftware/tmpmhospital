@@ -251,7 +251,7 @@ export const doctors: Doctor[] = [
   },
 
   {
-    id: 10,
+    id: 9,
     name: "Dr. Girish Choudhary",
     tags: [],
     profilePhoto: "/images/doctors/DR_GIRISH_CHOUDHARI.png",

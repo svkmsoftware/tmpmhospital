@@ -15,7 +15,7 @@ const inactivePages: InactivePage[] = [
   { slug: "psychiatry", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "pulmonology", type: "department", estimatedLaunch: "Sep 2026" },
 
-  { slug: "dental", type: "department", estimatedLaunch: "Sep 2026" },
+  // { slug: "dental", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "ophthalmology", type: "department", estimatedLaunch: "Sep 2026" },
   { slug: "laser-surgery", type: "department", estimatedLaunch: "Sep 2026" },
 
