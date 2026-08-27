@@ -53,7 +53,7 @@ export default async function CareersPage() {
   let gql = null;
   try { gql = await getCareerPageData(); } catch { /* use local fallback */ }
 
-  const bannerImage    = gql?.bannerImage    ?? "/images/careers_banner.png";
+  const bannerImage    = gql?.bannerImage    ?? "/images/departments_banner_new.png";
   const bannerHeading  = gql?.bannerHeading  ?? "Careers at SVKM's TMPM Hospital";
   const bannerSub      = gql?.bannerSubheading ?? "Join a team driven by compassion, excellence, and purpose.";
   const whyItems       = gql?.whyWorkWithUs  ?? [];

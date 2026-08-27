@@ -24,7 +24,7 @@ export default async function OpdPage() {
   } catch {
     /* use local fallback */
   }
-  const bannerImage = gql?.bannerImage ?? "/images/general_hospital_banner.png";
+  const bannerImage = gql?.bannerImage ?? "/images/departments_banner_new.png";
   const gqlSections = gql?.sections ?? [];
   const contactInfo = gql?.contactInfo ?? null;
 

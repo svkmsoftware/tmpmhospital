@@ -246,7 +246,7 @@ export function NewsSection({ heading, subheading, news }: NewsSectionProps) {
             <article key={i} className="card group flex flex-col">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src={item.image ?? "/images/general_hospital_banner.png"}
+                  src={item.image ?? "/images/departments_banner_new.png"}
                   alt={item.heading}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
