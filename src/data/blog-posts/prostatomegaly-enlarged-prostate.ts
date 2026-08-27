@@ -4,7 +4,7 @@ const post: Blog = {
   id: 1,
   title: "Prostatomegaly (Enlarged Prostate): Understanding BPH, Symptoms, Diagnosis & Treatment",
   category: "Urology",
-  image: "/images/blogs/Urology_Blog_2.png",
+  image: "/images/blogs/Urology_Blog_3.png",
   link: "",
   date: "2026-08-25",
   excerpt: "As men age, changes in the prostate gland are common. One of the most frequently encountered conditions is Benign Prostatic Hyperplasia (BPH), also known as Prostatomegaly or enlargement of the prostate gland.",

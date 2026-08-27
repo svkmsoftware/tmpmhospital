@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Tag } from "lucide-react";
-import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
+import { PageBanner } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getBlogPageData, getAllBlogsData } from "@/lib/graphql/services";
 import { blogs as localBlogs } from "@/data/blogs";
@@ -79,9 +79,6 @@ export default async function BlogsPage() {
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <SectionHeader tag="Latest Posts" title="Health &amp; Wellness Insights"
-            subtitle="Expert advice, health tips, and medical updates from our specialists." />
-
           {/* Featured + grid layout */}
           {featured && (
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-10">
