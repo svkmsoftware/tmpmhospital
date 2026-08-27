@@ -62,6 +62,10 @@ const config: Config = {
         "gradient-main":    "linear-gradient(135deg, #0456A8 0%, #09A0AB 100%)",
         "gradient-section": "linear-gradient(135deg, #EAF4FF 0%, #E9F8F4 100%)",
         "gradient-hero":    "linear-gradient(180deg, rgba(3,15,30,0) 0%, rgba(3,15,30,.35) 55%, rgba(3,15,30,.82) 100%)",
+        // Default PageBanner overlay: dark at the very bottom (where title/
+        // breadcrumb text sits) fading to fully clear by the halfway mark —
+        // the top half of every hero image stays completely untinted.
+        "gradient-page-banner": "linear-gradient(to top, rgba(7,30,55,.85) 0%, rgba(7,30,55,.45) 20%, rgba(7,30,55,0) 50%, rgba(7,30,55,0) 100%)",
       },
       fontFamily: {
         body:    ["DM Sans", "system-ui", "sans-serif"],

@@ -18,7 +18,7 @@ export default async function GalleryPage() {
     <>
 
       <PageBanner
-        image="/images/departments_banner_temp.png"
+        image="/images/departments_banner_new_2.png"
         title="Photo Gallery"
         subtitle="A glimpse into our world-class facilities, events, and the people we serve."
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Gallery" }]}

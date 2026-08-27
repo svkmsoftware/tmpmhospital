@@ -104,7 +104,7 @@ function DeptCard({ dept }: { dept: DepartmentItem }) {
 
 export default async function DepartmentsPage() {
   const { data: departments } = await getDepartments();
-  let bannerImage = "/images/departments_banner_temp.png";
+  let bannerImage = "/images/departments_banner_new_2.png";
   try {
     const gqlPage = await getDepartmentPageData();
     if (gqlPage?.bannerImage) bannerImage = gqlPage.bannerImage;

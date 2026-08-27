@@ -80,8 +80,9 @@ interface PageBannerProps {
   /** When false, renders only the bare image — no dark overlay, breadcrumb,
    *  title, or subtitle. Defaults to true so every existing caller is unaffected. */
   showContent?: boolean;
-  /** When false, keeps breadcrumb/title/subtitle but drops the dark gradient
-   *  tint behind them, leaving the image clear. Defaults to true (current look). */
+  /** When true, adds a dark gradient tint (bg-gradient-page-banner) behind
+   *  the breadcrumb/title/subtitle for extra contrast. Defaults to false —
+   *  the hero image is shown clean/untinted unless a page opts in. */
   showOverlay?: boolean;
 }
 
@@ -92,7 +93,7 @@ export function PageBanner({
   breadcrumb,
   height = "md",
   showContent = true,
-  showOverlay = true,
+  showOverlay = false,
 }: PageBannerProps) {
   const heights = PAGE_BANNER_HEIGHTS;
 
@@ -114,16 +115,9 @@ export function PageBanner({
       />
       {showContent && (
         <>
-          {/* Rich overlay: dark at bottom, lighter at top */}
-          {showOverlay && (
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(7,30,55,0.85) 0%, rgba(7,30,55,0.4) 40%, rgba(0,0,0,0.15) 100%)",
-              }}
-            ></div>
-          )}
+          {/* Dark at the bottom (where text sits), fading to fully clear by
+              the halfway mark — the top half of the image stays untinted. */}
+          {showOverlay && <div className="absolute inset-0 bg-gradient-page-banner"></div>}
 
           <div className="relative container-custom pb-10 pt-16">
             {breadcrumb && breadcrumb.length > 0 && (

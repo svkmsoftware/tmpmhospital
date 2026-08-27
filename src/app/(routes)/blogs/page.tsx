@@ -74,7 +74,7 @@ export default async function BlogsPage() {
 
   return (
     <>
-      <PageBanner image="/images/departments_banner_temp.png" title={heading} subtitle={subheading}
+      <PageBanner image="/images/departments_banner_new_2.png" title={heading} subtitle={subheading}
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
 
       <section className="section-padding bg-white">

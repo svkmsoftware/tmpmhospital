@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function IpdPage() {
   let gql = null;
   try { gql = await getIpdPageData(); } catch { /* use local fallback */ }
-  const bannerImage = gql?.bannerImage ?? "/images/departments_banner_temp.png";
+  const bannerImage = gql?.bannerImage ?? "/images/departments_banner_new_2.png";
   const gqlSections = gql?.sections   ?? [];
   const contactInfo = gql?.contactInfo ?? null;
 

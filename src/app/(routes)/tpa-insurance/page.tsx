@@ -38,7 +38,7 @@ export default async function TpaInsurancePage() {
   return (
     <>
       <PageBanner
-        image="/images/departments_banner_temp.png"
+        image="/images/departments_banner_new_2.png"
         title="TPA, Insurance & Corporate"
         subtitle="Cashless and seamless billing with all major insurance providers and government health schemes."
         breadcrumb={[
