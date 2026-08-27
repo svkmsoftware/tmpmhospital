@@ -1,4 +1,18 @@
-import type { DepartmentCategory } from "@/types";
+import type { DepartmentCategory, DepartmentConsultant } from "@/types";
+import { doctors } from "./doctors";
+
+// Resolves a department's consultant list by doctor id instead of copying
+// name/tags/photo inline — keeps this file from drifting out of sync with
+// src/data/consultants/ (which already happened once: a hardcoded entry here
+// had different tag text and a different spelling of "Gynaecology" than the
+// same doctor's real record). An id with no matching doctor is silently
+// skipped rather than crashing.
+function resolveConsultants(ids: number[]): DepartmentConsultant[] {
+  return ids
+    .map((id) => doctors.find((d) => d.id === id))
+    .filter((d): d is NonNullable<typeof d> => d != null)
+    .map((d) => ({ name: d.name, tags: d.tags, profilePhoto: d.profilePhoto }));
+}
 
 export const departments: DepartmentCategory[] = [
   {
@@ -61,10 +75,15 @@ export const departments: DepartmentCategory[] = [
           { name: "Technology & Procedure", image: "/images/dept/Obstetrics_&_Gynaecology.png", intro: "Operation theatres equipped for all kinds of complex obstetric and gynaecological surgeries including minimally invasive and laparoscopic procedures.", details: "" },
           { name: "Academics & Research", image: "/images/dept/Obstetrics_&_Gynaecology.png", intro: "Active participation in maternal health research, FOGSI activities, and community health programmes.", details: "" },
         ],
-        consultants: [
-          { name: "Dr. Shivram Gopal Pawara", tags: ["Senior Consultant, MBBS", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/DR_SHIVRAM_PAWARA.png" },
-          { name: "Dr. Disha Biwas", tags: ["Senior Consultant, MBBS, MD", "Obstetrics & Gynaecology"], profilePhoto: "/images/female_user.png" },
-        ],
+        // Old approach — hardcoded copies of name/tags/photo that had already
+        // drifted from the real doctor records (different tag text, different
+        // spelling of "Gynaecology"). Kept here commented out as an easy
+        // revert if the id-based lookup below ever causes a problem.
+        // consultants: [
+        //   { name: "Dr. Shivram Gopal Pawara", tags: ["Senior Consultant, MBBS", "Obstetrics & Gynaecology"], profilePhoto: "/images/doctors/DR_SHIVRAM_PAWARA.png" },
+        //   { name: "Dr. Disha Biswas", tags: ["Senior Consultant, MBBS, MD", "Obstetrics & Gynaecology"], profilePhoto: "/images/female_user.png" },
+        // ],
+        consultants: resolveConsultants([2, 17]), // Dr. Shivram Gopal Pawara, Dr. Disha Biswas
       },
       {
         slug: "pediatrics",

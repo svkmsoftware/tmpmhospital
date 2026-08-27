@@ -62,6 +62,15 @@ export function SectionHeader({
 }
 
 // ── Page Banner ───────────────────────────────────────────────────────────────
+// Single source of truth for hero-banner heights — every page using PageBanner
+// (or a custom hero built to match it, like the blog detail page) shares these
+// exact values so heights never drift out of sync across the site.
+export const PAGE_BANNER_HEIGHTS: Record<"sm" | "md" | "lg", string> = {
+  sm: "h-52 md:h-64",
+  md: "h-64 md:h-80 lg:h-96",
+  lg: "h-72 md:h-96 lg:h-[28rem]",
+};
+
 interface PageBannerProps {
   image: string;
   title: string;
@@ -85,11 +94,7 @@ export function PageBanner({
   showContent = true,
   showOverlay = true,
 }: PageBannerProps) {
-  const heights: Record<string, string> = {
-    sm: "h-52 md:h-64",
-    md: "h-64 md:h-80 lg:h-96",
-    lg: "h-72 md:h-96 lg:h-[28rem]",
-  };
+  const heights = PAGE_BANNER_HEIGHTS;
 
   return (
     <section

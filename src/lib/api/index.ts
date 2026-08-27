@@ -161,7 +161,7 @@ export async function getManagementTeam(): Promise<ApiResponse<ManagementMember[
           id:          i + 1,
           name:        m.name,
           designation: m.designation,
-          image:       m.image ?? "/images/managementTeam/user.png",
+          image:       m.image ?? "/images/icons/management_team_member.png",
           bio:         m.bio,
         }));
         return { data: management, success: true };

@@ -628,7 +628,7 @@ export default async function AboutPage() {
                 <div key={i} className="card p-6 flex gap-5">
                   <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 ring-2 ring-neutral-100">
                     <Image
-                      src={member.image ?? "/images/male_user.png"}
+                      src={member.image ?? "/images/icons/management_team_member.png"}
                       alt={member.name}
                       fill
                       className="object-cover"

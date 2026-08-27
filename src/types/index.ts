@@ -82,6 +82,11 @@ export interface Blog {
   date: string;
   excerpt: string;
   author: string;
+  /** Optional — id of a `Doctor` (see doctors.ts) to credit as the author.
+   *  When present, the doctor's real name, designation, and photo are resolved
+   *  automatically for the byline and hero banner — no need to bake author
+   *  info into the `author` string or a custom hero image. */
+  authorId?: number;
   /** Optional — when present, "Read More" links to /blogs/<slug> instead of being inert. */
   slug?: string;
   /** Optional — full article body. Only local blogs with this can have a detail page right now. */

@@ -61,7 +61,7 @@ const config: Config = {
       backgroundImage: {
         "gradient-main":    "linear-gradient(135deg, #0456A8 0%, #09A0AB 100%)",
         "gradient-section": "linear-gradient(135deg, #EAF4FF 0%, #E9F8F4 100%)",
-        "gradient-hero":    "linear-gradient(105deg, rgba(4,86,168,.88) 0%, rgba(9,160,171,.60) 50%, rgba(0,20,45,.15) 100%)",
+        "gradient-hero":    "linear-gradient(180deg, rgba(3,15,30,0) 0%, rgba(3,15,30,.35) 55%, rgba(3,15,30,.82) 100%)",
       },
       fontFamily: {
         body:    ["DM Sans", "system-ui", "sans-serif"],

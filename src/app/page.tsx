@@ -25,7 +25,7 @@ import {
   getFAQs,
   getGalleryImages,
 } from "@/lib/api";
-import { getHomePageData, getConsultantsData } from "@/lib/graphql/services";
+import { getHomePageData } from "@/lib/graphql/services";
 import { doctors as localDoctors } from "@/data/doctors";
 import type { Blog, Testimonial, FAQ } from "@/types";
 
@@ -48,36 +48,18 @@ export default async function HomePage() {
     /* use local fallback for every section below */
   }
 
-  let gqlDoctors = null;
-  // console.log("homeData", homeData);
-
-  try {
-    const data = await getConsultantsData();
-
-    gqlDoctors = data?.map((doctor: any) => ({
-      id: doctor.id,
-      name: doctor.name,
-      designation: doctor.designation,
-      profileImage: doctor.profileImage,
-      viewProfile: doctor.view_profile,
-      bookAppointment: doctor.book_appointment,
-    }));
-  } catch {
-    // use local fallback
-  }
-
-  // console.log("qqlDoctors", gqlDoctors);
-  const doctorsForHome =
-    gqlDoctors && gqlDoctors.length > 0
-      ? gqlDoctors
-      : localDoctors.map((d) => ({
-          id: String(d.id),
-          name: d.name,
-          designation: d.tags?.[0] ?? "",
-          profileImage: d.profilePhoto,
-          viewProfile: null,
-          bookAppointment: null,
-        }));
+  // Doctor cards always render from local data — see the Doctors listing
+  // page for why: the CMS consultant list turned out to be the exact same
+  // roster as src/data/doctors.ts, just with lower-resolution photos, so
+  // there's no upside to sourcing it from Strapi here either.
+  const doctorsForHome = localDoctors.map((d) => ({
+    id: String(d.id),
+    name: d.name,
+    designation: d.tags?.[0] ?? "",
+    profileImage: d.profilePhoto,
+    viewProfile: null,
+    bookAppointment: null,
+  }));
 
   const [
     { data: departments },

@@ -7,6 +7,7 @@ import { PageBanner, SectionHeader } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getBlogPageData, getAllBlogsData } from "@/lib/graphql/services";
 import { blogs as localBlogs } from "@/data/blogs";
+import { FeaturedBlogCarousel } from "@/components/blog/FeaturedBlogCarousel";
 
 export const metadata: Metadata = {
   title: "Health & Wellness Insights",
@@ -67,6 +68,9 @@ export default async function BlogsPage() {
       }));
 
   const [featured, ...rest] = blogs;
+  // Only posts with a real detail page (`slug`) are eligible to rotate through
+  // the main featured slot — placeholder/"comming soon" entries are excluded.
+  const featuredCandidates = blogs.filter((b) => b.slug);
 
   return (
     <>
@@ -81,53 +85,58 @@ export default async function BlogsPage() {
           {/* Featured + grid layout */}
           {featured && (
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-10">
-              {/* Featured article */}
-              <BlogCard slug={featured.slug} className="lg:col-span-3 card group flex flex-col">
-                <div className="relative aspect-video overflow-hidden">
-                  <Image src={featured.image ?? "/images/blogs/health_camp.png"}
-                    alt={featured.title} fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width:1024px) 100vw, 60vw" priority />
-                  <span className="absolute top-4 left-4 badge badge-accent">Featured</span>
-                </div>
-                <div className="flex flex-col flex-1 p-6">
-                  <h2 className="font-bold text-neutral-800 text-xl group-hover:text-cyan-700 transition-colors leading-snug mb-3">
-                    {featured.title}
-                  </h2>
-                  {featured.excerpt && (
-                    <p className="text-sm text-neutral-500 leading-relaxed flex-1 line-clamp-3">
-                      {featured.excerpt}
-                    </p>
-                  )}
-                  <div className="mt-4 flex items-center gap-1.5 text-sm font-semibold"
-                       style={{ color: "var(--color-primary)" }}>
-                    Read More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </BlogCard>
-
-              {/* Side cards */}
-              <div className="lg:col-span-2 flex flex-col gap-4">
-                {rest.slice(0, 3).map((blog, i) => (
-                  <BlogCard key={i} slug={blog.slug} className="card group flex overflow-hidden">
-                    <div className="relative w-28 shrink-0 overflow-hidden">
-                      <Image src={blog.image ?? "/images/blogs/hospital_opening.png"}
-                        alt={blog.title} fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="112px" />
+              {/* Featured card + side list rotate together, round-robin, through
+                  complete posts — whichever post is currently featured is excluded
+                  from the side list so nothing is ever shown twice. */}
+              {featuredCandidates.length > 0 ? (
+                <FeaturedBlogCarousel posts={blogs} />
+              ) : (
+                <>
+                  <BlogCard slug={featured.slug} className="lg:col-span-3 card group flex flex-col">
+                    <div className="relative aspect-video overflow-hidden">
+                      <Image src={featured.image ?? "/images/blogs/health_camp.png"}
+                        alt={featured.title} fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width:1024px) 100vw, 60vw" priority />
+                      <span className="absolute top-4 left-4 badge badge-accent">Featured</span>
                     </div>
-                    <div className="flex flex-col justify-between p-4 flex-1 min-w-0">
-                      <h3 className="font-bold text-neutral-800 text-sm group-hover:text-cyan-700 transition-colors line-clamp-2 leading-snug">
-                        {blog.title}
-                      </h3>
-                      <div className="flex items-center gap-1 text-xs font-semibold mt-2"
-                           style={{ color: "var(--color-primary)" }}>
-                        Read <ArrowRight className="w-3 h-3" />
+                    <div className="flex flex-col flex-1 p-6">
+                      <h2 className="font-bold text-neutral-800 text-xl group-hover:text-cyan-700 transition-colors leading-snug mb-3">
+                        {featured.title}
+                      </h2>
+                      {featured.excerpt && (
+                        <p className="text-sm text-neutral-500 leading-relaxed flex-1 line-clamp-3">
+                          {featured.excerpt}
+                        </p>
+                      )}
+                      <div className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-primary">
+                        Read More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </BlogCard>
-                ))}
-              </div>
+
+                  <div className="lg:col-span-2 flex flex-col gap-4">
+                    {rest.slice(0, 3).map((blog, i) => (
+                      <BlogCard key={i} slug={blog.slug} className="card group flex overflow-hidden">
+                        <div className="relative w-28 shrink-0 overflow-hidden">
+                          <Image src={blog.image ?? "/images/blogs/hospital_opening.png"}
+                            alt={blog.title} fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="112px" />
+                        </div>
+                        <div className="flex flex-col justify-between p-4 flex-1 min-w-0">
+                          <h3 className="font-bold text-neutral-800 text-sm group-hover:text-cyan-700 transition-colors line-clamp-2 leading-snug">
+                            {blog.title}
+                          </h3>
+                          <div className="flex items-center gap-1 text-xs font-semibold mt-2 text-primary">
+                            Read <ArrowRight className="w-3 h-3" />
+                          </div>
+                        </div>
+                      </BlogCard>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           )}
 
@@ -151,8 +160,7 @@ export default async function BlogsPage() {
                       {blog.excerpt && (
                         <p className="text-xs text-neutral-500 line-clamp-2 flex-1">{blog.excerpt}</p>
                       )}
-                      <div className="mt-3 flex items-center gap-1 text-xs font-semibold"
-                           style={{ color: "var(--color-primary)" }}>
+                      <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-primary">
                         Read More <ArrowRight className="w-3 h-3" />
                       </div>
                     </div>

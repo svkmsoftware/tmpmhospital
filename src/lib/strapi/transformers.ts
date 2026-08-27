@@ -129,7 +129,7 @@ export function transformFounders(
     role:        p.position,
     description: p.description.trim(),
     image:       strapiMediaUrl(p.featured_image?.url) ??
-                 "/images/male_user.png",
+                 "/images/icons/management_team_member.png",
   }));
 }
 
@@ -148,7 +148,7 @@ export function transformTrustees(
     name:  t.name,
     role:  t.position,
     image: strapiMediaUrl(t.featured_image?.url) ??
-           "/images/male_user.png",
+           "/images/icons/management_team_member.png",
   }));
 }
 
@@ -162,7 +162,7 @@ export function transformManagement(
     name:        m.name,
     designation: m.position,
     image:       strapiMediaUrl(m.featured_image?.url) ??
-                 "/images/managementTeam/user.png",
+                 "/images/icons/management_team_member.png",
     bio:         m.description.trim(),
   }));
 }

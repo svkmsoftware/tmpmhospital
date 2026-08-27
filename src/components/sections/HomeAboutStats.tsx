@@ -903,7 +903,7 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
               // when this list is sourced from GraphQL/Strapi ids that
               // don't exist in the local doctors dataset.
               const profileQuery = new URLSearchParams({
-                image: doc.profileImage ?? "/images/male_user.png",
+                image: doc.profileImage ?? "/images/icons/male_doctor.png",
                 designation: doc.designation ?? "",
                 name: doc.name ?? "",
               }).toString();
@@ -919,10 +919,10 @@ export function MeetOurDoctorsSection({ doctors }: MeetOurDoctorsSectionProps) {
                   {/* Photo with name/designation overlaid on a gradient scrim */}
                   <div className="relative w-full aspect-[4/5] overflow-hidden">
                     <Image
-                      src={doc.profileImage ?? "/images/male_user.png"}
+                      src={doc.profileImage ?? "/images/icons/male_doctor.png"}
                       alt={doc.name}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover"
                       sizes="260px"
                     />
                     <div

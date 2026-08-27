@@ -13,8 +13,27 @@ import {
 import { PageBanner } from "@/components/ui/SectionHeader";
 import { ContactCTA } from "@/components/sections/HomeSections";
 import { getDoctorById, getDoctors } from "@/lib/api";
-import { consultantOpdTimings, defaultConsultantOpdTimings } from "@/data/consultantOpdTimings";
-import type { Doctor } from "@/types";
+import type { Doctor, OpdTiming } from "@/types";
+
+// Fixed display order for a doctor's own bio_data.opdTiming (see doctors.ts /
+// src/data/consultants/) — a day with no entry reads as "Closed" rather than
+// guessing at hours we don't actually have.
+const OPD_WEEKDAYS: { key: keyof OpdTiming; label: string }[] = [
+  { key: "monday", label: "Monday" },
+  { key: "tuesday", label: "Tuesday" },
+  { key: "wednesday", label: "Wednesday" },
+  { key: "thursday", label: "Thursday" },
+  { key: "friday", label: "Friday" },
+  { key: "saturday", label: "Saturday" },
+  { key: "sunday", label: "Sunday" },
+];
+
+function buildOpdSchedule(opdTiming: OpdTiming) {
+  return OPD_WEEKDAYS.map(({ key, label }) => ({
+    day: label,
+    hours: opdTiming[key] ?? "Closed",
+  }));
+}
 
 interface Props {
   params: { id: string };
@@ -40,7 +59,7 @@ function fallbackDoctorFromQuery(
     id: Number(id) || 0,
     name: name ?? "Doctor",
     tags: designation ? [designation] : [],
-    profilePhoto: image ?? "/images/male_user.png",
+    profilePhoto: image ?? "/images/icons/male_doctor.png",
     department: [],
     bio_data: {
       opdTiming: {},
@@ -80,7 +99,7 @@ export default async function DoctorProfilePage({
   if (!doctor) notFound();
 
   const { bio_data } = doctor;
-  const schedule = consultantOpdTimings[doctor.name] ?? defaultConsultantOpdTimings;
+  const schedule = buildOpdSchedule(bio_data.opdTiming);
 
   return (
     <>

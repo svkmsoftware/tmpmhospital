@@ -7,7 +7,7 @@ the page.
 | File | Controls | Shown on |
 |---|---|---|
 | `src/data/opdTimings.ts` | Timings for a **department** | Each department's detail page (`/departments/<slug>`), sidebar "OPD Timings" card |
-| `src/data/consultantOpdTimings.ts` | Timings for a **doctor** | Each doctor's profile page (`/doctors/<id>`), sidebar "OPD Schedule" card |
+| `src/data/consultants/<doctor-file>.ts` (each doctor's own `bio_data.opdTiming`) | Timings for a **doctor** | Each doctor's profile page (`/doctors/<id>`), sidebar "OPD Schedule" card |
 
 They're intentionally separate — a doctor's actual clinic hours are often
 narrower than their department's general OPD hours (e.g. the Cardiology
@@ -103,67 +103,73 @@ other untouched departments.
 
 ---
 
-## 2. Doctor timings — `consultantOpdTimings.ts`
+## 2. Doctor timings — each doctor's own file in `src/data/consultants/`
 
 ### What it looks like
 
+Every doctor is one file in `src/data/consultants/` (e.g.
+`prashant-khairnar.ts`), listed in `src/data/consultants/index.ts`. Their OPD
+hours live right on that doctor's own record, as `bio_data.opdTiming` — a
+day-keyed object, not an array:
+
 ```ts
-export const consultantOpdTimings: Record<number, OpdSchedule> = {
-  1: [...defaultConsultantOpdTimings], // Dr. Darshana Pawara
-  2: [
-    { day: "Monday", hours: "11:00 AM – 2:00 PM" },
-    { day: "Tuesday", hours: "Closed" },
-    ...
-  ], // Dr. Shivram Pawara
+// src/data/consultants/shivram-pawara.ts
+const doctor: Doctor = {
+  id: 2,
+  name: "Dr. Shivram Gopal Pawara",
   ...
+  bio_data: {
+    opdTiming: {
+      monday: "11:00 AM – 2:00 PM",
+      tuesday: "Closed",
+      wednesday: "11:00 AM – 2:00 PM",
+      thursday: "Closed",
+      friday: "11:00 AM – 2:00 PM",
+      saturday: "10:00 AM – 12:00 PM",
+      sunday: "Closed",
+    },
+    ...
+  },
 };
 ```
 
-### The key: doctor **id** (a number, not a name)
+Most doctors use the standard Mon–Sat 9 AM–5 PM / Sunday-closed schedule, so
+their file just spreads the shared default instead of retyping it:
 
-Each entry's key must exactly match a doctor's `id` field in
-`src/data/doctors.ts`. Current ids → names:
-
-```
-1  Dr. Darshana Pawara        9  Dr. Girish Choudhary
-2  Dr. Shivram Pawara         10 Dr. Darshan Rakhecha
-3  Dr. Vaishnavi Zile         11 Dr. Manasi Sonar
-4  Dr. Dhiraj Rane            12 Dr. Naina Patil
-5  Dr. Sagar Patil            13 Dr. Prashant Khairnar
-6  Dr. Girish Vadgaonkar      14 Dr. Sagar More
-7  Dr. Bhagyesh Wankhede      15 Dr. Sandeep Oswal
-8  Dr. Ashwin Baviskar        16 Dr. Subham Patil
+```ts
+import { DEFAULT_OPD_TIMING } from "./defaultOpdTiming";
+...
+opdTiming: { ...DEFAULT_OPD_TIMING },
 ```
 
-**If you ever add a new doctor** to `doctors.ts`, give them a unique `id`
-(check the list above / the file itself so you don't accidentally reuse one —
-two doctors sharing an id used to be a real bug here, since fixed), then add
-a matching entry here using that same number as the key. A doctor not listed
-here just falls back to `defaultConsultantOpdTimings`.
+### There's no separate "key" to match anymore
+
+Unlike the department file, there's nothing to look up by id or name — you
+just open that doctor's own file and edit their `opdTiming` object directly.
+**If you ever add a new doctor**, copy an existing file as a template (see
+`src/data/consultants/index.ts` for the full add-a-doctor steps) and either
+spread `DEFAULT_OPD_TIMING` or write your own hours, same as above.
 
 ### What to actually edit
 
-Same shape and same rules as the department file — replace
-`[...defaultConsultantOpdTimings]` with real `{ day, hours }` pairs:
+Any of the seven keys (`monday` … `sunday`) can be set to a time range or the
+exact word `"Closed"`. A day left out entirely just displays as "Closed" on
+the profile page (see §3) — so for a doctor who only clinics 3 days/week, you
+only need to write the days that aren't closed:
 
 ```ts
-5: [
-  { day: "Monday", hours: "9:00 AM – 12:00 PM" },
-  { day: "Wednesday", hours: "9:00 AM – 12:00 PM" },
-  { day: "Friday", hours: "9:00 AM – 12:00 PM" },
-], // Dr. Sagar Patil — clinic only 3 days/week
+opdTiming: {
+  monday: "9:00 AM – 12:00 PM",
+  wednesday: "9:00 AM – 12:00 PM",
+  friday: "9:00 AM – 12:00 PM",
+}, // Dr. Sagar Patil — clinic only 3 days/week
 ```
 
-Note this example only lists 3 days on purpose — Tuesday/Thursday/
-Saturday/Sunday simply won't appear as rows in that doctor's card at all
-(not shown as "Closed", just absent). Either style works; pick whichever you
-want, per doctor.
+### The example entry (currently in the codebase)
 
-### The example entry (currently in the file)
-
-Doctor `2` (Dr. Shivram Pawara) currently has an **example** alternate-day
-schedule for you to study. Same as above — replace with real hours, or revert
-to `[...defaultConsultantOpdTimings]` once you're done comparing.
+`src/data/consultants/shivram-pawara.ts` has a real alternate-day schedule
+you can use as a reference for the custom-hours pattern — every other doctor
+file currently just spreads `DEFAULT_OPD_TIMING`.
 
 ---
 
@@ -182,16 +188,19 @@ const schedule = opdTimings[dept.slug] ?? defaultOpdTimings;
 
 **Doctor page** — `src/app/(routes)/doctors/[id]/page.tsx`:
 ```ts
-import { consultantOpdTimings, defaultConsultantOpdTimings } from "@/data/consultantOpdTimings";
-...
-const schedule = consultantOpdTimings[doctor.id] ?? defaultConsultantOpdTimings;
+const schedule = buildOpdSchedule(doctor.bio_data.opdTiming);
 ```
-Same idea, mapped into the "OPD Schedule" sidebar card.
+`buildOpdSchedule` walks the fixed Monday→Sunday order and reads each day
+straight off the doctor's own `bio_data.opdTiming`, defaulting any day that
+isn't set to `"Closed"`. Mapped into the same "OPD Schedule" sidebar card as
+before.
 
-In both cases: if the slug/id has an entry in the data file, that exact array
-is shown. If not, the default schedule is shown instead. There's no
-merging/partial-override behavior — a custom entry fully replaces the
-default for that one department or doctor.
+For departments: if the slug has an entry in `opdTimings.ts`, that exact
+array is shown, otherwise the default schedule is shown instead — no
+merging/partial-override behavior there. Doctors work a little differently
+now that hours live on the doctor record itself: each day is read
+independently, so a doctor's `opdTiming` can freely mix explicit days with
+omitted ones (which just show "Closed").
 
 ---
 
@@ -212,11 +221,17 @@ This doesn't apply to doctors — every doctor's profile page always shows the
 
 ## Quick checklist for editing
 
-- [ ] Open `opdTimings.ts` (departments) or `consultantOpdTimings.ts` (doctors)
-- [ ] Find the entry by **slug** (departments) or **numeric id** (doctors)
-- [ ] Replace `[...defaultOpdTimings]` / `[...defaultConsultantOpdTimings]`
-      with a real array of `{ day, hours }` pairs
+**Department:**
+- [ ] Open `opdTimings.ts`, find the entry by **slug**
+- [ ] Replace `[...defaultOpdTimings]` with a real array of `{ day, hours }` pairs
 - [ ] Use the exact word `"Closed"` for closed days if you want it to show in red
-- [ ] Save — no other file needs touching for a timing-only change
-- [ ] If it's a department and nothing shows up, check it isn't marked
-      inactive in `pageStatus.ts`
+- [ ] Save — no other file needs touching
+- [ ] If nothing shows up, check it isn't marked inactive in `pageStatus.ts`
+
+**Doctor:**
+- [ ] Open that doctor's file in `src/data/consultants/`
+- [ ] Edit their `bio_data.opdTiming` object directly (or spread
+      `DEFAULT_OPD_TIMING` for the standard Mon–Sat 9–5 schedule)
+- [ ] Use the exact word `"Closed"` for closed days if you want it to show in red;
+      an omitted day also shows as "Closed"
+- [ ] Save — no other file needs touching
