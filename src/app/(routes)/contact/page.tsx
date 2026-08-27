@@ -37,7 +37,7 @@ export default async function ContactPage() {
 
   return (
     <>
-      <PageBanner image="/images/departments_banner_new.png" title="Contact Us"
+      <PageBanner image="/images/departments_banner_temp.png" title="Contact Us"
         subtitle="We are here to help. Reach out with questions, feedback, or to book an appointment."
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Contact Us" }]} />
 

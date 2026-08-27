@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function DayCarePage() {
   let gql = null;
   try { gql = await getDaycarePageData(); } catch { /* use local fallback */ }
-  const bannerImage = gql?.bannerImage ?? "/images/departments_banner_new.png";
+  const bannerImage = gql?.bannerImage ?? "/images/departments_banner_temp.png";
   const gqlSections = gql?.sections   ?? [];
   const contactInfo = gql?.contactInfo ?? null;
 
